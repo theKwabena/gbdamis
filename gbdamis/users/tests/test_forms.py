@@ -3,7 +3,7 @@ Module for all Form Tests.
 """
 from django.utils.translation import gettext_lazy as _
 
-from gbdamis.users.forms import UserAdminCreationForm
+from gbdamis.users.oldforms import UserAdminCreationForm
 from gbdamis.users.models import User
 
 

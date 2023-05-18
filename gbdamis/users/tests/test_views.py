@@ -8,7 +8,7 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.test import RequestFactory
 from django.urls import reverse
 
-from gbdamis.users.forms import UserAdminChangeForm
+from gbdamis.users.oldforms import UserAdminChangeForm
 from gbdamis.users.models import User
 from gbdamis.users.tests.factories import UserFactory
 from gbdamis.users.views import (
