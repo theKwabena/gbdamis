@@ -12,7 +12,8 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("gbdamis.users.urls", namespace="users")),
-    # Your stuff: custom urls includes go here
+    # YAuthentication
+    path('', include('authentication.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

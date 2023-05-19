@@ -103,6 +103,11 @@ body {
 	margin-top: -10px;
 }
 
+.form-v2-content .form-detail .login p {
+	margin-top: 10px;
+	color: rgb(177, 25, 25);
+}
+
 .log-logo{
 	width: 50%;
 	text-align: center;
@@ -173,7 +178,7 @@ body {
     color: #333;
 }
 .form-v2-content .form-detail .form-row input:focus {
-	border-bottom: 2px solid #fe892a;
+	border-bottom: 2px solid #6b67d5;
 }
 .form-v2-content .form-detail input[type="radio"] {
 	outline: none;

@@ -1,5 +1,5 @@
 {% extends "account/base.html" %}
-
+{% load static %}
 {% load i18n %}
 
 {% comment %} {% block head_title %}{% translate "Sign In" %}{% endblock %} {% endcomment %}
@@ -20,19 +20,30 @@
     <div class="form-detail" >
       <div class="form-items">
         <div class="login">
-          <img class="log-logo" src="{% static 'mages/login/logo.png' %}" alt="gbda-logo">
+          <img class="log-logo" src="{% static 'images/login/logo.png' %}" alt="gbda-logo">
           <h2>Log in to your account</h2>
+          {% if form.errors %} 
+          {% for error in form.errors %}
+          <p id="error-message"> Invalid Username or Password </p>
+          {% endfor %}
+          {% endif %} 
+         
         </div>
         
-        <form action="#" method="post" id="myform">
+        <form method="post" id="myform">
+          {% csrf_token %}
           <div class="form-row">
-            <input type="text" name="full-name" id="full-name" class="input-text" placeholder="User ID" required>
+            
+            {{form.username}}
+            {% comment %} <input type="text" name="user-id" id="full-name" class="input-text" placeholder="User ID" required> {% endcomment %}
           </div>
           <div class="form-row">
-            <input type="password" name="your-email" id="your-email" class="input-text" placeholder="Password" required>
+            {{form.password}}
+            {% comment %} <input type="password" name="password" id="password" class="input-text" placeholder="Password" required> {% endcomment %}
           </div>
           <div class="form-checkbox">
             <label class="container"><p>Remember Me</p>
+              {{form.agree}}
               <input type="checkbox" name="agree" id="agree">
               <span class="checkmark"></span>
             </label>
@@ -40,7 +51,7 @@
             <a href="#"> Forget Password?</a>
           </div>
           <div class="form-row-last">
-            <input type="button" name="register" class="register" value="Log in">
+            <input type="submit" name="register" class="register" value="Log in">
           </div>
           <div class="form-row-create-account">
             <p> Not Registered? <a href="#"> <b>Create an account</b></a></p>
@@ -53,3 +64,17 @@
 </div>
 
 {% endblock content %}
+
+{% block js %}
+
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+<script> $(document).ready(function(){
+  //Hide form errors on form input
+  $('.input-text').on('focus', function(){
+    $('#error-message').hide();
+    });
+  });
+
+</script>
+{% endblock js %}
