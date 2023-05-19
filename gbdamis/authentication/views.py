@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+import logging
+log = logging.getLogger(__name__)
 
 from .forms import LoginForm
 
@@ -11,7 +13,7 @@ def login_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             remember = form.cleaned_data['agree']
-            print(remember)
+            # log.info(remember)
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
