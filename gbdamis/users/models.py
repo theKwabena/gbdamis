@@ -95,7 +95,7 @@ class User(AbstractBaseUser):
     def save(self, *args, **kwargs):
         if not self.username:
             self.username = self.generate_username()
-        if not self.whatsapp_number == 'Same as Phone Number':
+        if self.whatsapp_number == 'Same as Phone Number':
             self.whatsapp_number = self.phone_number  # Set field2 to the value of field1 if field2 is empty
         super().save(*args, **kwargs)
     
