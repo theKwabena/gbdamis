@@ -1,10 +1,55 @@
-{% extends "base.html" %}
-{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
-
-{% block content %}
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    {% block inner %}{% endblock %}
-  </div>
-</div>
-{% endblock %}
+{% load static i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Form-v2 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/nunito-font.css">
+  <link href="{% static 'css/login/nunito.css' %}" rel="stylesheet" type="text/css">
+	<!-- Main Style Css -->
+  <link href="{% static 'css/login/login-style.css' %}" rel="stylesheet">
+  {% bloock extra_css %} {% endblock extra_css%}
+</head>
+<body class="form-v2">
+  {% block content %} {% endblock content%}
+	
+	{% comment %} <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script>
+		// just for the demos, avoids form submit
+		jQuery.validator.setDefaults({
+		  	debug: true,
+		  	success:  function(label){
+        		label.attr('id', 'valid');
+   		 	},
+		});
+		$( "#myform" ).validate({
+		  	rules: {
+		    	password: "required",
+		    	confirm_password: {
+		      		equalTo: "#password"
+		    	}
+		  	},
+		  	messages: {
+		  		full_name: {
+		  			required: "Please provide an username"
+		  		},
+		  		your_email: {
+		  			required: "Please provide an email"
+		  		},
+		  		password: {
+	  				required: "Please provide a password"
+		  		},
+		  		confirm_password: {
+		  			required: "Please provide a password",
+		      		equalTo: "Wrong Password"
+		    	}
+		  	}
+		});
+	</script> {% endcomment %}
+</body>
+</html>

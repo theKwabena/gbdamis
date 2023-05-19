@@ -1,59 +1,55 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
-{% load crispy_forms_tags %}
 
-{% block head_title %}{% translate "Sign In" %}{% endblock %}
+{% comment %} {% block head_title %}{% translate "Sign In" %}{% endblock %} {% endcomment %}
 
-{% block inner %}
+{% block content %}
 
-<h1>{% translate "Sign In" %}</h1>
+<div class="page-content">
+  <div class="form-v2-content">
+    <div class="form-left">
+      <img src="{% static 'images/login/back.png' %}" alt="form">
+      <div class="text-1">
+        <p>Ghana Borehole Drillers Association</p>
+      </div>
+      <!-- <div class="text-2">
+        <p><span>Association</span></p>
+      </div> -->
+    </div>
+    <div class="form-detail" >
+      <div class="form-items">
+        <div class="login">
+          <img class="log-logo" src="{% static 'mages/login/logo.png' %}" alt="gbda-logo">
+          <h2>Log in to your account</h2>
+        </div>
+        
+        <form action="#" method="post" id="myform">
+          <div class="form-row">
+            <input type="text" name="full-name" id="full-name" class="input-text" placeholder="User ID" required>
+          </div>
+          <div class="form-row">
+            <input type="password" name="your-email" id="your-email" class="input-text" placeholder="Password" required>
+          </div>
+          <div class="form-checkbox">
+            <label class="container"><p>Remember Me</p>
+              <input type="checkbox" name="agree" id="agree">
+              <span class="checkmark"></span>
+            </label>
 
-{% get_providers as socialaccount_providers %}
+            <a href="#"> Forget Password?</a>
+          </div>
+          <div class="form-row-last">
+            <input type="button" name="register" class="register" value="Log in">
+          </div>
+          <div class="form-row-create-account">
+            <p> Not Registered? <a href="#"> <b>Create an account</b></a></p>
+          </div>
 
-{% if socialaccount_providers %}
-  <p>
-    {% translate "Please sign in with one of your existing third party accounts:" %}
-    {% if ACCOUNT_ALLOW_REGISTRATION %}
-      {% blocktranslate trimmed %}
-        Or, <a href="{{ signup_url }}">sign up</a>
-        for a {{ site_name }} account and sign in below:
-      {% endblocktranslate %}
-    {% endif %}
-  </p>
-
-  <div class="socialaccount_ballot">
-
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
-
-    <div class="login-or">{% translate "or" %}</div>
-
+        </form>
+      </div>
+    </div>
   </div>
+</div>
 
-  {% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-  {% if ACCOUNT_ALLOW_REGISTRATION %}
-    <p>
-      {% blocktranslate trimmed %}
-        If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.
-      {% endblocktranslate %}
-    </p>
-  {% endif %}
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% translate "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% translate "Sign In" %}</button>
-</form>
-
-{% endblock %}
+{% endblock content %}
