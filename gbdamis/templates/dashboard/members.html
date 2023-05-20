@@ -19,7 +19,7 @@
                     <table class="table table-hover mb-0">
 
                         <thead>
-                            <tr>
+                            <tr >
                                 <th>#</th>
                                 <th>Member ID</th>
                                 <th>First Name</th>
@@ -31,13 +31,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                            {% for member in members %}
+                            <tr id="row-{{ member.id }}">
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{member.username}}</td>
+                                <td>{{member.first_name}}</td>
+                                <td>{{member.other_names}}</td>
+                                <td>{{member.email}}</td>
+                                <td>{{member.phone_number}}</td>
                                 <td  style="position: absolute; width:11.5%; margin-top:-2px">
                                     
                                     <div class="btn-group">
@@ -52,41 +53,14 @@
                                             <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
                                             <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#"> Remove Member</a>
+                                            <a class="dropdown-item text-danger delete-member " href="#" data-id='{{ member.id }}'> Remove Member</a>
                                         </div>
                                     </div> 
                                 </td>
                                 
                             </tr>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td  style="position: absolute; width:11.5%; margin-top:-2px">
-                                    
-                                    <div class="btn-group">
-                                        <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
-                                        data-bs-boundary="window" 
-                                        data-bs-toggle="dropdown" 
-                                        aria-haspopup="true" 
-                                        aria-expanded="false"></button> 
-                                        <div class="dropdown-menu mx-n4 mt-n2">
-                                            <a class="dropdown-item" href="#">View Member</a>
-                                            <a class="dropdown-item" href="#">Edit Member</a>
-                                            <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
-                                            <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#"> Delete User</a>
-                                        </div>
-                                    </div> 
-                                </td>
-                                
-                            </tr>
-                            
+                            {% endfor %}
+                          
                         </tbody>
                     </table>
                     
@@ -99,3 +73,30 @@
     
 </div>                  
 {% endblock content %}	
+
+{%block extra_javascript%}
+
+<script>
+    $('document').ready(function(){
+        $(document).on('click', '.delete-member', function(event){
+            event.preventDefault()
+            const id = $(this).data('id')
+            
+            let url = 'remove-member/' + id
+            $.ajax({
+                url: url,
+                headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                method: 'DELETE',
+                success : function(response){
+                    $("#row-" + id).remove()
+                },
+                error : function(xhr, errmsg, err){
+                        console.log(xhr.status + ' ' + xhr.responseText)
+                }
+                
+            });
+        });
+    });
+</script>
+
+{% endblock extra_javascript%}

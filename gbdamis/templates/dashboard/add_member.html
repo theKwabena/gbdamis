@@ -11,49 +11,47 @@
                 <h4 class="card-title font-size-24">Add Member</h4>
                 <p class="card-title-desc">Add a new user. <span class="text-danger"> User password is set by default to othe generated username. As users to change password on login </span>  </p>
                 <hr>
-                <form class="needs-validation">
-                    
+                {{form.errors}}
+                <form  method='POST' class="needs-validation" novalidate>
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
+                           
                             <div class="mb-3">
                                 <label for="validationCustom01" class="form-label">First name</label>
                                 {{form.first_name|as_crispy_field}}
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom02" class="form-label">Other names</label>
                                 {{form.other_names|as_crispy_field}}
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom03" class="form-label">Email</label>
                                 {{form.email|as_crispy_field}}
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
                             </div>
+                            <div class="invalid-feedback mt-n2" id="feedbackinvalid">
+                                "This email address belongs to another user"
                             </div>
                         </div>
+                        
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom04" class="form-label">Phone Number</label>
                                 {{form.phone_number|as_crispy_field}}
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
                             </div>
+                            <div class="invalid-feedback mt-n2" id="phone-invalid">
+                                "This phone number is already registered"
                             </div>
                         </div>
+                        
                     </div>
                     
                     <hr>
@@ -62,9 +60,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom02" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username"
-                                        placeholder="Username"
-                                        aria-describedby="validationTooltipUsernamePrepend" disabled>
+                                <input type="text" class="form-control" id="username" name = 'username'>
                             </div>
                         </div>
                     </div>
@@ -75,125 +71,37 @@
                             <div class="mb-3">
                                 <label for="validationCustom02" class="form-label">Password</label>
                                 <input type="text" class="form-control" id="password"
-                                        placeholder="Password"
-                                        aria-describedby="validationTooltipUsernamePrepend" disabled>
+                                >
                             </div>
                         </div>
                     </div>
                 <hr>
                     <div>
-                        <button class="btn btn-primary" type="submit">Add User </button>
+                        <button class="btn btn-primary" id='submit' type="submit ">Add User </button>
                     </div>
                 </form>
             </div>
         </div>
         <!-- end card -->
     </div> <!-- end col -->
-{% comment %} 
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Bootstrap Validation (Tooltips)</h4>
-                <p class="card-title-desc">If your form layout allows it, you can swap the
-                    <code>.{valid|invalid}-feedback</code> classes for
-                    <code>.{valid|invalid}-tooltip</code> classes to display validation feedback in a
-                    styled tooltip.
-                </p>
-                <form class="needs-validation">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3 position-relative">
-                                <label for="validationTooltip01" class="form-label">First name</label>
-                               {{form.first_name|as_crispy_field}}
-                                <div class="valid-tooltip">
-                                    Looks good!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3 position-relative">
-                                <label for="validationTooltip02" class="form-label">Last name</label>
-                                <input type="text" class="form-control" id="validationTooltip02"
-                                    placeholder="Last name" value="Otto" required>
-                                <div class="valid-tooltip">
-                                    Looks good!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3 position-relative">
-                                <label for="validationTooltipUsername" class="form-label">Username</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"
-                                            id="validationTooltipUsernamePrepend">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="validationTooltipUsername"
-                                        placeholder="Username"
-                                        aria-describedby="validationTooltipUsernamePrepend" required>
-                                    <div class="invalid-tooltip">
-                                        Please choose a unique and valid username.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3 position-relative">
-                                <label for="validationTooltip04" class="form-label">State</label>
-                                <input type="text" class="form-control" id="validationTooltip04"
-                                    placeholder="State" required>
-                                <div class="invalid-tooltip">
-                                    Please provide a valid state.
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="mb-3 position-relative">
-                                <label for="validationTooltip03" class="form-label">City</label>
-                                <input type="text" class="form-control" id="validationTooltip03"
-                                    placeholder="City" required>
-                                <div class="invalid-tooltip">
-                                    Please provide a valid city.
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div>
-
-                        <button class="btn btn-primary" type="submit">Submit form</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- end card -->
-    </div> <!-- end col --> {% endcomment %}
 </div>
 {% endblock content %}
 
 
 {% block extra_javascript %}
 
-<script src="{% static 'libs/parsleyjs/parsley.min.js' %}"></script>
-
-<script src="{% static 'js/pages/form-validation.init.js' %}"></script>
-
 
 <script>
-
-
 $(document).ready(function(){
-
+    
    $('#othernames').on('change', function(){
     var othernames = $(this).val()
     var firstname = $('#firstname').val()
     if (firstname){
         $.ajax({
             type: 'POST',
-            url:"{% url 'generate-username' %}",
+            url:"{% url 'generate-username' %}",    
             headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
             data: {
                 first_name:firstname,
@@ -204,9 +112,11 @@ $(document).ready(function(){
             success: function(data){
                 $('#username').val(data.username)
                 $('#password').val(data.username)
+
+               
+                
             },
             error : function(xhr, errmsg, err){
-                console.log('SOsmethinf')
                 console.log(xhr.status + ' ' + xhr.responseText)
             }
         });
@@ -218,5 +128,107 @@ $(document).ready(function(){
   
 });
 </script>
+
+
+
+<script>
+    $(document).ready(function(){
+        
+        $('#email').on('change', function(){
+            $.ajax({
+                type: 'POST',
+                url:"{% url 'check_email' %}",    
+                headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                data: {
+                    email:$(this).val()
+                },
+        
+                success: function(data){
+                    console.log(data)
+                    if(data.exists){
+                        $('#email').addClass('is-invalid')
+                        $('#feedbackinvalid').css('display', 'block') 
+                    }
+                    else {
+                        $('#email').addClass('is-valid')
+                        $('#email').removeClass('is-invalid')
+                        $('#feedbackinvalid').css('display', 'none') 
+                        
+
+                    };
+                },
+                   
+                error : function(xhr, errmsg, err){
+                    console.log(xhr.status + ' ' + xhr.responseText)
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#phone_number').on('change', function(){
+            $.ajax({
+                type: 'POST',
+                url:"{% url 'check_phone_number' %}",    
+                headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                data: {
+                    phone_number:$(this).val()
+                },
+        
+                success: function(data){
+                    console.log(data)
+                    if(data.exists){
+                        $('#phone_number').addClass('is-invalid')
+                        $('#phone-invalid').css('display', 'block') 
+                        
+                    }
+                    else {
+                        $('#phone_number').toggleClass('is-valid')
+                        $('#phone_number').removeClass('is-invalid')
+                        $('#phone-invalid').css('display', 'none') 
+                        
+
+                    };
+                },
+                   
+                error : function(xhr, errmsg, err){
+                    console.log('Somemethinf')
+                    console.log(xhr.status + ' ' + xhr.responseText)
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function(){
+    $('#phone_number').on('focus', function(){
+        $('#phone_number').removeClass('is-valid')
+        $('#phone_number').removeClass('is-invalid') 
+        $('#phone-invalid').css('display', 'none') 
+
+    })
+});
+</script>
+
+<script>
+    $(document).ready(function(){
+    $('#email').on('focus', function(){
+        $('#email').removeClass('is-valid')
+        $('#email').removeClass('is-invalid') 
+        $('#feedbackinvalid').css('display', 'none') 
+
+    })
+});
+</script>
+
+
+
+
+
 
 {% endblock extra_javascript%}
