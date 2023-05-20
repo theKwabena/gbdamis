@@ -5,6 +5,8 @@ from django.contrib.auth.forms import (
     UserCreationForm
 )
 
+from crispy_forms.helper import FormHelper
+
 User = get_user_model()
 
 
@@ -36,7 +38,8 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "First name",
-                "class": "input-text"
+                "class": "input-text",
+                'id' : 'firstname'
             }
         ))
     
@@ -45,7 +48,8 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Other names",
-                "class": "input-text"
+                "class": "input-text",
+                'id': 'othernames'
             }
         ))
     
@@ -83,7 +87,11 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('email', 'password1', 'password2', 'first_name', 'other_names', 'phone_number')
         
-        
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False 
+
     def clean_email(self):
        email = self.cleaned_data.get('email')
        if User.objects.filter(email=email).exists():
@@ -95,6 +103,8 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(phone_number=phone_number).exists():
                 raise ValidationError("An account with this phone number exists")
         return phone_number
+    
+
 
     
     

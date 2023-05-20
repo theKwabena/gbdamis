@@ -21,4 +21,3 @@ class AnnouncementForm(forms.ModelForm):
         fields = "__all__"
 
 
-

@@ -6,6 +6,8 @@ urlpatterns = [
 
     #Members
     path('members', views.members, name='members'),
+    path('add-member/', views.add_member, name='add-member'),
+    path('g-us', views.generate_username, name ='generate-username'),
 
     #news, announcements, events
     path('news', views.news, name = 'news'),
