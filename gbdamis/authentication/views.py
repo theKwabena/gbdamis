@@ -3,7 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 log = logging.getLogger(__name__)
 
-from .forms import LoginForm
+from .forms import (
+    LoginForm, SignUpForm
+)
 
 # Create your views here.
 def login_view(request):
@@ -26,3 +28,22 @@ def login_view(request):
         form = LoginForm()
 
     return render(request, 'account/login.html', {'form': form})
+
+
+def sign_up_view(request):
+    form = SignUpForm(request.POST or None)
+    if request.method == "POST":
+            if form.is_valid():
+                user = form.save()
+                user.save()
+
+                #Log in the user
+                _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))
+                login(request, _user)
+
+                return redirect('login')
+            # else:
+            #     fmsg = ('Check form details and try again')
+    else:
+        form = SignUpForm()
+    return render(request, 'account/signup.html', {'form': form})

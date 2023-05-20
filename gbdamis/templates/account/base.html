@@ -15,8 +15,20 @@
   {% block extra_css %} {% endblock extra_css%}
 </head>
 <body class="form-v2">
+	<div class="page-content">
+		<div class="form-v2-content">
+		  <div class="form-left">
+			<img src="{% static 'images/login/back.png' %}" alt="form">
+			<div class="text-1">
+			  <p>Ghana Borehole Drillers Association</p>
+			</div>
+			<!-- <div class="text-2">
+			  <p><span>Association</span></p>
+			</div> -->
+		  </div>
   {% block content %} {% endblock content%}
-
+</div>
+</div>
   {% block js%} {% endblock js%}
 
 	{% comment %} <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>

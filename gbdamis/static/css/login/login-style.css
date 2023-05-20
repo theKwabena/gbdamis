@@ -103,10 +103,18 @@ body {
 	margin-top: -10px;
 }
 
-.form-v2-content .form-detail .login p {
-	margin-top: 10px;
+li {
+	margin-left: -40px;
+	margin-top: -30px;
 	color: rgb(177, 25, 25);
+	list-style-type:none;
 }
+
+/* .form-row .error-message {
+	margin-top: -40px;
+	color: rgb(177, 25, 25);
+	list-style-type:none;
+} */
 
 .log-logo{
 	width: 50%;
@@ -133,7 +141,7 @@ body {
 }
 
 .form-v2-content .form-detail .input-text {
-	margin-bottom: 27px;
+	margin-bottom: 20px;
 }
 .form-v2-content .form-detail input {
 	/* width: 91%;
@@ -206,6 +214,10 @@ body {
   	cursor: pointer;
   	float: left;
   	margin-top: 0;
+}
+
+.checkinput{
+	margin-top: -40px;
 }
 .form-v2-content .form-detail .form-checkbox {
 	width: 100%;

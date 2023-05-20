@@ -1,0 +1,96 @@
+{% extends 'dashboard/relatedTable.html' %}
+{% load static %}
+
+
+{% block title %}
+News (203)
+{% endblock title %}
+
+{% block description %}
+Find all posted news
+{% endblock description%}
+
+
+{% block row1 %}
+#
+{% endblock row1 %}
+
+
+{% block row2 %}
+Title
+{% endblock row2 %}
+
+{% block row3 %}
+Description
+{% endblock row3 %}
+
+{% block row4 %}
+Date
+{% endblock row4 %}
+
+{% block row5 %}
+Action
+{% endblock row5 %}
+
+{% block add %}
+
+Announcement
+
+{% endblock add%}
+
+
+{% block tablebody %}
+<tr>
+    <td scope="row">1</td>
+    <td>Mark</td>
+    <td>Otto</td>
+  
+    <td>@mdo</td>
+    <td>
+        
+        <div class="btn-group" style="position: absolute; width:11.5%; margin-top:-2px">
+            <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
+            data-bs-boundary="window" 
+            data-bs-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"></button> 
+            <div class="dropdown-menu mx-n4 mt-n2">
+                <a class="dropdown-item" href="#">View Detail</a>
+                <a class="dropdown-item" href="#">Edit News</a>
+                {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
+                <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="#"> Delete News</a>
+            </div>
+        </div> 
+    </td>
+    
+</tr>
+
+<tr>
+    <th scope="row">1</th>
+    <td>Mark</td>
+  
+    <td>@mdo</td>
+    <td>@mdo</td>
+    <td>
+        
+        <div class="btn-group" style="position: absolute; width:11.5%; margin-top:-2px">
+            <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
+            data-bs-boundary="window" 
+            data-bs-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"></button> 
+            <div class="dropdown-menu mx-n4 mt-n2">
+                <a class="dropdown-item" href="#">View Detail</a>
+                <a class="dropdown-item" href="#">Edit News</a>
+                {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
+                <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="#"> Delete News</a>
+            </div>
+        </div> 
+    </td>
+    
+</tr>
+{% endblock tablebody%}

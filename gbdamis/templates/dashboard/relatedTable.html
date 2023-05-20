@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+{% block content %}   
+<a href="{% url 'add-annoucement' %}"> Add
+{% comment %} <button  type="button" class="btn btn-primary mb-3 mt-n5">Add {% block add %} {% endblock add%} <i class="mdi mdi-plus"></i></button> {% endcomment %}
+</a>
+
+<div class="row mb-5 pb-5">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between"> 
+                    <h4 class="card-title">{% block title %}  {% endblock title %}</h4>
+					{% comment %} <button type="button" class="btn btn-primary waves-effect waves-light mx-5">Add </button> {% endcomment %}
+                    
+                </div>
+                <p class="card-title-desc">{% block description %} {% endblock description%}</p> 
+                   
+                
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>{% block row1 %} {% endblock row1%}</th>
+                                <th>{% block row2 %} {% endblock row2 %}</th>
+                                <th>{% block row3 %} {% endblock row3 %}</th>
+                                <th>{% block row4 %} {% endblock row4 %}</th>
+                                <th>{% block row5 %} {% endblock row5 %}</th>
+                              
+                              
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% block tablebody %}
+
+                            {% endblock tablebody %}
+                          
+                            
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    
+</div>                  
+{% endblock content %}	

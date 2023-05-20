@@ -1,117 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Form-v2 by Colorlib</title>
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Font-->
-	<!-- <link rel="stylesheet" type="text/css" href="css/roboto-font.css"> -->
-	<link rel="stylesheet" type="text/css" href="css/nunito-font.css">
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
 
-	<link rel="stylesheet" type="text/css" href="fonts/line-awesome/css/line-awesome.min.css">
-	<!-- Jquery -->
-	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-	<!-- Main Style Css -->
-    <link rel="stylesheet" href="css/style.css"/>
-</head>
-<body class="form-v2">
-	<div class="page-content">
-		<div class="form-v2-content">
-			<div class="form-left">
-				<img src="images/back.png" alt="form">
-				<div class="text-1">
-					<p>Ghana Borehole Drillers Association</p>
-				</div>
-				<!-- <div class="text-2">
-					<p><span>Association</span></p>
-				</div> -->
-			</div>
-			<div class="form-detail" >
-				<div class="form-items">
-					<div class="login">
-						<img class="log-logo" src="images/logo.png" alt="gbda-logo">
-						<h2>GBDA Member Registration</h2>
-					</div>
-					
-					<form action="#" method="post" id="myform">
-						<div class="form-row">
-							<input type="text" name="full-name" id="full-name" class="input-text" placeholder="First name" >
-						</div>
-						<div class="form-row">
-							<input type="text" name="other-names" id="other-names" class="input-text" placeholder="Other names">
-						</div>
-						<div class="form-row">
-							<input type="email" name="email" id="email" class="input-text" placeholder="Email">
-						</div>
-						<div class="form-row">
-							<input type="text" name="phone-number" id="phone-number" class="input-text" placeholder="Phone Number">
-						</div>
-						<div class="form-row">
-							<input type="password" name="password" id="your-email" class="input-text" placeholder="Choose password">
-						</div>
-						<div class="form-row">
-							<input type="confirm-password" name="confirm-password" id="your-email" class="input-text" placeholder="Confirm choosen password">
-						</div>
-						
-						<!-- <div class="form-row">
-							<label for="comfirm-password">Confirm Password:</label>
-							<input type="password" name="confirm_password" id="confirm_password" class="input-text" required>
-						</div> -->
-						<div class="form-checkbox">
-							<label class="container"><p>I agree to all the terms and condtions modasucker</p>
-								<input type="checkbox" name="agree" id="agree">
-								<span class="checkmark"></span>
-							</label>
+{% block extra_css%}
+<style>
+.log-logo{
+  margin-top: -30px;
+  width:20%;
+}
 
-							<!-- <a href="#"> Forget Password?</a> -->
-						</div>
-						<div class="form-row-last">
-							<input type="submit" name="register" class="register" value="Log in">
-						</div>
-						<div class="form-row-create-account">
-							<p> Already have an account? <a href="#"> <b>Login</b></a></p>
-						</div>
+.form-items{
+  margin-top: -30px
+}
 
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-	<script>
-		// just for the demos, avoids form submit
-		jQuery.validator.setDefaults({
-		  	debug: true,
-		  	success:  function(label){
-        		label.attr('id', 'valid');
-   		 	},
-		});
-		$( "#myform" ).validate({
-		  	rules: {
-		    	password: "required",
-		    	confirm_password: {
-		      		equalTo: "#password"
-		    	}
-		  	},
-		  	messages: {
-		  		full_name: {
-		  			required: "Please provide an username"
-		  		},
-		  		your_email: {
-		  			required: "Please provide an email"
-		  		},
-		  		password: {
-	  				required: "Please provide a password"
-		  		},
-		  		confirm_password: {
-		  			required: "Please provide a password",
-		      		equalTo: "Wrong Password"
-		    	}
-		  	}
-		});
-	</script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-</html>
+</style>
+{% endblock extra_css%}
+
+{% block content %}
+<div class="form-detail" >
+  <div class="form-items">
+    <div class="login">
+      <img class="log-logo" src="{% static 'images/login/logo.png' %}" alt="gbda-logo">
+      <h2>GBDA Member Registration</h2>
+   
+    </div>
+    
+    <form action="#" method="post" id="myform">
+      {% csrf_token %}
+      <div class="form-row">
+        {{form.first_name}}
+        {% comment %} <span class="error-message">{{ form.first_name.errors}}</span> {% endcomment %}
+      </div>
+      <div class="form-row">
+        {{form.other_names}}
+        {% comment %} <p class="error-message">{{ form.last_name.errors}}</p> {% endcomment %}
+      </div>
+      <div class="form-row">
+        {{form.email}}
+        <p class="error-message">{{ form.email.errors}}</p>
+      </div>
+      <div class="form-row">
+        {{form.phone_number}}
+        <p class="error-message">{{ form.phone_number.errors}}</p>
+      </div>
+      <div class="form-row">
+        {{form.password1}}
+      </div>
+      <div class="form-row">
+        {{form.password2}}
+        <p class="error-message">{{ form.password2.errors}}</p>
+      </div>
+      
+      <!-- <div class="form-row">
+        <label for="comfirm-password">Confirm Password:</label>
+        <input type="password" name="confirm_password" id="confirm_password" class="input-text" required>
+      </div> -->
+      <div class="form-checkbox">
+        <label class="container"><p>By signing up, you agree to the <a href="#">GBDA Terms of Service</a></p>
+          <input class='checkinput' type="checkbox" name="agree" id="agree" required>
+          <span class="checkmark"></span>
+        </label>
+
+        <!-- <a href="#"> Forget Password?</a> -->
+      </div>
+      <div class="form-row-last">
+        <input type="submit" name="register" class="register" value="Sign Up">
+      </div>
+      <div class="form-row-create-account">
+        <p> Already have an account? <a href="login"> <b>Login</b></a></p>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+  {% endblock content %}
+
+  {% block js %}
+
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+<script> $(document).ready(function(){
+  //Hide form errors on form input
+  $('.input-text').on('focus', function(){
+    $('.errorlist').hide();
+    });
+  });
+
+</script>
+{% endblock js %}

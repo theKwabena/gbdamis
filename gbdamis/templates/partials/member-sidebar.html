@@ -1,0 +1,65 @@
+{% load static %}
+{% block sidebar %}
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="vertical-menu">
+			<div data-simplebar class="h-100">
+				<!--- Sidemenu -->
+				<div id="sidebar-menu">
+					<!-- Left Menu Start -->
+					<ul class="metismenu list-unstyled" id="side-menu">
+						<li class="menu-title" key="t-menu">Menu</li>
+						<li>
+							<a href="{% url 'member' %}" class="waves-effect"> <i class="ri-dashboard-line"></i>
+								<!-- <span class="badge rounded-pill bg-success float-end">3</span> -->
+								<span key="t-dashboards">Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'forum' %}" class=" waves-effect"> <i class="ri-team-fill"></i>
+								<span key="t-calendar" >Forum</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="{% url 'executives' %}" class=" waves-effect"> <i class="ri-user-star-fill"></i>
+								<span key="t-calendar" > Executives </span>
+							</a>
+						</li>
+						
+						<li>
+							<a href="{% url 'dues' %}" class=" waves-effect"> <i class="ri-secure-payment-line"></i>
+								<span key="t-calendar" > Dues</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="{% url 'payment-history' %}" class=" waves-effect"> <i class="ri-time-fill"></i>
+								<span key="t-calendar" > Payment History</span>
+							</a>
+						</li>
+
+						<li class="menu-title" key="t-pages">Elections</li>
+						<li>
+							<a href="{% url 'nominate' %}" class=" waves-effect"> <i class="ri-account-circle-line"></i>
+								<span key="t-calendar" > Nominate</span>
+							</a>
+						</li>
+
+
+						<li>
+							<a href="{% url 'events' %}" class=" waves-effect"> <i class="ri-profile-line"></i>
+								<span key="t-calendar" > Results</span>
+							</a>
+						</li>
+						
+						
+						 </li>
+						 {% comment %} <li><a href="#" key="t-maintenance" >Print Results</a> {% endcomment %}
+						 </li>
+					</ul>
+				</div>
+				<!-- Sidebar -->
+			</div>
+		</div>
+		<!-- Left Sidebar End -->
+{% endblock sidebar %}

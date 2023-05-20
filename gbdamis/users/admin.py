@@ -30,9 +30,9 @@ class CustomUserAdmin(admin.ModelAdmin):
     add_form = UserAdminCreationForm
     change_password_form = AdminPasswordChangeForm
 
-    list_display = ['username', 'first_name', 'other_names', 'admin' ]
-    search_fields = ('email',)
-    ordering = ('email',)
+    list_display = ['username', 'first_name', 'other_names','email', 'phone_number', 'admin' ]
+    search_fields = ('username',)
+    ordering = ('username',)
     filter_horizontal = ()
 
     def get_fieldsets(self, request, obj=None):
