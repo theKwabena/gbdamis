@@ -18,6 +18,9 @@
                             <div class="mb-3">
                                 <label for="validationCustom01" class="form-label">First name</label>
                                 {{form.first_name|as_crispy_field}}
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -35,12 +38,20 @@
                             <div class="mb-3">
                                 <label for="validationCustom03" class="form-label">Email</label>
                                 {{form.email|as_crispy_field}}
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom04" class="form-label">Phone Number</label>
                                 {{form.phone_number|as_crispy_field}}
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -165,7 +176,15 @@
 
 
 {% block extra_javascript %}
+
+<script src="{% static 'libs/parsleyjs/parsley.min.js' %}"></script>
+
+<script src="{% static 'js/pages/form-validation.init.js' %}"></script>
+
+
 <script>
+
+
 $(document).ready(function(){
 
    $('#othernames').on('change', function(){
