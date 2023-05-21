@@ -11,6 +11,7 @@ urlpatterns = [
     path('check-email', views.check_email, name='check_email'),
     path('check_phone', views.check_phone_number, name='check_phone_number'),
     path('remove-member/<int:id>', views.remove_member, name='remove-member'),
+    path('check_password', views.check_password, name='check_password'),
 
     #news, announcements, events
     path('news', views.news, name = 'news'),

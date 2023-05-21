@@ -54,13 +54,26 @@ def members(request):
     }
     return render(request, 'dashboard/members.html', context)
 
+def check_password(request):
+    user = request.user
+    if is_ajax(request) and request.method=='POST':
+        password = request.POST.get('password')
+        log.info(password)
+        if user.check_password(password):
+            return JsonResponse({'has_permission' : 'True'})
+        else:
+            return JsonResponse({'has_permission' : False}, status=402) 
+    else:
+        return JsonResponse({'deleted' : 'false'}, status=400)
+    
 def remove_member(request, id):
     member = get_object_or_404(User, pk=id)
-    if is_ajax(request) and request.method=='DELETE':
+    if is_ajax(request) and request.method=='POST':
         member.delete()
         return JsonResponse({'deleted' : 'True'})
     else:
-        return JsonResponse({'deleted' : 'false'}, status=400)
+        return JsonResponse({'deleted' : False}, status=402)
+   
 
 
 

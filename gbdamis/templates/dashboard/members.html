@@ -1,6 +1,10 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel ="stylesheet" type='text/css' />
+{% endblock extra_css%}
+
 
 {% block content %}     
 <div class="row mb-5 pb-5">
@@ -9,7 +13,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between"> 
                     <h4 class="card-title">Members (204) </h4>
-					<button type="button" class="btn btn-primary waves-effect waves-light mx-5">Add Member</button>
+					<a type="button" class="btn btn-primary waves-effect waves-light mx-5" href="{% url 'add-member' %}">Add Member</a>
                     
                 </div>
                 <p class="card-title-desc">Find details of all available users</p> 
@@ -53,9 +57,42 @@
                                             <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
                                             <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger delete-member " href="#" data-id='{{ member.id }}'> Remove Member</a>
+                                            <a class="dropdown-item text-danger " href="#" data-bs-toggle="modal" data-bs-target=".bs-delete-modal{{member.id}}"> Remove Member</a>
                                         </div>
                                     </div> 
+
+                                    <div>
+                                        <!-- center modal -->
+                                        {% comment %} <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Center modal</button> {% endcomment %}
+                                        
+                                        <div class="modal fade bs-delete-modal{{member.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Remove User</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-center font-size-15">Are you sure you want to remove <span class="text-danger fw-bolder">{{member.first_name|title}} {{member.other_names|title}}</span>? Enter <b> password  </b> and click confirm  deletion below to proceed</p>
+                                                        
+                                                        <div class="d-flex justify-content-center mt-3 hidden">
+                                                            <form  method='POST' class="needs-validation" novalidate>
+                                                                <input type='password' class='form-control user_password' id="{{member.id}}password" required/>
+                                                                <div class="invalid-feedback" id="phone-invalid">
+                                                                    Incorrect password, check password and try again
+                                                                </div>
+                                                                <button type="button" class="btn btn-light mt-3 mx-2" data-id="{{member.id}}" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                                <button type="button" class="btn btn-danger mt-3 mx-2  delete-member" data-id='{{ member.id }}'>Confirm Delete</button>
+                                                            </form>
+                                                            
+                                                        </div> 
+
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                        
+                                    </div>
                                 </td>
                                 
                             </tr>
@@ -75,27 +112,74 @@
 {% endblock content %}	
 
 {%block extra_javascript%}
-
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}">  </script>
 <script>
     $('document').ready(function(){
-        $(document).on('click', '.delete-member', function(event){
-            event.preventDefault()
+        
+        $(document).on('click', ' .delete-member', function(event){
             const id = $(this).data('id')
-            
-            let url = 'remove-member/' + id
-            $.ajax({
-                url: url,
-                headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
-                method: 'DELETE',
-                success : function(response){
-                    $("#row-" + id).remove()
-                },
-                error : function(xhr, errmsg, err){
-                        console.log(xhr.status + ' ' + xhr.responseText)
-                }
-                
-            });
+            if (!$('#'+ id + 'password').val()){                
+                $('#' + id + 'password').addClass('is-invalid')
+            }
+            else {
+                let url = 'remove-member/' + id
+                $.ajax({
+                    url: "{% url 'check_password' %}",
+                    headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                    method: 'POST',
+                    data : {
+                        password : $('#' + id + 'password').val()
+                    },
+                    success : function(response){
+                        let url = 'remove-member/' + id
+                        $.ajax({
+                            url: url,
+                            headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                            method: 'POST',
+                            success : function(response){
+                                $("#row-" + id).remove()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'User remove successfull!',
+                                    text: 'User has been successfully removed from the system',
+                                    confirmButtonColor: "#5664d2"
+                        
+                                });
+                                $('.modal').modal('hide')
+                            },
+                            data : {
+                                password : $('.user_password').val()
+                            },
+                            error : function(xhr, errmsg, err){
+                                    console.log(xhr.status + ' ' + xhr.responseText)
+                                    
+                            }
+                            
+                        });
+                    },
+                    
+                    error : function(xhr, errmsg, err){
+                            console.log(xhr.status + ' ' + xhr.responseText)
+                            $('#' + id + 'password').addClass('is-invalid')
+                            $('#feedbackinvalid').css('display', 'block') 
+
+                            
+                    }
+                    
+                });
+            }
+           
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.user_password').on('focus', function(){
+            $('.user_password').removeClass('is-invalid') 
+            $('#feedbackinvalid').css('display', 'none') 
+    
+        })
     });
 </script>
 

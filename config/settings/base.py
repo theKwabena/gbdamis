@@ -87,6 +87,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {"sites": "gbdamis.contrib.sites.migrations"}
 
+
+
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
@@ -244,6 +246,17 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
+
+# django-webpack-loader
+# ------------------------------------------------------------------------------
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "STATS_FILE": BASE_DIR / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+    }
+}
 
 
 

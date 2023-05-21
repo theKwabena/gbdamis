@@ -55,29 +55,65 @@
                     </div>
                     
                     <hr>
+                    <p class="font-size-17"> Job Details </p>
                     <div class="row">
-                        <p class="font-size-17"> User Login Details </p>
+                      
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationCustom02" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name = 'username'>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="validationCustom02" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                           
+                            <div class="mb-3">
+                                <label for="validationCustom01" class="form-label">Region or Zone</label>
+                                {{form.first_name|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="validationCustom02" class="form-label">Drilling License Number</label>
+                                {{form.other_names|as_crispy_field}}
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                           
+                            <div class="mb-3">
+                                <label for="validationCustom01" class="form-label">Company Name</label>
+                                {{form.first_name|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="validationCustom02" class="form-label">Field</label>
+                                {{form.other_names|as_crispy_field}}
+                                
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
                         {% comment %} <p class="font-size-20"> User Login Details </p> {% endcomment %}
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="validationCustom02" class="form-label">Password</label>
-                                <input type="text" class="form-control" id="password"
-                                >
-                            </div>
-                        </div>
+                        
                     </div>
                 <hr>
                     <div>
-                        <button class="btn btn-primary" id='submit' type="submit ">Add User </button>
+                        <button class="btn btn-primary add_user" id='submit' type="submit" disabled>Add User </button>
                     </div>
                 </form>
             </div>
@@ -90,6 +126,49 @@
 
 
 {% block extra_javascript %}
+
+<script src="{% static 'js/pages/addMember.js' %}"> </script>
+{% comment %} <script>
+    $(document).ready(function(){
+        let disabled = true
+        let email_exists = false
+        let phone_number_exists = false
+    });
+
+</script>
+
+<script>
+$(document).ready(function(){
+    $(document).on('change keyup', 'input[required]', function(e){
+    $("input[required]").each(function() {
+      let value = this.value
+      if ((value)&&(value.trim() !='') )
+          {
+            if (phone_number_exists || email_exists) {
+                Disabled = true
+            }
+
+            else {
+                Disabled = false
+            }
+            
+          } 
+          
+        else{
+            Disabled = true
+            return false
+          }
+    });
+
+   if(Disabled){
+        $('.add_user').prop("disabled", true);
+      }else{
+        $('.add_user').prop("disabled", false);
+      }
+ });
+})
+
+</script>
 
 
 <script>
@@ -152,7 +231,8 @@ $(document).ready(function(){
                     else {
                         $('#email').addClass('is-valid')
                         $('#email').removeClass('is-invalid')
-                        $('#feedbackinvalid').css('display', 'none') 
+                        $('#feedbackinvalid').css('display', 'none')
+                        email_exists = true
                         
 
                     };
@@ -169,37 +249,7 @@ $(document).ready(function(){
 
 <script>
     $(document).ready(function(){
-        $('#phone_number').on('change', function(){
-            $.ajax({
-                type: 'POST',
-                url:"{% url 'check_phone_number' %}",    
-                headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
-                data: {
-                    phone_number:$(this).val()
-                },
-        
-                success: function(data){
-                    console.log(data)
-                    if(data.exists){
-                        $('#phone_number').addClass('is-invalid')
-                        $('#phone-invalid').css('display', 'block') 
-                        
-                    }
-                    else {
-                        $('#phone_number').toggleClass('is-valid')
-                        $('#phone_number').removeClass('is-invalid')
-                        $('#phone-invalid').css('display', 'none') 
-                        
-
-                    };
-                },
-                   
-                error : function(xhr, errmsg, err){
-                    console.log('Somemethinf')
-                    console.log(xhr.status + ' ' + xhr.responseText)
-                }
-            });
-        });
+      
     });
 
 </script>
@@ -224,7 +274,7 @@ $(document).ready(function(){
 
     })
 });
-</script>
+</script> {% endcomment %}
 
 
 
@@ -235,33 +285,3 @@ $(document).ready(function(){
 
 
 
-<div>
-    <!-- center modal -->
-    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Center modal</button>
-    
-    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Center modal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p class="mb-0">Aenean lacinia bibendum nulla sed consectetur.
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor
-                        fringilla.</p>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-</div>
