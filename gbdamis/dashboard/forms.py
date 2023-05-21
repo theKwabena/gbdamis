@@ -43,7 +43,6 @@ class AddMemberForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Other names",
-                
                 'id': 'othernames'
             }
         ))
@@ -52,8 +51,8 @@ class AddMemberForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Phone number",
-               
-                'id' : 'phone_number'
+                'id' : 'phone_number',
+                'type' : 'tel'
             }
         ))
     

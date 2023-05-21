@@ -1,7 +1,12 @@
 {% extends 'partials/base.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
 
+{% load static %}
+{% load crispy_forms_tags %}
+{% load render_bundle from webpack_loader %}
+
+{% block extra_css %}
+
+{% endblock extra_css%}
 
 {% block content %}
 <div class="row">
@@ -12,7 +17,7 @@
                 <p class="card-title-desc">Add a new user. <span class="text-danger"> User password is set by default to othe generated username. As users to change password on login </span>  </p>
                 <hr>
                 {{form.errors}}
-                <form  method='POST' class="needs-validation" novalidate>
+                <form  method='POST' class="myform">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
@@ -38,8 +43,11 @@
                                 {{form.email|as_crispy_field}}
                             </div>
                             <div class="invalid-feedback mt-n2" id="feedbackinvalid">
-                                "This email address belongs to another user"
+                                 This email address belongs to another user
                             </div>
+                            <div class="invalid-feedback mt-n2" id="feedbackinvalid">
+                                Invalid email address
+                           </div>
                         </div>
                         
                         <div class="col-md-6">
@@ -55,57 +63,7 @@
                     </div>
                     
                     <hr>
-                    <p class="font-size-17"> Job Details </p>
-                    <div class="row">
-                      
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="validationCustom02" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name = 'username'>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="validationCustom02" class="form-label">Password</label>
-                                <input type="text" class="form-control" id="password">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                           
-                            <div class="mb-3">
-                                <label for="validationCustom01" class="form-label">Region or Zone</label>
-                                {{form.first_name|as_crispy_field}}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="validationCustom02" class="form-label">Drilling License Number</label>
-                                {{form.other_names|as_crispy_field}}
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                           
-                            <div class="mb-3">
-                                <label for="validationCustom01" class="form-label">Company Name</label>
-                                {{form.first_name|as_crispy_field}}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="validationCustom02" class="form-label">Field</label>
-                                {{form.other_names|as_crispy_field}}
-                                
-                            </div>
-                        </div>
-                    </div>
+                    {% comment %}   {% endcomment %}
 
                     <div class="row">
                         {% comment %} <p class="font-size-20"> User Login Details </p> {% endcomment %}
@@ -118,6 +76,8 @@
                 </form>
             </div>
         </div>
+
+        <input type='hidden' id='csrf-token' value="{{ csrf_token }}">
         <!-- end card -->
     </div> <!-- end col -->
 
@@ -127,7 +87,19 @@
 
 {% block extra_javascript %}
 
-<script src="{% static 'js/pages/addMember.js' %}"> </script>
+
+<script src='{% static 'js/addMember.js' %}'> </script>
+<script src="{% static 'libs/parsleyjs/parsley.min.js' %}"></script>
+
+<script>
+        $('.myform').parsley();
+    
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
+
+
 {% comment %} <script>
     $(document).ready(function(){
         let disabled = true
@@ -135,7 +107,7 @@
         let phone_number_exists = false
     });
 
-</script>
+</>
 
 <script>
 $(document).ready(function(){
@@ -168,7 +140,7 @@ $(document).ready(function(){
  });
 })
 
-</script>
+</>
 
 
 <script>
