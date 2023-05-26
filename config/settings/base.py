@@ -77,7 +77,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "gbdamis.users",
     'gbdamis.authentication',
-    'gbdamis.dashboard'
+    'gbdamis.dashboard',
+    'gbdamis.elections'
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -233,15 +234,19 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
-        },
+        'colored': {
+        '()': 'colorlog.ColoredFormatter',
+        'format': "%(log_color)s %(levelname)-8s %(asctime)s %(module)s %(reset)s %(blue)s%(message)s",
+    }
+        # "verbose": {
+        #     "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+        # },
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "formatter": "verbose",
+            "formatter": "colored",
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},

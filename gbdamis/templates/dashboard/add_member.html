@@ -17,7 +17,7 @@
                 <p class="card-title-desc">Add a new user. <span class="text-danger"> User password is set by default to othe generated username. As users to change password on login </span>  </p>
                 <hr>
                 {{form.errors}}
-                <form  method='POST' class="myform">
+                <form  method='POST' class="add-member-form">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
@@ -45,9 +45,6 @@
                             <div class="invalid-feedback mt-n2" id="feedbackinvalid">
                                  This email address belongs to another user
                             </div>
-                            <div class="invalid-feedback mt-n2" id="feedbackinvalid">
-                                Invalid email address
-                           </div>
                         </div>
                         
                         <div class="col-md-6">
@@ -69,15 +66,52 @@
                         {% comment %} <p class="font-size-20"> User Login Details </p> {% endcomment %}
                         
                     </div>
+
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        
+                    
+                        <!-- sample modal content -->
+                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">Confirm Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5></h5>
+                                        <p class = 'font-size-20 fw-bold mt-n2 mb-n2 alert alert-info'>Generated username:  <span class='user-username fw-lighter text-danger'> </span></p>
+                                        <hr>
+                                        <p class = 'font-size-20 fw-bold mt-n2 mb-n2'>Full Name:  <span class='user-fullname text-primary'> </span></p>
+                                        <hr>
+                                        <p class = 'font-size-20 fw-bold mt-n2 mb-n2'>Email:  <span class='user-email text-primary'>  </span></p>
+                                        <hr>
+                                        <p class = 'font-size-20 fw-bold mt-n2 mb-n2'>Phone Number:  <span class='user-phone text-primary'>  </span></p>
+                                        <hr>
+                                        <p class = 'font-size-20 fw-bold mt-n2 mb-n2'>User password:  <span class='user-password text-primary'>  </span></p>
+                                        <hr> 
+                                       
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between align-items-center">
+                                        <p class='text-danger'> Are you sure you want to add user? <p>
+                                        {% comment %} <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button> {% endcomment %}
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light confirm-add">Add User</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
                 <hr>
                     <div>
-                        <button class="btn btn-primary add_user" id='submit' type="submit" disabled>Add User </button>
+                        <button class="btn btn-primary add_user" id='submit' type="submit">Add User </button>
                     </div>
                 </form>
             </div>
         </div>
 
         <input type='hidden' id='csrf-token' value="{{ csrf_token }}">
+        <input type='hidden' id='username' >        
+     
         <!-- end card -->
     </div> <!-- end col -->
 

@@ -4,7 +4,6 @@ $(document).ready(function(){
         let regex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         return regex.test(email);
       }
-    let disabled = true
     let email_exists = false
     let phone_number_exists = false
 
@@ -21,7 +20,6 @@ $(document).ready(function(){
                 data: {
                     first_name:firstname,
                     other_names : othernames
-        
                 },
         
                 success: function(data){
@@ -42,9 +40,8 @@ $(document).ready(function(){
     $('#email').on('change keyup', function(){
         if( !IsEmail($(this).val()) ) {
             $('#email').addClass('is-invalid')
-            $('#feedbackinvalid').text('Input should be a valid email')
+            $('#feedbackinvalid').text('This value should be a valid email.')
             $('#feedbackinvalid').css('display', 'block')
-            disabled =true
         }
         
         else {
@@ -61,14 +58,16 @@ $(document).ready(function(){
                     if(data.exists){
                         $('#email').addClass('is-invalid')
                         $('#feedbackinvalid').text('This email belongs to another user')
-
                         $('#feedbackinvalid').css('display', 'block') 
+                        email_exists = true
                     }
                     else {
                         $('#email').addClass('is-valid')
                         $('#email').removeClass('is-invalid')
                         $('#feedbackinvalid').css('display', 'none')
-                        email_exists = true
+                        email_exists = false
+
+                        
                     };
                 },   
                 error : function(xhr, errmsg, err){
@@ -80,7 +79,7 @@ $(document).ready(function(){
     });
 
     //check if phone_number exists
-    $('#phone_number').on('change', function(){
+    $('#phone_number').on('change keyup', function(){
         $.ajax({
             type: 'POST',
             url:"/check_phone",    
@@ -92,14 +91,16 @@ $(document).ready(function(){
                 console.log(data)
                 if(data.exists){
                     $('#phone_number').addClass('is-invalid')
-                    $('#phone-invalid').css('display', 'block') 
+                    $('#phone-invalid').css('display', 'block')
+                    phone_number_exists = true 
                     
                 }
                 else {
                     $('#phone_number').toggleClass('is-valid')
                     $('#phone_number').removeClass('is-invalid')
-                    $('#phone-invalid').css('display', 'none') 
-                    phone_number_exists = true
+                    $('#phone-invalid').css('display', 'none')
+                    phone_number_exists = false
+                   
                     
 
                 };
@@ -154,15 +155,26 @@ $(document).ready(function(){
       });
      
     //On submit check if no errors before proceeding
-    $('add_user').on('click', function(e){
+    $('.add_user').on('click', function(e){
         e.preventDefault();
-        if (phone_number_exists|| email_exists){
-
+        if (! $('.add-member-form')[0].checkValidity()) {
+            $('.add-member-form')[0].reportValidity()
         }
-
-        else {
+        else if (phone_number_exists || email_exists){
             
         }
+        else {
+            $('.user-username').text($('#username').val())
+            $('.user-fullname').text($('#firstname').val() + ' ' + $('#othernames').val())
+            $('.user-email').text($('#email').val())
+            $('.user-phone').text($('#phone_number').val())
+            $('.user-password').text($('#username').val())
+            $('#myModal').modal('show');
+            $('.confirm-add').on('click', function(){
+            $('.add-member-form').submit()
+            })
+        }
+
     })
     
 

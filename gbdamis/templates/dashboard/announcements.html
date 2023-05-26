@@ -1,159 +1,368 @@
-{% extends 'dashboard/relatedTable.html' %}
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 
-{% block title %}
-News (203)
-{% endblock title %}
-
-{% block description %}
-Find all posted news
-{% endblock description%}
+{% block extra_css %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel ="stylesheet" type='text/css' />
+{% endblock extra_css%}
 
 
-{% block row1 %}
-#
-{% endblock row1 %}
+{% block content %}  
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <input type='hidden' class='success-message' value = '{{message}}'/>    
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row mb-5 pb-5">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between"> 
+                    <h4 class="card-title">Announcements </h4>
+					<button type="button" class="btn btn-primary waves-effect waves-light mx-5" data-bs-toggle="modal" data-bs-target="#add-annoucement">Add Announcement</button>
+                       <!-- sample modal content -->
+                       <div id="add-annoucement" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-annoucement" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Add Announcement</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <form method='POST'>
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                    <div class="modal-footer d-flex justify-content-between align-items-center">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light confirm-add">Add Announcement</button>
+                                    </div>
+                                   </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    
+                </div>
+                <p class="card-title-desc">Find details of all available users</p> 
+                   
+                
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for announcement in announcements %}
+                            <tr id='row-{{ announcement.id }}'>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td id='new-{{announcement.id}}'>{{announcement.title}}</td>
+                                <td id='description-{{announcement.id}}'>{{announcement.description }}</td>
+                              
+                                <td>{{announcement.date}}</td>
+                                <td  style="position: absolute; width:11.5%; margin-top:-2px">
+                                    <div class="btn-group">
+                                        <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
+                                        data-bs-boundary="window" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-haspopup="true" 
+                                        aria-expanded="false"></button> 
+                                        <div class="dropdown-menu mx-n4 mt-n2">
+                                            <a class="dropdown-item" href="#">View Detail</a>
+                                            <button class="dropdown-item edit-announcement" id='edit' data-value="{{announcement.id}}">Edit Announcement</button>
+                                            
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item text-danger delete-announcement" data-value="{{announcement.id}}"> Delete Announcement</button>
+                                        </div>
+                                    </div> 
+                                </td>   
+                            </tr>
+                            {% endfor %}
+                           
+                            
+                        </tbody>
+                    </table>
+                      <!-- Edit Announcement Modal-->
+                      <div id="edit-annoucement" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit-announcement" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel" >Edit Announcement</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <form method='POST'>
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <label for="Title" class="form-label">Title</label>
+                                    <input class='form-control' id='new-title' type ='text' required/>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="Title" class="form-label mt-3">Description</label>
+                                    <textarea class='form-control textarea' type ='textarea' id='new-description' value = '{{announcement.description}}' rows="6" required> </textarea>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-between align-items-center">
+                                        <button class="btn btn-primary waves-effect waves-light confirm-edit">Edit Announcement</button>
+                                    </div>
+                                   </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!--End edit annoucement -->
 
 
-{% block row2 %}
-Title
-{% endblock row2 %}
+                     <!--Delete Announcement Modal-->
+                     <div id="delete-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete-annoucement" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel" >Delete Announcement</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center font-size-15"> Are you sure you want to delete annoucement? </p>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-light mt-3 mx-2" class="btn-close" data-bs-dismiss="modal" >Cancel</button>
+                                    <button type="button" class="btn btn-danger mt-3 mx-2 confirm-delete" id="delete-annoucement">Confirm Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End delete Announcement-->
 
-{% block row3 %}
-Description
-{% endblock row3 %}
+                </div>
 
-{% block row4 %}
-Date
-{% endblock row4 %}
-
-{% block row5 %}
-Action
-{% endblock row5 %}
-
-{% block add %}
-
-Announcement
-
-{% endblock add%}
-
-
-{% block tablebody %}
-<tr>
-    <td scope="row">1</td>
-    <td>Mark</td>
-    <td>Otto</td>
-  
-    <td>@mdo</td>
-    <td>
-        
-        <div class="btn-group" style="position: absolute; width:11.5%; margin-top:-2px">
-            <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
-            data-bs-boundary="window" 
-            data-bs-toggle="dropdown" 
-            aria-haspopup="true" 
-            aria-expanded="false"></button> 
-            <div class="dropdown-menu mx-n4 mt-n2">
-                <a class="dropdown-item" href="#">View Detail</a>
-                <a class="dropdown-item" href="#">Edit News</a>
-                {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
-                <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item text-danger" href="#"> Delete News</a>
             </div>
-        </div> 
-    </td>
-    
-</tr>
-
-<tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-  
-    <td>@mdo</td>
-    <td>@mdo</td>
-    <td>
-        
-        <div class="btn-group" style="position: absolute; width:11.5%; margin-top:-2px">
-            <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle" 
-            data-bs-boundary="window" 
-            data-bs-toggle="dropdown" 
-            aria-haspopup="true" 
-            aria-expanded="false"></button> 
-            <div class="dropdown-menu mx-n4 mt-n2">
-                <a class="dropdown-item" href="#">View Detail</a>
-                <a class="dropdown-item" href="#">Edit News</a>
-                {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
-                <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item text-danger" href="#"> Delete News</a>
-            </div>
-        </div> 
-    </td>
-    
-</tr>
-{% endblock tablebody%}
-
-
-<div class="col-sm-6 col-md-4 col-xl-3">
-    <div class="my-4 text-center">
-        <p class="text-muted">Standard modal</p>
-        <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#myModal">Standard modal</button>
+        </div>
     </div>
+    
+    
+</div>                  
+{% endblock content %}	
 
-    <!-- sample modal content -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Modal Heading</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5>Overflowing text to show scroll behavior</h5>
-                    <p>Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur.
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor
-                        fringilla.</p>
-                    <p>Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur.
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor
-                        fringilla.</p>
-                    <p>Cras mattis consectetur purus sit amet fermentum.
-                        Cras justo odio, dapibus ac facilisis in,
-                        egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur.
-                        Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor
-                        fringilla.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>
+{% block extra_javascript %}
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}">  </script>
+
+<script>
+    $(document).ready(function(){
+        let msg = $('.success-message').val()
+        if (msg){
+            console.log(msg)
+            Swal.fire({
+                icon: 'success',
+                title: msg,
+                text:  msg,
+                confirmButtonColor: "#5664d2"
+            });
+        }       
+    });
+</script>
+
+
+<script>
+$(document).ready(function(){
+    function get_item(item_id){
+        let url = 'announcement/' + item_id
+        let data;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(response){
+                data = response.data.title
+                return data
+            },
+
+            error : function(xhr, errmsg, err){
+                console.log(xhr.status + ' ' + xhr.responseText)
+            }
+        })
+    };
+
+    let announcement_id;
+    $('.delete-announcement').on('click', function(){
+        announcement_id = $(this).data('value')
+        $('#delete-modal').modal('show');
+    })
+
+    $('.confirm-delete').on('click', function(){
+
+        console.log(announcement_id)
+        if(announcement_id){
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'announcements' %}" ,    
+                headers :{'X-CSRFTOKEN': '{{ csrf_token }}' },
+                data: {
+                   action: 'delete',
+                   announcement_id : announcement_id,
+                },
+        
+                success: function(data){
+                    $("#row-" + announcement_id).remove()
+                    $('#delete-modal').modal('hide');
+                    if(data.message){
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message,
+                            text:  data.message,
+                            confirmButtonColor: "#5664d2"
+                        });
+                    }
+                    console.log('success')
+                },   
+                error : function(xhr, errmsg, err){
+                    console.log(xhr.status + ' ' + xhr.responseText)
+                }
+            });
+        }
+    });
+
+    let edit_announcement_id;
+    $('.edit-announcement').on('click', function(){
+        edit_announcement_id = $(this).data('value')
+        console.log(edit_announcement_id)
+        let url = 'announcement/' + edit_announcement_id
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(response){
+                $('#new-title').val(response.data.title)
+                $('#new-description').val(response.data.title)
+                $('#edit-annoucement').modal('show');                
+            },
+
+            error : function(xhr, errmsg, err){
+                console.log(xhr.status + ' ' + xhr.responseText)
+            }
+        });
+    })
+
+    $('.confirm-edit').on('click', function(e){
+        e.preventDefault()
+        console.log(edit_announcement_id)
+        if(edit_announcement_id){
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'announcements' %}" ,    
+                headers :{'X-CSRFTOKEN': '{{ csrf_token }}' },
+                data: {
+                action: 'update',
+                announcement_id : edit_announcement_id,
+                new_title : $('#new-title').val(),
+                new_description : $('#new-description').val()
+
+                },
+                success: function(data){
+                    $('#new-'+edit_announcement_id).text($('#new-title').val())
+                    $('#description-'+edit_announcement_id).text($('#new-description').val())
+                    $('#edit-annoucement').modal('hide')
+                    if(data.message){
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message,
+                            text:  data.message,
+                            confirmButtonColor: "#5664d2"
+                        });
+                    }
+                    console.log('success')
+                },   
+                error : function(xhr, errmsg, err){
+                    console.log(xhr.status + ' ' + xhr.responseText)
+                }
+            });
+        }
+    });
+
+
+    
+});
+
+</script>
+
+
+{% endblock extra_javascript%}
+
+<script>
+        
+
+    $('.confirm-edit-announcement').on('click', function(e){
+        e.preventDefault()
+        annoucement_id = $(this).data('value')
+        console.log($('#annoucement-description').val())
+        console.log(annoucement_id)
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'announcements' %}" ,    
+            headers :{'X-CSRFTOKEN': '{{ csrf_token }}' },
+            data: {
+               action: 'update',
+               annoucement_id : annoucement_id,
+               new_title : $('#new-title').val(),
+               new_description : $('#new-description').val()
+
+            },
+    
+            success: function(data){
+                $('#new-'+annoucement_id).text($('#new-title').val())
+                $('#description-'+annoucement_id).text($('#new-description').val())
+                $('#edit-annoucement').modal('hide')
+                if(data.message){
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.message,
+                        text:  data.message,
+                        confirmButtonColor: "#5664d2"
+                    });
+                }
+                console.log('success')
+            },   
+            error : function(xhr, errmsg, err){
+                console.log(xhr.status + ' ' + xhr.responseText)
+            }
+        });
+    });
+
+    $('.delete-announcement').on('click', function(e){
+        e.preventDefault()
+        announcement_id = $(this).data('value')
+        console.log(announcement_id)
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'announcements' %}" ,    
+            headers :{'X-CSRFTOKEN': '{{ csrf_token }}' },
+            data: {
+               action: 'delete',
+               announcement_id : announcement_id,
+            },
+    
+            success: function(data){
+                $("#row-" + announcement_id).remove()
+                $('#delete-annoucement').modal('hide')
+                if(data.message){
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.message,
+                        text:  data.message,
+                        confirmButtonColor: "#5664d2"
+                    });
+                }
+                console.log('success')
+            },   
+            error : function(xhr, errmsg, err){
+                console.log(xhr.status + ' ' + xhr.responseText)
+            }
+        });
+    });
+</script>

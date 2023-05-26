@@ -1,10 +1,24 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-
+{% block extra_css %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel ="stylesheet" type='text/css' />
+{% endblock extra_css%}
 
 
 {% block content %}
+
+
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <input type='hidden' class='success-message' value = '{{message}}'/>    
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <div class="row">
     <div class="col-lg-7">
         <div class="card">
@@ -12,7 +26,7 @@
                 <h4 class="card-title mb-n4">Nominations</h4>
                 <div class="d-flex justify-content-end align-items-center ">
                 
-                    <button type="button" class="btn btn-primary waves-effect waves-light mx-2">Add Nomination</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light mx-2 add-nomination">Add Nomination</button>
                     {% comment %} <button type="button" class="btn btn-primary waves-effect waves-light">View All</button> {% endcomment %}
                 </div>
                 <hr>
@@ -22,37 +36,53 @@
                         <thead class="table-light">
                             <tr>
                                 
-                                <th class="text-center"> Name </th>
+                                <th> Name </th>
                                 {% comment %} <th>Date </th> {% endcomment %}
-                                <th class="text-center">Position</th>
+                                <th >Position</th>
                                 {% comment %} <th class="text-center">Phone Number</th> {% endcomment %}
-                                <th class="text-center">Region/Zone</th>
-                                <th class="text-center"> Status</th>
-                                <th style="width: 120px;">Approve / Decline</th>
+                                {% comment %} <th class="text-center">Region/Zone</th> {% endcomment %}
+                                <th> Status</th>
+                                <th>Approve / Decline</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for nominee in nominations %}
                             <tr>
                                 
-                                <td class="text-center"><a href="javascript: void(0);" class="text-dark fw-bold text-center">#NZ1572</a> 
+                                {% comment %} <td class="text-center"><a href="javascript: void(0);" class="text-dark fw-bold text-center">#NZ1572</a>  {% endcomment %}
                                 </td>
                                 {% comment %} <td>04 Apr, 2020</td> {% endcomment %}
-                                <td class="text-center"> Walter Brown</td>
+                                <td>
+                                    <div class="font-size-15 fw-bold">{{nominee.nominee.get_full_name }}</div>
+                                </td>
                                 {% comment %} <td class="text-center">$172</td> {% endcomment %}
-                                <td class="text-center">
-                                    <div class="font-size-12">Accra Zone</div>
+                                <td>
+                                    <div class="font-size-15 fw-bold">{{nominee.position}}</div>
                                 </td>
-                                <td class="text-center">
+
+                                {% if not nominee.approved %}
+                                <td>
                                     <div class="font-size-12">Pending Approval</div>
+                                    
                                 </td>
-
-                                <td class="text-center">
-                                    <button type="button" class="btn mb-2 btn-outline-success waves-effect waves-light">Approve</button>
-                                    <button type="button" class="btn btn-outline-danger waves-effect waves-light">Decline</button>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success waves-effect waves-light">Approve</button>
+                                    <button type="button" class="btn btn-danger waves-effect waves-light">Decline</button>
 
                                 </td>
-                                
+                                {% else %}
+                                <td>
+                                    <div class="font-size-15 text-success">Approved</div>
+                                </td>
+                                <td>
+                                    <i class="btn text-danger mx-4 ri  ri-delete-bin-6-fill fa-2x delete-nomination" data-nomination="{{nominee.id}}"></i> 
+                                    {% comment %} <button type="button" class="btn btn-outline-success waves-effect waves-light">Delete Nomination</button> {% endcomment %}
+
+                                </td>
+                                {% endif %}
+
                             </tr>
+                            {% endfor %%}
                         </tbody>
                     </table>
                 </div>
@@ -64,16 +94,17 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="card-title fw-bold">Available Positions</h4>
-                    <button type="button" class="btn btn-primary waves-effect waves-light mx-2">Add Position</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light mx-2 add-position">Add Position</button>
 
                 </div>
                 <hr>
                 <div data-simplebar style="max-height: 330px;">
                     <ul class="list-unstyled ">
+                        {% for position in positions %}
                         <li class="activity-list">
                             <div>
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="font-size-15"> President </h5>
+                                    <h5 class="font-size-15"> {{position.name}} </h5>
                                     <div class="btn-group">
                                         <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle mx-5" 
                                         data-bs-boundary="window" 
@@ -85,7 +116,7 @@
                                             {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
                                             <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#"> Delete Position</a>
+                                            <a class="dropdown-item text-danger delete-position" data-position="{{position.name}}" data-id="{{position.id}}" > Delete Position</a>
                                         </div>
                                     </div> 
                                 </div>
@@ -93,78 +124,7 @@
                             </div>
                         </li>
                         <hr>
-                        <li class="activity-list">
-                            <div>
-                                <div class="d-flex justify-content-between" >
-                                    <h5 class="font-size-15">Vice President </h5>
-                                    <div class="btn-group">
-                                        <button style="outline:none; border:none;" class="ri-more-2-fill dropdown-toggle mx-5" 
-                                        data-bs-boundary="window" 
-                                        data-bs-toggle="dropdown" 
-                                        aria-haspopup="true" 
-                                        aria-expanded="false"></button> 
-                                        <div class="dropdown-menu mx-n5 mt-n2">
-                                            <a class="dropdown-item" href="#">Edit Position</a>
-                                            {% comment %} <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
-                                            <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a> {% endcomment %}
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#"> Delete Position</a>
-                                        </div>
-                                    </div> 
-                                </div>
-                                
-                            </div>
-                        </li>
-                        <hr>
-
-                        <li class="activity-list">
-                            <div>
-                                <div>
-                                    <h5 class="font-size-15">Secretary</h5>
-                                </div>
-                                
-                            </div>
-                        </li>
-                        <hr>
-
-
-                        <li class="activity-list">
-                            <div>
-                                <div>
-                                    <h5 class="font-size-15">Financial Secretary </h5>
-                                </div>
-                                
-                            </div>
-                        </li>
-                        <hr>
-
-                        <li class="activity-list">
-                            <div>
-                                <div>
-                                    <h5 class="font-size-15">Treasure</h5>
-                                </div>
-                                
-                            </div>
-                        </li>
-                        <hr>
-
-                        <li class="activity-list">
-                            <div>
-                                <div>
-                                    <h5 class="font-size-15">Organizer</h5>
-                                </div>
-                                
-                            </div>
-                        </li>
-                        <hr>
-
-                        <li class="activity-list">
-                            <div>
-                                <div>
-                                    <h5 class="font-size-15">P.R.O</h5>
-                                </div>
-                            </div>
-                        </li> 
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -172,4 +132,68 @@
     </div>
 </div>
 
+
+<div>
+    <div id="forms-modal" class="modal fade bs-delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Position</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class='modal-text-content'> </div>                        
+                    <div class="d-flex justify-content-center mt-3 hidden">
+                        <form  method='POST' class="modal-form">
+                            {% csrf_token %}
+                            <input type='hidden' class='form-id' name = 'form_id'>
+                            <div class='form-body'>
+                            </div>
+                            <button type="button" class="btn btn-light mt-3 mx-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            <button type="submit" class="btn btn-danger mt-3 mx-2  modal-confirm"></button>
+                        </form>
+                        
+                    </div> 
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+</div>
+
+<div>
+    <div id="actions-modal" class="modal fade bs-delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="actions-modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class='actions-modal-text-content'> </div>                        
+        
+                    <div class="d-flex justify-content-center mt-3 hidden">
+                        <button type="button" class="btn btn-light mt-3 mx-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <button type="button" class="btn btn-danger mt-3 mx-2  actions-confirm-delete">Confirm Delete</button> 
+                    </div> 
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+</div>
+
+<p class='position-form' data-value='{{position_form|crispy}}'> </p> 
+<p class='nomination-form' data-value='{{nomination_form|crispy}}'> </p> 
 {% endblock content %}
+
+
+{% block extra_javascript%}
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}">  </script>
+
+
+<script src='{% static 'js/nominations.js' %}'> </script>
+
+{% endblock extra_javascript %}

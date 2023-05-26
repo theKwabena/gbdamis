@@ -3,10 +3,22 @@
 
 {% block extra_css %}
 <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel ="stylesheet" type='text/css' />
+
+
 {% endblock extra_css%}
 
 
 {% block content %}     
+
+{% if messages %}
+    {% for message in messages %}
+    
+        {% if message.tags == 'success' %}
+        <input type='hidden' class='success-message' value = '{{message}}'/>    
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <div class="row mb-5 pb-5">
     <div class="col-lg-12">
         <div class="card">
@@ -19,11 +31,11 @@
                 <p class="card-title-desc">Find details of all available users</p> 
                    
                 
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
+                <div class="table-responsive ">
+                    <table class="table table-hover" style="margin-bottom: 200px; padding-bottom:20px;">
 
                         <thead>
-                            <tr >
+                            <tr>
                                 <th>#</th>
                                 <th>Member ID</th>
                                 <th>First Name</th>
@@ -38,7 +50,11 @@
                             {% for member in members %}
                             <tr id="row-{{ member.id }}">
                                 <th scope="row">{{forloop.counter}}</th>
-                                <td>{{member.username}}</td>
+                                <td>{{member.username}}
+                                    {% if member.admin %}
+                                    <span class="badge badge-soft-success b-{{member.id}}"> admin </span> 
+                                    {% endif %}
+                                </td>
                                 <td>{{member.first_name}}</td>
                                 <td>{{member.other_names}}</td>
                                 <td>{{member.email}}</td>
@@ -53,99 +69,123 @@
                                         aria-expanded="false"></button> 
                                         <div class="dropdown-menu mx-n4 mt-n2">
                                             <a class="dropdown-item" href="#">View Member</a>
-                                            <a class="dropdown-item" href="#">Edit Member</a>
-                                            <a class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></a>
-                                            <a class="dropdown-item text-success text-black" href="#"> <b> Make Admin </b></a>
+                                            <a class="dropdown-item" href="{% url 'edit-member' member.id %}">Edit Member</a>
+                                            <button class="dropdown-item text-warning text-black" href="#"> <b> Make Executive </b></button>
+                                            <div class='admin-actions'>
+                                                {% if member.admin %} 
+                                                <button class="dropdown-item text-primary remove-admin ad-{{member.id}}" data-value="{{member.id}}" data-fullname="{{member.first_name}} {{member.other_names}}"> <b> Remove as Admin </b></button>
+                                                {% else %}
+                                                <button class="dropdown-item text-success make-admin" data-value="{{member.id}}" data-fullname="{{member.first_name}} {{member.other_names}}"> <b> Make Admin </b></button>
+                                                {% endif %}
+                                            </div>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger " href="#" data-bs-toggle="modal" data-bs-target=".bs-delete-modal{{member.id}}"> Remove Member</a>
+                                            <button class="dropdown-item text-danger remove-member"  data-value="{{member.id}}" data-fullname="{{member.first_name}} {{member.other_names}}"> Remove Member</button>
                                         </div>
                                     </div> 
-
-                                    <div>
-                                        <!-- center modal -->
-                                        {% comment %} <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Center modal</button> {% endcomment %}
-                                        
-                                        <div class="modal fade bs-delete-modal{{member.id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Remove User</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-center font-size-15">Are you sure you want to remove <span class="text-danger fw-bolder">{{member.first_name|title}} {{member.other_names|title}}</span>? Enter <b> password  </b> and click confirm  deletion below to proceed</p>
-                                                        
-                                                        <div class="d-flex justify-content-center mt-3 hidden">
-                                                            <form  method='POST' class="needs-validation" novalidate>
-                                                                <input type='password' class='form-control user_password' id="{{member.id}}password" required/>
-                                                                <div class="invalid-feedback" id="phone-invalid">
-                                                                    Incorrect password, check password and try again
-                                                                </div>
-                                                                <button type="button" class="btn btn-light mt-3 mx-2" data-id="{{member.id}}" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                                                <button type="button" class="btn btn-danger mt-3 mx-2  delete-member" data-id='{{ member.id }}'>Confirm Delete</button>
-                                                            </form>
-                                                            
-                                                        </div> 
-
-                                                    </div>
-                                                </div><!-- /.modal-content -->
-                                            </div><!-- /.modal-dialog -->
-                                        </div><!-- /.modal -->
-                                        
-                                    </div>
                                 </td>
-                                
                             </tr>
                             {% endfor %}
-                          
                         </tbody>
                     </table>
-                    
                 </div>
-
             </div>
         </div>
     </div>
+    <!--Modal-->
+    <div>
+        <div id="actions-modal" class="modal fade bs-delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Remove User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class='modal-text-content'> </div>                        
+                        <div class="d-flex justify-content-center mt-3 hidden">
+                            <form  method='POST' class="needs-validation" novalidate>
+                                <input type='password' class='form-control user_password' id="user_password" required/>
+                                <div class="invalid-feedback" id="phone-invalid">
+                                    Incorrect password, check password and try again
+                                </div>
+                                <button type="button" class="btn btn-light mt-3 mx-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="button" class="btn btn-danger mt-3 mx-2  confirm-delete">Confirm Delete</button>
+                            </form>
+                            
+                        </div> 
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+    </div>
+
+    <!--End Modal-->
+
+    
     
     
 </div>                  
 {% endblock content %}	
 
 {%block extra_javascript%}
+<script>
+    const csrfToken = "{{csrf_token}}"
+</script>
 <script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}">  </script>
+
+<script src='{% static 'js/members.js' %}'> </script>
+
+{% endblock extra_javascript%}
+
+
 <script>
     $('document').ready(function(){
-        
-        $(document).on('click', ' .delete-member', function(event){
-            const id = $(this).data('id')
-            if (!$('#'+ id + 'password').val()){                
-                $('#' + id + 'password').addClass('is-invalid')
+        //Delete User
+        let member_id;
+        $('.delete-member').on('click', function(event){
+            member_id = $(this).data('value')
+            name = $(this).data('fullname')
+            $('.fullname').text(name)
+            $("#delete-modal").modal('show') 
+        });
+
+
+        //Confirm Delete User
+        $('.confirm-delete').on('click', function(event){
+            event.preventDefault()
+            if (!$('#password').val()){                
+                $('#password').addClass('is-invalid')
             }
             else {
-                let url = 'remove-member/' + id
+                let url = 'remove-member/' + member_id
                 $.ajax({
                     url: "{% url 'check_password' %}",
                     headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
                     method: 'POST',
                     data : {
-                        password : $('#' + id + 'password').val()
+                        password : $('#password').val()
                     },
                     success : function(response){
-                        let url = 'remove-member/' + id
+                        let url = 'remove-member/' + member_id
                         $.ajax({
                             url: url,
                             headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
                             method: 'POST',
                             success : function(response){
-                                $("#row-" + id).remove()
+                                $("#row-" + member_id).remove()
+                                
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'User remove successfull!',
+                                    title: 'User removed successfull!',
                                     text: 'User has been successfully removed from the system',
                                     confirmButtonColor: "#5664d2"
                         
                                 });
-                                $('.modal').modal('hide')
+                                $('#password').val('')
+                                $('#delete-modal').modal('hide')
+                                
                             },
                             data : {
                                 password : $('.user_password').val()
@@ -168,8 +208,175 @@
                     
                 });
             }
-           
         });
+
+
+        //Make Admin
+        $('.make-admin').on('click', function(event){
+            member_id = $(this).data('value')
+            name = $(this).data('fullname')
+            $('.admin-fullname').text(name)
+            $("#make-admin-modal").modal('show') 
+        });
+
+        //Confirm Make Admin
+        $('.confirm-admin').on('click', function(event){
+            event.preventDefault()
+            if (!$('#admin-password').val()){                
+                $('#admin-password').addClass('is-invalid')
+            }
+            else {
+                $.ajax({
+                    url: "{% url 'check_password' %}",
+                    headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                    method: 'POST',
+                    data : {
+                        password : $('#admin-password').val()
+                    },
+                    success : function(response){
+                        let url = 'member/' + member_id + '/make-admin'
+                        $.ajax({
+                            url: url,
+                            headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                            method: 'GET',
+                            success : function(response){
+                                console.log(response)
+                                if(response.success){
+                                    $("#make-admin-modal").modal('hide') 
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'User is now an admin!',
+                                        text: 'User has been made an admin successfully',
+                                        confirmButtonColor: "#5664d2"
+                            
+                                    });
+                                }
+                                
+                                $('#admin-password').val('')
+                                $('#delete-modal').modal('hide')
+                                
+                            },
+                            data : {
+                                password : $('#admin-password').val()
+                            },
+                            error : function(xhr, errmsg, err){
+                                    console.log(xhr.status + ' ' + xhr.responseText)
+                                    
+                            }
+                            
+                        });
+                    },
+                    
+                    error : function(xhr, errmsg, err){
+                            console.log(xhr.status + ' ' + xhr.responseText)
+                            $('#admin-password').addClass('is-invalid')
+                            $('#feedbackinvalid').css('display', 'block') 
+
+                            
+                    }
+                    
+                });
+            }
+        });
+
+
+        //Remove as Admin
+        $('.remove-admin').on('click', function(event){
+            member_id = $(this).data('value')
+            name = $(this).data('fullname')
+            $('.modal-title').text('Remove as Admin')
+            $('.modal-text-content').html('<p class="text-center font-size-15">Are you sure you want to remove' + ' <span class="text-danger fw-bolder admin-fullname"></span> ' + 'an admin? Enter <b> password  </b> and click confirm  deletion below to proceed</p>')
+            $('.admin-fullname').text(name)
+            $('.confirm-password').text('Remove as Admin')
+            $('.confirm-password').addClass('confirm-remove-admin')
+            $("#make-admin-modal").modal('show') 
+        });
+
+
+        $(document).on('click', '.confirm-remove-admin', function(event){
+            event.preventDefault()
+            confirm_password(
+                function(){
+                    let url = 'member/' + member_id +'/remove-admin'
+                    $.ajax({
+                        url: url,
+                        headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                        method: 'GET',
+                        success : function(response){
+                            console.log(response)
+                            if(response.success){
+                                $("#make-admin-modal").modal('hide') 
+    
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'User is now an admin!',
+                                    text: 'User has been made an admin successfully',
+                                    confirmButtonColor: "#5664d2"
+                        
+                                });
+                            }
+                            
+                            $('#admin-password').val('')
+                            $('#delete-modal').modal('hide')
+                            $('.b-'+member_id).remove()
+                            $('.confirm-remove-admin').val('')
+                            $('.confirm-password').removeClass('confirm-remove-admin')
+                            
+                        },
+                        error : function(xhr, errmsg, err){
+                                console.log(xhr.status + ' ' + xhr.responseText)
+                                
+                        }
+                        
+                    });
+                },
+                function(){
+                    console.log('Sorry no perm')
+                    $('#user-password').addClass('is-invalid')
+                    $('#feedbackinvalid').css('display', 'block') 
+                }
+
+            )
+                
+            
+        });
+
+
+        function confirm_password(onSuccess, onError){
+            if (!$('#user-password').val()){                
+                $('#user-password').addClass('is-invalid')
+                console.log('Here it is')
+            }
+            else {
+                console.log('Starting call')
+                $.ajax({
+                    url: "{% url 'check_password' %}",
+                    headers : {'X-CSRFTOKEN': '{{ csrf_token }}' },
+                    method: 'POST',
+                    data : {
+                        password : $('#user-password').val()
+                    },
+                    success : function(response){
+                        if (response.has_permission){
+                            console.log('Success')
+                            onSuccess();
+                        }
+
+                        else {
+                            console.log('No perm')
+                            onError();
+                        }
+                    },
+
+                    error : function(xhr, errmsg, err){
+                            console.log(xhr.status + ' ' + xhr.responseText)
+                    }
+                });
+            }
+        }
+
+
     });
 </script>
 
@@ -183,4 +390,18 @@
     });
 </script>
 
-{% endblock extra_javascript%}
+
+<script>
+    $(document).ready(function(){
+        let msg = $('.success-message').val()
+        if (msg){
+            console.log(msg)
+            Swal.fire({
+                icon: 'success',
+                title: 'User added successfully!',
+                text:  msg,
+                confirmButtonColor: "#5664d2"
+            });
+        }       
+    });
+</script>

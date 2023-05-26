@@ -81,6 +81,18 @@ class AddMemberForm(forms.Form):
         if User.objects.filter(phone_number=phone_number).exists():
                 raise ValidationError("An account with this phone number exists")
         return phone_number
-
+    
+    def save(self):
+        email = self.cleaned_data['email']
+        phone_number = self.cleaned_data['phone_number']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['other_names']
+        user = User.objects.create(
+            first_name = first_name,
+            other_names = last_name,
+            phone_number = phone_number,
+            email = email
+        )
+        return user
 
    

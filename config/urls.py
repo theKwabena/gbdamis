@@ -17,7 +17,10 @@ urlpatterns = [
     #Dashboard
     path('', include('dashboard.urls')),
     #Member
-    path('', include('member.urls'))
+    path('', include('member.urls')),
+
+    #Elections
+    path('', include('elections.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

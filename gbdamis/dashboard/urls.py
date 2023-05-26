@@ -11,11 +11,17 @@ urlpatterns = [
     path('check-email', views.check_email, name='check_email'),
     path('check_phone', views.check_phone_number, name='check_phone_number'),
     path('remove-member/<int:id>', views.remove_member, name='remove-member'),
-    path('check_password', views.check_password, name='check_password'),
+    path('check-password', views.check_password, name='check_password'),
+    path('edit-member/<int:id>', views.edit_member, name='edit-member'),
+    path('member/<int:id>/make-admin', views.make_admin, name='make-admin'),
+    path('member/<int:id>/remove-admin', views.remove_admin, name ='remove-admin'),
 
     #news, announcements, events
     path('news', views.news, name = 'news'),
+    path('news/<int:id>', views.news_item, name='news'),
     path('announcements', views.announcements, name = 'announcements'),
+    path('announcement/<int:id>', views.announcement, name='announcement'),
+    path('announcement/<int:id>/edit', views.edit_announcement, name='delete'),
     path('add-annoucement', views.add_announcements, name = 'add-annoucement'),
     path('events', views.events, name='events'),
 

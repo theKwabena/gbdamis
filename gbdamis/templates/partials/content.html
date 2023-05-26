@@ -6,7 +6,7 @@
 		<div class="btn-group me-1 mt-2">
 			<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New <i class="mdi mdi-plus"></i></button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Member</a>
+				<a class="dropdown-item" href="{% url 'add-member' %}">Member</a>
 				<a class="dropdown-item" href="#">Event</a>
 				<a class="dropdown-item" href="#">News</a>
 				<a class="dropdown-item" href="#">Announcement</a>
@@ -90,8 +90,8 @@
 				<h4 class="card-title mb-n4">Members</h4>
 				<div class="d-flex justify-content-end align-items-center ">
 				
-					<button type="button" class="btn btn-primary waves-effect waves-light mx-2">Add Member</button>
-					<button type="button" class="btn btn-primary waves-effect waves-light">View All</button>
+					<a type="button" class="btn btn-primary waves-effect waves-light mx-2" href="{% url 'add-member' %}">Add Member</a>
+					<a type="button" class="btn btn-primary waves-effect waves-light" href="{% url 'members' %}">View All</a>
 				</div>
 				<hr>
 				{% comment %} <h4 class="card-title mb-4">Users</h4> {% endcomment %}

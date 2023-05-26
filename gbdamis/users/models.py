@@ -58,7 +58,7 @@ class User(AbstractBaseUser):
     
     @property
     def profile_completed(self):
-        return self.staff
+        return self.profile_complete
     
     @property
     def is_admin(self):
