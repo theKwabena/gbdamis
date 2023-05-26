@@ -27,3 +27,10 @@ def delete_nomination(request, pk ):
     nomination.delete()
     messages.success(request, 'Nomination deleted successfully')
     return redirect('admin-nominations')
+
+
+def approve_nominaton(request, pk):
+    nomination =  get_object_or_404(Nomination, pk=pk)
+    nomination.approved = True
+    messages.success(request, 'Nomination approved succesfully')
+    return redirect('admin-nominations')

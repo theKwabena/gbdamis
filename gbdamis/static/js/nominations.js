@@ -12,6 +12,12 @@ $(document).ready(function(){
         $('.actions-confirm-delete').attr('href', " ")
     };
 
+    const handleApprove = function(approve, decline){
+        if (approve){
+            
+        }
+    }
+
     //If message from a succes function
     if (msg){
         console.log(msg)
@@ -51,7 +57,7 @@ $(document).ready(function(){
 
 
     $(document).on('click', '.confirm-add-position', function(e){
-        $(this).attr('disabled', 'disabled')
+        $(this).addClass('hidden')
         e.preventDefault();
         console.log($('.modal-form').serialize())
         $.ajax({
@@ -181,7 +187,11 @@ $(document).ready(function(){
     $(document).on('click', '.actions-confirm-delete', function(){
         position_id = $(this).data('position_id')
         console.log('clicked')
-        $(this).attr('disabled', 'disabled')
+        $(this).hide()
+        $(this).after(
+           "<div class='spinner-border text-success mt-3'>"
+           +"<span class='sr-only'>Loading...</span></div>"
+        )
         location.href= "/position/" + position_id
     })
 
