@@ -2,13 +2,8 @@
 
 GBDA Membership Information System
 
-
-
-License: MIT
-
 ## Settings
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
 
 ## Basic Commands
 
@@ -18,7 +13,7 @@ Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings
 
 - To run **local server**, use this command
     
-      $python manage.py runserver --settings=config.settings.local
+      $ python manage.py runserver --settings=config.settings.local
 
 - To create a **superuser account**, use this command:
 

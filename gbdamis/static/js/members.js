@@ -1,6 +1,6 @@
 $('document').ready(function(){
     //Global Variables ID
-    let member_id;
+    let member_id; 
     //Confirm Password 
 
     //If page contains a message 

@@ -39,7 +39,8 @@ def nominations(request):
     nomination_form = NominationForm(None)
     if is_ajax(request) and request.method == 'POST':
         log.info(request.POST)
-        if request.POST.get('form_id') == 'position-form':
+        form_type = request.POST.get('form_id')
+        if form_type== 'position-form':
             position_form = PositionForm(request.POST or None)
             if position_form.is_valid():
                 position_form.save()
@@ -49,9 +50,9 @@ def nominations(request):
                     'text': 'New position added successfully'
                 })
             else:
-                log.info(position_form.errors.as_json())
+                log.warning(position_form.errors.as_json())
                 return JsonResponse({'success': False, 'errors' : position_form.errors.as_json()})
-        elif request.POST.get('form_id') == 'nomination-form':
+        elif form_type == 'nomination-form':
             nomination_form = NominationForm(request.POST or None)
             if nomination_form.is_valid():
                 nomination_form.save()

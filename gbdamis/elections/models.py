@@ -9,6 +9,7 @@ class Nomination(models.Model):
     nominee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     position = models.ForeignKey('Position', on_delete=models.CASCADE)
     approved = models.BooleanField(default=False)
+    declined = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.nominee.get_full_name()}: {self.position}"

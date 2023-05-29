@@ -29,8 +29,16 @@ def delete_nomination(request, pk ):
     return redirect('admin-nominations')
 
 
-def approve_nominaton(request, pk):
+def approve_nomination(request, pk):
     nomination =  get_object_or_404(Nomination, pk=pk)
     nomination.approved = True
+    nomination.save()
     messages.success(request, 'Nomination approved succesfully')
+    return redirect('admin-nominations')
+
+def decline_nomination(request, pk):
+    nomination =  get_object_or_404(Nomination, pk=pk)
+    nomination.declined = True
+    nomination.save()
+    messages.success(request, 'Nomination declined succesfully')
     return redirect('admin-nominations')
