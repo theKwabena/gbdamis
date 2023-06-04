@@ -20,8 +20,11 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if not remember:
-                    request.session.set_expiry(0)   
-                return redirect('home')
+                    request.session.set_expiry(0)  
+                if user.is_admin:
+                    return redirect('admin-dashboard')
+                else:  
+                    return redirect('member-dashboard')
             else:
                 form.add_error(None, 'Invalid username or password')
     else:

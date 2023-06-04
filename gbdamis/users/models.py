@@ -1,9 +1,13 @@
+from datetime import datetime
 from django.db import models
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import (
     AbstractBaseUser
 )
 
+from dues.models import Dues
 from .managers import UserManager
+
 # Create your models here.
 
 
@@ -68,6 +72,30 @@ class User(AbstractBaseUser):
     def is_verified(self):
         return self.verified
     
+    @property
+    def dues_owned(self):
+        dues = Dues.objects.filter(user=self, paid=False)
+        amount = 0
+        for due in dues:
+            amount += due.amount
+        if amount == 0:
+            return None
+        else:
+            return amount
+    
+    # get the current due owned by the user by the current month and year
+    @property
+    def current_due(self):
+        monthly_dues = Dues.objects.get(user=self, paid=False, month__month=datetime.now().month, month__year=datetime.now().year)
+        return monthly_dues
+        
+    
+    # get all dues owned by the user
+    @property
+    def dues(self):
+        dues = Dues.objects.filter(user=self, paid=False)
+        return dues
+    
 
     def generate_username(self):
         # Generate the username based on first name and last name
@@ -98,6 +126,9 @@ class User(AbstractBaseUser):
         if self.whatsapp_number == 'Same as Phone Number':
             self.whatsapp_number = self.phone_number  # Set field2 to the value of field1 if field2 is empty
         super().save(*args, **kwargs)
+
+    # get the amount owned by the user using the dues model, select all dues where the user is the user and paid is false
+    
     
 
 

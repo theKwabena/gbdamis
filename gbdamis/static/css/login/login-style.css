@@ -110,6 +110,10 @@ li {
 	list-style-type:none;
 }
 
+.error-message{
+	color: rgb(177, 25, 25);
+}
+
 /* .form-row .error-message {
 	margin-top: -40px;
 	color: rgb(177, 25, 25);

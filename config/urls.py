@@ -20,7 +20,10 @@ urlpatterns = [
     path('', include('member.urls')),
 
     #Elections
-    path('', include('elections.urls'))
+    path('', include('elections.urls')),
+
+    #Dues
+    path('', include('dues.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

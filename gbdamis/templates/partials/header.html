@@ -5,15 +5,15 @@
 				<div class="d-flex">
 					<!-- LOGO -->
 					<div class="navbar-brand-box">
-						<a href="{% url 'dashboard' %}" class="logo logo-dark"> <span class="logo-sm">
+						<a href="{% url 'admin-dashboard' %}" class="logo logo-dark"> <span class="logo-sm">
                                     <img src="{% static 'images/login/logo.png' %}" alt="logo-sm-dark" height="22">
                                 </span>
 							<span class="logo-lg">
-                                    <img src="{% static 'images/logo-dark.png' %}" alt="logo-dark" height="20">
+                                    <img src="{% static 'images/login/logo.png' %}" alt="logo-dark" height="20">
                                 </span>
 						</a>
-						<a href="{% url 'dashboard' %}" class="logo logo-light"> <span class="logo-sm">
-                                    <img src="{% static 'images/logo-sm-light.png' %}" alt="logo-sm-light" height="22">
+						<a href="{% url 'admin-dashboard' %}" class="logo logo-light"> <span class="logo-sm">
+                                    <img src="{% static 'images/login/logo.png' %}" alt="logo-sm-light" height="22">
                                 </span>
 							<span class="logo-lg">
                                     <img src="{% static 'images/login/logo.png' %}" alt="logo-light" height="70">
@@ -195,7 +195,7 @@
 								</a>
 								<a href="" class="text-reset notification-item">
 									<div class="d-flex">
-										<img src="{% static 'images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+										<img src="{% static 'images/login/logo.png' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
 										<div class="flex-1">
 											<h6 class="mb-1">James Lemire</h6>
 											<div class="font-size-12 text-muted">
@@ -222,7 +222,7 @@
 								</a>
 								<a href="" class="text-reset notification-item">
 									<div class="d-flex">
-										<img src="{% static 'images/users/avatar-4.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+										<img src="{% static 'images/login/logo.png' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
 										<div class="flex-1">
 											<h6 class="mb-1">Salena Layfield</h6>
 											<div class="font-size-12 text-muted">
@@ -242,7 +242,7 @@
 					</div>
 					<div class="dropdown d-inline-block user-dropdown">
 						<button type="button" class="btn header-item " id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-2.jpg' %}" alt="Header Avatar"> <span class="d-none d-xl-inline-block ms-1">{{user.username}}</span>
+							<img class="rounded-circle header-profile-user" src="{% static 'images/login/logo.png' %}" alt="Header Avatar"> <span class="d-none d-xl-inline-block ms-1">{{user.username}}</span>
 							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end mx-3">
