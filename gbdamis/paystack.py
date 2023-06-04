@@ -45,6 +45,13 @@ class Charge(Paystack):
         data = json.dumps(dict(
             amount=self.amount,
             email=self.member.email,
+            metadata=dict(
+                member_id=self.member.id,
+                member_first_name=self.member.name,
+                member_last_name=self.member.surname,
+                member_email=self.member.email,
+                member_phone=self.member.phone,
+            ),
             currency = 'GHS',
             mobile_money = dict(
                 phone = number if number else self.contact.number,
@@ -56,7 +63,11 @@ class Charge(Paystack):
             self.reference = response.json()['data']['reference']
             return response.json()
         else:
-            return None
+            error = dict(
+                error_code = response.status_code,
+                data = response.json()
+            )
+            return error
         
     def verify_otp(self, otp):
         verify_url = f'{self.base_url}/charge/submit_otp'
@@ -68,4 +79,23 @@ class Charge(Paystack):
         if response.status_code == 200:
             return response.json()
         else:
-            return None
+            error = dict(
+                error_code = response.status_code,
+                data = response.json()
+            )
+            return error
+        
+    def verify_payment(self):
+        verify_url = f'{self.base_url}/charge/verify'
+        data = json.dumps(dict(
+            reference=self.reference
+        ))
+        response = requests.post(verify_url, data=data, headers=self.headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            error = dict(
+                error_code = response.status_code,
+                data = response.json()
+            )
+            return error
