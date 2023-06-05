@@ -73,7 +73,7 @@ class User(AbstractBaseUser):
         return self.verified
     
     @property
-    def dues_owned(self):
+    def get_accumulated_dues(self):
         dues = Dues.objects.filter(user=self, paid=False)
         amount = 0
         for due in dues:
@@ -85,15 +85,15 @@ class User(AbstractBaseUser):
     
     # get the current due owned by the user by the current month and year
     @property
-    def current_due(self):
+    def get_current_due(self):
         monthly_dues = Dues.objects.get(user=self, paid=False, month__month=datetime.now().month, month__year=datetime.now().year)
         return monthly_dues
         
     
     # get all dues owned by the user
     @property
-    def dues(self):
-        dues = Dues.objects.filter(user=self, paid=False)
+    def get_all_dues(self):
+        dues = Dues.objects.filter(user=self)
         return dues
     
 

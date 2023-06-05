@@ -51,14 +51,19 @@
                 <i class="mdi mdi-wallet-outline fa-2x"> </i>
                 </div>
                 <div class="mx-3">
-                    <h4 class="font-size-13 text-muted">Amount Due</h4>
-                    <h2 class="font-size-30 mt-n1 text-truncate fw-bold">{{request.user.current_due.amount}}</h2>
+                    <h4 class="font-size-13 text-muted">Monthly Due </h4>
+                    <h2 class="font-size-30 mt-n1 text-danger fw-bold">{{request.user.get_current_due.amount}}</h2>
                 </div>
             {% comment %} <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Pay Dues <i class="mdi mdi-arrow-right ms-1"></i></a> {% endcomment %}
 
             </div>
             <hr class="mb-4">
-            <p class="mt-n3 text-center">Month: {{request.user.current_due.month |date:'F'}} </p>
+            <p class="mt-n3 text-center">Month: {{request.user.get_current_due.month |date:'F Y'}} | 
+                {% if request.user.get_current_due.paid %}
+                <span class="badge badge-soft-success"> Paid </span> </p>
+                {% else %}
+                <span class="badge badge-soft-danger"> Unpaid </span> </p>
+                {% endif %}
             {% comment %} <a href="javascript: void(0);" class="btn btn-success waves-effect waves-light btn-sm d-flex justify-content-center align-items-center ">Pay Dues <i class="mdi mdi-arrow-right ms-1"></i></a> {% endcomment %}
                 
         </div>
@@ -88,13 +93,13 @@
         
     </div>
     <div class="d-flex justify-content-end mt-n2">
-        <button type="button" class="btn btn-warning waves-effect waves-light mb-2 py-2">
-        <i class="ri-check-line align-middle me-2"></i> Pay All Dues
+        <button type="button" class="btn btn-dark waves-effect waves-light mb-2 py-2">
+        View All Dues 
         </button>
 
     </div>
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-success waves-effect waves-light py-2" id='pay-dues'>
+        <button type="button" class="btn btn-success waves-effect waves-light py-2" id='pay-dues' {% if request.user.get_current_due.paid %} disabled {% endif %}>
             <i class="ri-check-line align-middle me-2"></i> Pay Monthly Dues
             </button>
 
@@ -592,8 +597,36 @@
     </div>
 </div>
 
+<div id="pay-dues-modal" class="modal fade bs-delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pay Dues</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class='modal-text-content'> </div>                        
+                <div class="d-flex justify-content-center mt-3 hidden">
+                    <form  method='POST' class="needs-validation">
+                        <p class="fw-bolder mb-3">Amount : {{request.user.get_current_due.amount}}</p>
+                        <p class="fw-bolder mb-0">Mobile Money Number : </p>
+                        {% csrf_token %}
+                        <input type='text' class='form-control user_phone_number mb-3' id="payment-phone-number" value="{{request.user.phone_number}}" disabled/>
+                        <div class="mt-n3 mb-3">
+                           <a href="#" id="change_number"> change phone number </a>
+                        </div>
+                        <button type="button" class="btn btn-light mt-3 mx-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <button type="button" class="btn btn-danger mt-3 mx-2  proceed-payment">Proceed to Payment</button>
+                    </form>
+                    
+                </div> 
 
-</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 
 

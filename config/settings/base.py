@@ -267,7 +267,7 @@ WEBPACK_LOADER = {
 
 
 PAYSTACK_SECRET_KEY = env('PAYSTACK_SECRET_KEY')
-PAYSTACK_PUBLIC_KEY = env('PAYSTACK_PUBLIC_KEY')
+# PAYSTACK_PUBLIC_KEY = env('PAYSTACK_PUBLIC_KEY')
 
 # Your stuff...
 # ------------------------------------------------------------------------------
