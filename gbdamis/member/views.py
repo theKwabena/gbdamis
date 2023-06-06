@@ -10,4 +10,4 @@ def nomination(request):
 
 
 def forum(request):
-    return render(request, 'members-forum.html')
+    return render(request, 'forum/members-forum.html')

@@ -72,6 +72,8 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "webpack_loader",
+    'ckeditor', # CKEditor config
+    'ckeditor_uploader', # CKEditor media uploader
 ]
 
 LOCAL_APPS = [
@@ -79,7 +81,8 @@ LOCAL_APPS = [
     'gbdamis.authentication',
     'gbdamis.dashboard',
     'gbdamis.elections',
-    'gbdamis.dues'
+    'gbdamis.dues',
+    'gbdamis.forum'
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -271,3 +274,67 @@ PAYSTACK_SECRET_KEY = env('PAYSTACK_SECRET_KEY')
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono-lisa',
+        'width': 'auto',
+        # 'skin': 'office2013',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            # {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            # {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            # {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            # {'name': 'forms',
+            #  'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+            #            'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Undo', 'Redo', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', '-']},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            {'name': 'insert',
+             'items': ['Table', 'HorizontalRule', 'Smiley', ]},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'tools', 'items': ['Maximize']},
+            # {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            # {'name': 'yourcustomtools', 'items': [
+            #     # put the name of your editor.ui.addButton here
+            #     'Preview',
+            #     'Maximize',
+
+            # ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        # 'height': 291,
+        # 'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 1,
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
+    }
+}

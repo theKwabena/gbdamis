@@ -1,0 +1,97 @@
+{% extends 'partials/members-base.html' %}
+{% load static %}
+
+
+
+{% block content %}     
+<div>
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title font-size-20">Add New Forum Post</h4>
+                    <hr>
+                    {% comment %} <p class="card-title-desc">Parsley is a javascript form validation
+                        library. It helps you provide your users with feedback on their form
+                        submission before sending it to your server.</p> {% endcomment %}
+                 
+                        <form class="" action="#">
+                            {{ form.media }}
+                        {{ form.as_p }}
+                        <button class="btn btn-primary" type="submit" value = 'Save'> Add Project</button>
+                        </form>
+                
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="card-title ">Post</h4>
+                        {% comment %} s<button type="button" class="btn btn-primary waves-effect waves-light">Add Event</button> {% endcomment %}
+    
+                        {% comment %} <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"> <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item--> <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                            <!-- item--> <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                            <!-- item--> <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                            <!-- item--> <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                        </div> {% endcomment %}
+                        {% comment %} <button type="button mb-4" class="btn btn-primary waves-effect waves-light">Add New Event</button> {% endcomment %}
+    
+                    </div>
+                
+                    <hr>
+                    <div data-simplebar>
+                        <p> Featured Image :  </p>
+                        <div class="d-none" id='featured-box'>
+                            <img id="featured-image" alt="your image" height="150px" width="150px" class="mb-2" />
+                            <br>
+                            <a class="text-danger remove-featured" href="#"> Remove featured image </a>
+                        </div>
+                        <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+                        <hr>
+                        <p> Tags </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>               
+{% endblock content %}	
+
+{% block extra_javascript %}
+<script>
+      //preview the image
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('#featured-image').attr('src', e.target.result);
+            $('#featured-box').removeClass('d-none')
+          }
+      
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      
+      $("#id_image").change(function() {
+        readURL(this);
+        
+      });
+
+
+      $(document).on('click', function(){
+        $('.remove-featured').on('click', function(e){
+            e.preventDefault();
+            $('#featured-box').addClass('d-none')
+            $('#id_image').val('')
+        })
+      })
+</script>
+
+{% endblock extra_javascript %}

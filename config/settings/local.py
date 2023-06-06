@@ -56,3 +56,7 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 INSTALLED_APPS +=['colorlog']
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+CKEDITOR_UPLOAD_PATH="uploads/"
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_RESTRICT_BY_USER = True

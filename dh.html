@@ -100,7 +100,7 @@
 <div id="summary">
   <h1>AttributeError
        at /pay-dues/</h1>
-  <pre class="exception_value">&#x27;dict&#x27; object has no attribute &#x27;number&#x27;</pre>
+  <pre class="exception_value">&#x27;dict&#x27; object has no attribute &#x27;status&#x27;</pre>
   <table class="meta">
 
     <tr>
@@ -125,13 +125,13 @@
 
     <tr>
       <th>Exception Value:</th>
-      <td><pre>&#x27;dict&#x27; object has no attribute &#x27;number&#x27;</pre></td>
+      <td><pre>&#x27;dict&#x27; object has no attribute &#x27;status&#x27;</pre></td>
     </tr>
 
 
     <tr>
       <th>Exception Location:</th>
-      <td><span class="fname">/home/thekwabena/Desktop/gbdamis/gbdamis/utils/paystack.py</span>, line 44, in request_charge</td>
+      <td><span class="fname">/home/thekwabena/Desktop/gbdamis/gbdamis/dues/views.py</span>, line 21, in pay_current_dues</td>
     </tr>
 
 
@@ -160,7 +160,7 @@
     </tr>
     <tr>
       <th>Server time:</th>
-      <td>Mon, 05 Jun 2023 13:36:02 +0000</td>
+      <td>Mon, 05 Jun 2023 14:13:05 +0000</td>
     </tr>
   </table>
 </div>
@@ -182,43 +182,43 @@
           
 
           
-            <div class="context" id="c139753709296128">
+            <div class="context" id="c139680195928832">
               
-                <ol start="49" class="pre-context" id="pre139753709296128">
+                <ol start="49" class="pre-context" id="pre139680195928832">
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre></pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>        return inner</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>        return inner</pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>    else:</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>    else:</pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre></pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>        @wraps(get_response)</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>        @wraps(get_response)</pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>        def inner(request):</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>        def inner(request):</pre></li>
                 
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>            try:</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>            try:</pre></li>
                 
                 </ol>
               
               <ol start="56" class="context-line">
-                <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>                response = get_response(request)</pre> <span>…</span></li>
+                <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>                response = get_response(request)</pre> <span>…</span></li>
               </ol>
               
-                <ol start='57' class="post-context" id="post139753709296128">
+                <ol start='57' class="post-context" id="post139680195928832">
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>            except Exception as exc:</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>            except Exception as exc:</pre></li>
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>                response = response_for_exception(request, exc)</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>                response = response_for_exception(request, exc)</pre></li>
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>            return response</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>            return response</pre></li>
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre></pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre>        return inner</pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre>        return inner</pre></li>
                   
-                  <li onclick="toggle('pre139753709296128', 'post139753709296128')"><pre></pre></li>
+                  <li onclick="toggle('pre139680195928832', 'post139680195928832')"><pre></pre></li>
                   
               </ol>
               
@@ -230,7 +230,7 @@
               <details>
                 <summary class="commands">Local vars</summary>
             
-            <table class="vars" id="v139753709296128">
+            <table class="vars" id="v139680195928832">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -241,12 +241,12 @@
                 
                   <tr>
                     <td>exc</td>
-                    <td class="code"><pre>AttributeError(&quot;&#x27;dict&#x27; object has no attribute &#x27;number&#x27;&quot;)</pre></td>
+                    <td class="code"><pre>AttributeError(&quot;&#x27;dict&#x27; object has no attribute &#x27;status&#x27;&quot;)</pre></td>
                   </tr>
                 
                   <tr>
                     <td>get_response</td>
-                    <td class="code"><pre>&lt;bound method BaseHandler._get_response of &lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f1b05102b60&gt;&gt;</pre></td>
+                    <td class="code"><pre>&lt;bound method BaseHandler._get_response of &lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f09d871ab60&gt;&gt;</pre></td>
                   </tr>
                 
                   <tr>
@@ -267,43 +267,43 @@
           
 
           
-            <div class="context" id="c139753709200704">
+            <div class="context" id="c139680192304320">
               
-                <ol start="190" class="pre-context" id="pre139753709200704">
+                <ol start="190" class="pre-context" id="pre139680192304320">
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre></pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>        if response is None:</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>        if response is None:</pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>            # If it is an asynchronous view, run it in a subthread.</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>            # If it is an asynchronous view, run it in a subthread.</pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>            if asyncio.iscoroutinefunction(wrapped_callback):</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>            if asyncio.iscoroutinefunction(wrapped_callback):</pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>                wrapped_callback = async_to_sync(wrapped_callback)</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>                wrapped_callback = async_to_sync(wrapped_callback)</pre></li>
                 
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>            try:</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>            try:</pre></li>
                 
                 </ol>
               
               <ol start="197" class="context-line">
-                <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>                response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre> <span>…</span></li>
+                <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>                response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre> <span>…</span></li>
               </ol>
               
-                <ol start='198' class="post-context" id="post139753709200704">
+                <ol start='198' class="post-context" id="post139680192304320">
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>            except Exception as e:</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>            except Exception as e:</pre></li>
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>                response = self.process_exception_by_middleware(e, request)</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>                response = self.process_exception_by_middleware(e, request)</pre></li>
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>                if response is None:</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>                if response is None:</pre></li>
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>                    raise</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>                    raise</pre></li>
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre></pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139753709200704', 'post139753709200704')"><pre>        # Complain if the view returned None (a common error).</pre></li>
+                  <li onclick="toggle('pre139680192304320', 'post139680192304320')"><pre>        # Complain if the view returned None (a common error).</pre></li>
                   
               </ol>
               
@@ -315,7 +315,7 @@
               <details>
                 <summary class="commands">Local vars</summary>
             
-            <table class="vars" id="v139753709200704">
+            <table class="vars" id="v139680192304320">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -326,7 +326,7 @@
                 
                   <tr>
                     <td>callback</td>
-                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f1b041c9120&gt;</pre></td>
+                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f09d77cd120&gt;</pre></td>
                   </tr>
                 
                   <tr>
@@ -356,12 +356,12 @@
                 
                   <tr>
                     <td>self</td>
-                    <td class="code"><pre>&lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f1b05102b60&gt;</pre></td>
+                    <td class="code"><pre>&lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f09d871ab60&gt;</pre></td>
                   </tr>
                 
                   <tr>
                     <td>wrapped_callback</td>
-                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f1b02de3640&gt;</pre></td>
+                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f09d5f5c3a0&gt;</pre></td>
                   </tr>
                 
               </tbody>
@@ -377,43 +377,43 @@
           
 
           
-            <div class="context" id="c139753709330048">
+            <div class="context" id="c139680190587648">
               
-                <ol start="72" class="pre-context" id="pre139753709330048">
+                <ol start="72" class="pre-context" id="pre139680190587648">
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>        &quot;&quot;&quot;</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>        &quot;&quot;&quot;</pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>        return self</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>        return self</pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre></pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>    def __call__(self, func):</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>    def __call__(self, func):</pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>        @wraps(func)</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>        @wraps(func)</pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>        def inner(*args, **kwds):</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>        def inner(*args, **kwds):</pre></li>
                 
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>            with self._recreate_cm():</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>            with self._recreate_cm():</pre></li>
                 
                 </ol>
               
               <ol start="79" class="context-line">
-                <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>                return func(*args, **kwds)</pre> <span>…</span></li>
+                <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>                return func(*args, **kwds)</pre> <span>…</span></li>
               </ol>
               
-                <ol start='80' class="post-context" id="post139753709330048">
+                <ol start='80' class="post-context" id="post139680190587648">
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>        return inner</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>        return inner</pre></li>
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre></pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre></pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>class AsyncContextDecorator(object):</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>class AsyncContextDecorator(object):</pre></li>
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre>    &quot;A base class or mixin that enables async context managers to work as decorators.&quot;</pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre>    &quot;A base class or mixin that enables async context managers to work as decorators.&quot;</pre></li>
                   
-                  <li onclick="toggle('pre139753709330048', 'post139753709330048')"><pre></pre></li>
+                  <li onclick="toggle('pre139680190587648', 'post139680190587648')"><pre></pre></li>
                   
               </ol>
               
@@ -425,7 +425,7 @@
               <details>
                 <summary class="commands">Local vars</summary>
             
-            <table class="vars" id="v139753709330048">
+            <table class="vars" id="v139680190587648">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -441,7 +441,7 @@
                 
                   <tr>
                     <td>func</td>
-                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f1b041c9120&gt;</pre></td>
+                    <td class="code"><pre>&lt;function pay_current_dues at 0x7f09d77cd120&gt;</pre></td>
                   </tr>
                 
                   <tr>
@@ -451,7 +451,7 @@
                 
                   <tr>
                     <td>self</td>
-                    <td class="code"><pre>&lt;django.db.transaction.Atomic object at 0x7f1b02dba4a0&gt;</pre></td>
+                    <td class="code"><pre>&lt;django.db.transaction.Atomic object at 0x7f09d4782d10&gt;</pre></td>
                   </tr>
                 
               </tbody>
@@ -463,43 +463,41 @@
         
         <li class="frame user">
           
-            <code class="fname">/home/thekwabena/Desktop/gbdamis/gbdamis/dues/views.py</code>, line 20, in pay_current_dues
+            <code class="fname">/home/thekwabena/Desktop/gbdamis/gbdamis/dues/views.py</code>, line 21, in pay_current_dues
           
 
           
-            <div class="context" id="c139753709330176">
+            <div class="context" id="c139680196246208">
               
-                <ol start="13" class="pre-context" id="pre139753709330176">
+                <ol start="14" class="pre-context" id="pre139680196246208">
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>    member = request.user</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>    </pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>    </pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>    payment = Charge(member=member, amount=member.get_current_due.amount)</pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>    payment = Charge(member=member, amount=member.get_current_due)</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>    if request.method == &#x27;POST&#x27;:</pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>    if request.method == &#x27;POST&#x27;:</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>        phone_number = request.POST.get(&#x27;phone_number&#x27;, None)</pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>        phone_number = request.POST.get(&#x27;phone_number&#x27;, None)</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>        otp = request.POST.get(&#x27;otp&#x27;, None)</pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>        otp = request.POST.get(&#x27;otp&#x27;, None)</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>    if phone_number:</pre></li>
                 
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>    if phone_number:</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>        pay = payment.request_charge(momo_number=member.phone_number)</pre></li>
                 
                 </ol>
               
-              <ol start="20" class="context-line">
-                <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>        pay = payment.request_charge(momo_number=member.phone_number)</pre> <span>…</span></li>
+              <ol start="21" class="context-line">
+                <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>        if pay.status:</pre> <span>…</span></li>
               </ol>
               
-                <ol start='21' class="post-context" id="post139753709330176">
+                <ol start='22' class="post-context" id="post139680196246208">
                   
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>        if pay.status:</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>            return JsonResponse(pay.data)</pre></li>
                   
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>            return JsonResponse(pay.data)</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>        else:</pre></li>
                   
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>        else:</pre></li>
-                  
-                  <li onclick="toggle('pre139753709330176', 'post139753709330176')"><pre>            return JsonResponse(pay.data)</pre></li>
+                  <li onclick="toggle('pre139680196246208', 'post139680196246208')"><pre>            return JsonResponse(pay.data)</pre></li>
                   
               </ol>
               
@@ -511,7 +509,7 @@
               <details>
                 <summary class="commands">Local vars</summary>
             
-            <table class="vars" id="v139753709330176">
+            <table class="vars" id="v139680196246208">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -531,8 +529,16 @@
                   </tr>
                 
                   <tr>
+                    <td>pay</td>
+                    <td class="code"><pre>{&#x27;data&#x27;: {&#x27;message&#x27;: &#x27;Email address is required to create charge&#x27;,
+          &#x27;status&#x27;: False},
+ &#x27;status&#x27;: False,
+ &#x27;status_code&#x27;: 400}</pre></td>
+                  </tr>
+                
+                  <tr>
                     <td>payment</td>
-                    <td class="code"><pre>&lt;gbdamis.utils.paystack.Charge object at 0x7f1af27be6b0&gt;</pre></td>
+                    <td class="code"><pre>&lt;gbdamis.utils.paystack.Charge object at 0x7f09d461e500&gt;</pre></td>
                   </tr>
                 
                   <tr>
@@ -543,86 +549,6 @@
                   <tr>
                     <td>request</td>
                     <td class="code"><pre>&lt;WSGIRequest: POST &#x27;/pay-dues/&#x27;&gt;</pre></td>
-                  </tr>
-                
-              </tbody>
-            </table>
-            </details>
-          
-        </li>
-      
-        
-        <li class="frame user">
-          
-            <code class="fname">/home/thekwabena/Desktop/gbdamis/gbdamis/utils/paystack.py</code>, line 44, in request_charge
-          
-
-          
-            <div class="context" id="c139753709206208">
-              
-                <ol start="37" class="pre-context" id="pre139753709206208">
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            self.contact.provider = &#x27;tgo&#x27;</pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            return self.phone.provider</pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>        else :</pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            return None</pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre></pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>    def request_charge(self, momo_number=None):</pre></li>
-                
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>        if momo_number:</pre></li>
-                
-                </ol>
-              
-              <ol start="44" class="context-line">
-                <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            self.contact.number = momo_number</pre> <span>…</span></li>
-              </ol>
-              
-                <ol start='45' class="post-context" id="post139753709206208">
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>        data = json.dumps(dict(</pre></li>
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            amount=self.amount,</pre></li>
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            email=self.member.email,</pre></li>
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>            metadata=dict(</pre></li>
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>                member_id=self.member.id,</pre></li>
-                  
-                  <li onclick="toggle('pre139753709206208', 'post139753709206208')"><pre>                member_first_name=self.member.first_name,</pre></li>
-                  
-              </ol>
-              
-            </div>
-          
-
-          
-            
-              <details>
-                <summary class="commands">Local vars</summary>
-            
-            <table class="vars" id="v139753709206208">
-              <thead>
-                <tr>
-                  <th>Variable</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                  <tr>
-                    <td>momo_number</td>
-                    <td class="code"><pre>&#x27;0501459677&#x27;</pre></td>
-                  </tr>
-                
-                  <tr>
-                    <td>self</td>
-                    <td class="code"><pre>&lt;gbdamis.utils.paystack.Charge object at 0x7f1af27be6b0&gt;</pre></td>
                   </tr>
                 
               </tbody>
@@ -691,13 +617,11 @@ Traceback (most recent call last):
     response = wrapped_callback(request, *callback_args, **callback_kwargs)
   File "/usr/lib/python3.10/contextlib.py", line 79, in inner
     return func(*args, **kwds)
-  File "/home/thekwabena/Desktop/gbdamis/gbdamis/dues/views.py", line 20, in pay_current_dues
-    pay = payment.request_charge(momo_number=member.phone_number)
-  File "/home/thekwabena/Desktop/gbdamis/gbdamis/utils/paystack.py", line 44, in request_charge
-    self.contact.number = momo_number
+  File "/home/thekwabena/Desktop/gbdamis/gbdamis/dues/views.py", line 21, in pay_current_dues
+    if pay.status:
 
 Exception Type: AttributeError at /pay-dues/
-Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
+Exception Value: &#x27;dict&#x27; object has no attribute &#x27;status&#x27;
 </textarea>
   <br><br>
   <input type="submit" value="Share this traceback on a public website">
@@ -739,7 +663,7 @@ Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
         
           <tr>
             <td>csrfmiddlewaretoken</td>
-            <td class="code"><pre>&#x27;tZBCXP49bEoKJW2McdPV6eFdnIN33JBdiYNAus3QvKNBKOjov8rTavWVFc0IHlgD&#x27;</pre></td>
+            <td class="code"><pre>&#x27;CYSQoKEnm9KzYgQSFruOoAbBJwI1agufrX4OVnD4Gf9qZ87uYm6MsRsj10VGOS9F&#x27;</pre></td>
           </tr>
         
       </tbody>
@@ -1381,7 +1305,7 @@ Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
       
         <tr>
           <td>wsgi.input</td>
-          <td class="code"><pre>&lt;django.core.handlers.wsgi.LimitedStream object at 0x7f1b0292a7d0&gt;</pre></td>
+          <td class="code"><pre>&lt;django.core.handlers.wsgi.LimitedStream object at 0x7f09d5f575b0&gt;</pre></td>
         </tr>
       
         <tr>
@@ -2455,7 +2379,7 @@ Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
 
 <div id="djDebug" class="djdt-hidden" dir="ltr"
      
-     data-store-id="066f85bdfaf143a48d36f4fe04be4517"
+     data-store-id="2c26fbf2b4d34ab183a7ea0cb8110389"
      data-render-panel-url="/__debug__/render_panel/"
      
      
@@ -2516,7 +2440,7 @@ Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
   Time
   
     
-      <br><small>CPU: 168.60ms (459.97ms)</small>
+      <br><small>CPU: 504.26ms (6536.99ms)</small>
     
   
   
@@ -2592,7 +2516,7 @@ Exception Value: &#x27;dict&#x27; object has no attribute &#x27;number&#x27;
   SQL
   
     
-      <br><small>3 queries in 72.76ms</small>
+      <br><small>3 queries in 248.73ms</small>
     
   
   

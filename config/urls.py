@@ -10,6 +10,7 @@ urlpatterns = [
     path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+
     # User management
     path("users/", include("gbdamis.users.urls", namespace="users")),
     # Authentication
@@ -23,7 +24,14 @@ urlpatterns = [
     path('', include('elections.urls')),
 
     #Dues
-    path('', include('dues.urls'))
+    path('', include('dues.urls')),
+
+
+    #ckeditor
+    path('ckeditor', include('ckeditor_uploader.urls')),
+
+    #Forum
+    path('', include('forum.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

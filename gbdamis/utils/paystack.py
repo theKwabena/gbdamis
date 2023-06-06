@@ -2,10 +2,12 @@
 # The class should import the paystack secret key from project settings
 # The constructor should initialize the paystack secret key and set it as an instance variable
 # The class should set the headers for the paystack api using the secret key
-import json
+import json, logging
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 import requests
 
+log = logging.getLogger(__name__)
 
 class Paystack:
     def __init__(self):
@@ -23,25 +25,39 @@ class Charge(Paystack):
         self.amount = amount
         self.member = member
 
+        # self.data = {
+        #     'amount': self.amount,
+        #     'email': self.member.email,
+        #     'currency': 'GHS',
+        #     'metadata': {
+        #         'member_id': self.member.id
+        #     },
+        #     'mobile_money': {
+        #         'phone': self.contact['phone_number'],
+        #         'provider': self.get_provider()
+        #     },
+        # }
+
     def get_provider(self): 
         mtn = ['024', '054', '055']
         vodafone = ['020', '050']
         airteltigo = ['027', '057']
-        if self.contact.phone_number.startswith(tuple(mtn)):
-            self.contact.provider = 'MTN'
-            return self.phone.provider
-        elif self.contact.phone_number.startswith(tuple(vodafone)):
-            self.contact.provider = 'vod'
-            return self.phone.provider
-        elif self.contact.phone_number.startswith(tuple(airteltigo)):
-            self.contact.provider = 'tgo'
-            return self.phone.provider
+        if self.contact['phone_number'].startswith(tuple(mtn)):
+            self.contact['provider'] = 'mtn'
+            return self.contact['provider']
+        elif self.contact['phone_number'].startswith(tuple(vodafone)):
+            self.contact['provider'] = 'vod'
+            return self.contact['provider']
+        elif self.contact['phone_number'].startswith(tuple(airteltigo)):
+            self.contact['provider'] = 'tgo'
+            return self.contact['provider']
         else :
-            return None
+            return 'mtn'
 
     def request_charge(self, momo_number=None):
         if momo_number:
-            self.contact.phone_number = momo_number
+            self.contact['phone_number'] = momo_number
+        log.warning(self.contact['phone_number'])
         data = json.dumps(dict(
             amount=self.amount,
             email=self.member.email,
@@ -54,10 +70,10 @@ class Charge(Paystack):
             ),
             currency = 'GHS',
             mobile_money = dict(
-                phone =  self.contact.phone_number,
+                phone =  self.contact['phone_number'],
                 provider = self.get_provider()
             )
-        ))
+        ), cls=DjangoJSONEncoder)
         response = requests.post(self.charge_url, data=data, headers=self.headers)
         if response.status_code == 200:
             self.reference = response.json()['data']['reference']
