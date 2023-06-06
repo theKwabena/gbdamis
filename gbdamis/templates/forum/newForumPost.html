@@ -2,7 +2,12 @@
 {% load static %}
 
 
-
+{% block extra_css %}
+    <link href="{% static 'libs/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'libs/spectrum-colorpicker2/spectrum.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet">
+{% endblock extra_css %}
 {% block content %}     
 <div>
     <div class="row">
