@@ -26,12 +26,13 @@ urlpatterns = [
     #Dues
     path('', include('dues.urls')),
 
-
-    #ckeditor
-    path('ckeditor', include('ckeditor_uploader.urls')),
-
     #Forum
-    path('', include('forum.urls'))
+    path('', include('forum.urls')),
+
+    #Third Party App URLS
+    path('ckeditor', include('ckeditor_uploader.urls')),
+    path("select2/", include("django_select2.urls")),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

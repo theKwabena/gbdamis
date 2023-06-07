@@ -4,10 +4,11 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
-from ckeditor_uploader.fields import RichTextUploadingField
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class Like(models.Model):
@@ -27,6 +28,7 @@ class Post(models.Model):
     likes = GenericRelation(Like)
     def __str__(self):
         return self.title
+
 
 
 class Tag(models.Model):

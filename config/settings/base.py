@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     "webpack_loader",
     'ckeditor', # CKEditor config
     'ckeditor_uploader', # CKEditor media uploader
+    'django_select2',
 ]
 
 LOCAL_APPS = [
