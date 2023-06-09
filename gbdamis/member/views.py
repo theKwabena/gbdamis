@@ -9,5 +9,3 @@ def nomination(request):
     return render(request, 'nominations.html')
 
 
-def forum(request):
-    return render(request, 'forum/members-forum.html')

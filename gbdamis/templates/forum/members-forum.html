@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'new-forum-post' %}">
+                    <a class="nav-link" href="{% url 'new-post' %}">
                         Add New Post
                     </a>
                 </li>
@@ -39,29 +39,40 @@
                                     <hr class="mb-4"> {% endcomment %}
 
                                     <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="card p-1 border shadow-none">
-                                                <div class="p-3">
-                                                    <h5><a href="blog-details.html" class="text-dark">Beautiful Day with Friends</a></h5>
-                                                    <p class="text-muted mb-0">10 Apr, 2020</p>
+                                        {% for post in posts %}
+                                        <div class="col-lg-6 col-sm-12" >
+                                            <div class="card p-1 border shadow-lg ">
+                                                <div class="p-3 no-wrap">
+                                                    <h5><a href="blog-details.html" class="text-dark">{{post.get_forum_title }}</a></h5>
                                                 </div>
+
                                                 
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/small/img-2.jpg'%}" alt="" class="img-thumbnail">
+                                               
+                                                <div class="d-flex justify-content-center">
+                                                    <img 
+                                                    {% if post.featured_image %}
+                                                    src="{{post.featured_image.url}}"
+                                                    alt="Missing Image" 
+                                                    class="img-thumbnail"
+                                                    style="max-height: 300px"
+                                                    {% endif %}
+                                                     >
                                                 </div>
 
                                                 <div class="p-3">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> Project
-                                                            </a>
+                                                    <ul class="d-flex justify-content-between">
+                                                        <li class="list-inline-item">
+                                                            <i class="mdi mdi-account"></i>
+
+                                                          {{post.author.username}} | {{post.date_posted.date}}
                                                         </li>
                                                         <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-comment-dots align-middle text-muted me-1"></i> 12 Comments
-                                                            </a>
+                                                                {% if  post.comments.count == 0 and post.likes.count == 0 %}
+                                                                <i class="mdi mdi-checkbox-multiple-marked-circle"></i> 
+                                                                <i class="mdi mdi-message-reply-text"></i> 
+                                                                {% endif %}
                                                         </li>
+
                                                     </ul>
                                                     <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet</p>
 
@@ -71,159 +82,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="card p-1 border shadow-none">
-                                                <div class="p-3">
-                                                    <h5><a href="blog-details.html" class="text-dark">Drawing a sketch</a></h5>
-                                                    <p class="text-muted mb-0">24 Mar, 2020</p>
-                                                </div>
-                                                
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/small/img-6.jpg'%}" alt="" class="img-thumbnail">
-                                                    
-                                                    {% comment %} <div class="blog-play-icon">
-                                                        <a href="javascript: void(0);" class="avatar-sm d-block mx-auto">
-                                                            <span class="avatar-title rounded-circle font-size-18"><i class="mdi mdi-play"></i></span>
-                                                        </a>
-                                                    </div> {% endcomment %}
-                                                </div>
-                                                <div class="p-3">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> Development
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-comment-dots align-middle text-muted me-1"></i> 08 Comments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus quos</p>
-
-                                                    <div>
-                                                        <a href="javascript: void(0);" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="card p-1 border shadow-none">
-                                                <div class="p-3">
-                                                    <h5><a href="blog-details.html" class="text-dark">Drawing a sketch</a></h5>
-                                                    <p class="text-muted mb-0">24 Mar, 2020</p>
-                                                </div>
-                                                
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/small/img-6.jpg'%}" alt="" class="img-thumbnail">
-                                                    
-                                                    {% comment %} <div class="blog-play-icon">
-                                                        <a href="javascript: void(0);" class="avatar-sm d-block mx-auto">
-                                                            <span class="avatar-title rounded-circle font-size-18"><i class="mdi mdi-play"></i></span>
-                                                        </a>
-                                                    </div> {% endcomment %}
-                                                </div>
-                                                <div class="p-3">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> Development
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-comment-dots align-middle text-muted me-1"></i> 08 Comments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus quos</p>
-
-                                                    <div>
-                                                        <a href="javascript: void(0);" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="card p-1 border shadow-none ">
-                                                <div class="p-3"  style="max-height: 85px;">
-                                                    <h5><a href="blog-details.html" class="text-dark">Drawing a sketch and a long title for making nonsense claims that I dont understand and want to understand and make use of</a></h5>
-                                                    {% comment %} <p class="text-muted mb-0">24 Mar, 2020</p> {% endcomment %}
-                                                </div>
-                                                
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/small/img-6.jpg'%}" alt="" class="img-thumbnail">
-                                                    
-                                                    {% comment %} <div class="blog-play-icon">
-                                                        <a href="javascript: void(0);" class="avatar-sm d-block mx-auto">
-                                                            <span class="avatar-title rounded-circle font-size-18"><i class="mdi mdi-play"></i></span>
-                                                        </a>
-                                                    </div> {% endcomment %}
-                                                </div>
-                                                <div class="p-3">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> Development
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-comment-dots align-middle text-muted me-1"></i> 08 Comments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus quos</p>
-
-                                                    <div>
-                                                        <a href="javascript: void(0);" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="card p-1 border shadow-none">
-                                                <div class="p-3">
-                                                    <h5><a href="blog-details.html" class="text-dark">Drawing a sketch</a></h5>
-                                                    <p class="text-muted mb-0">24 Mar, 2020</p>
-                                                </div>
-                                                
-                                                <div class="position-relative">
-                                                    <img src="{% static 'images/small/img-6.jpg'%}" alt="" class="img-thumbnail">
-                                                    
-                                                    {% comment %} <div class="blog-play-icon">
-                                                        <a href="javascript: void(0);" class="avatar-sm d-block mx-auto">
-                                                            <span class="avatar-title rounded-circle font-size-18"><i class="mdi mdi-play"></i></span>
-                                                        </a>
-                                                    </div> {% endcomment %}
-                                                </div>
-                                                <div class="p-3">
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> Development
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item me-3">
-                                                            <a href="javascript: void(0);" class="text-muted">
-                                                                <i class="bx bx-comment-dots align-middle text-muted me-1"></i> 08 Comments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus quos</p>
-
-                                                    <div>
-                                                        <a href="javascript: void(0);" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
 
 

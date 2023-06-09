@@ -11,7 +11,7 @@ SECRET_KEY = env(
     default="pVOxMtl7UiOx80XgFhJHbNfFrpCWQD9zL1ga1Ic2DkHvMK5wCySc0fNArQZc1BIW",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", '172.20.10.6', '192.168.0.135']
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", '172.20.10.6', '10.30.29.86']
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -57,6 +57,6 @@ INSTALLED_APPS +=['colorlog']
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-CKEDITOR_UPLOAD_PATH="uploads/"
+CKEDITOR_UPLOAD_PATH="storages/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_RESTRICT_BY_USER = True

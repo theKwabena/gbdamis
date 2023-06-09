@@ -14,11 +14,28 @@
 								<span key="t-dashboards">Dashboard</span>
 							</a>
 						</li>
-						<li>
+						
+
+
+						{% comment %} <li>
 							<a href="{% url 'forum' %}" class=" waves-effect"> <i class="ri-team-fill"></i>
 								<span key="t-calendar" >Forum</span>
 							</a>
+						</li> {% endcomment %}
+						<li>
+							<a href="#" class="has-arrow waves-effect"> <i class="ri-mail-send-line"></i>
+								<span key="t-forum">Forum</span>
+							</a>
+							<ul class="sub-menu" aria-expanded="false">
+								<li><a href="{% url 'forum' %}" key="t-newpost">My Posts</a>
+								</li>
+								<li><a href="{% url 'new-post' %}" key="t-newpost">Add New Post</a>
+								</li>
+								
+							</ul>
 						</li>
+
+						
 
 						<li>
 							<a href="#" class=" waves-effect"> <i class="ri-user-star-fill"></i>
@@ -56,6 +73,8 @@
 						 </li>
 						 {% comment %} <li><a href="#" key="t-maintenance" >Print Results</a> {% endcomment %}
 						 </li>
+
+						 
 					</ul>
 				</div>
 				<!-- Sidebar -->

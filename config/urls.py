@@ -30,16 +30,17 @@ urlpatterns = [
     path('', include('forum.urls')),
 
     #Third Party App URLS
-    path('ckeditor', include('ckeditor_uploader.urls')),
+    # path('ckeditor', include('ckeditor_uploader.urls')),
     path("select2/", include("django_select2.urls")),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [
         path(
             "400/",

@@ -280,6 +280,9 @@ CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono-lisa',
         'width': 'auto',
+        'height' : '200',
+        'uiColor': '#CCEAEE',
+        'editorplaceholder': 'Start typing here...',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
@@ -293,16 +296,20 @@ CKEDITOR_CONFIGS = {
             #            'HiddenField']},
             '/',
             {'name': 'basicstyles',
-             'items': ['Undo', 'Redo', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+             'items': ['Undo', 'Redo','Format','FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-' 'RemoveFormat']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText',  '-']},
+            {'name': 'editing', 'items': [ '-', 'SelectAll']},
+            {'name': 'tools', 'items': ['Maximize']},
             {'name': 'paragraph',
              'items': ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', '-']},
             {'name': 'links', 'items': ['Link', 'Unlink']},
+            
             {'name': 'insert',
              'items': ['Table', 'HorizontalRule', 'Smiley', ]},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-            {'name': 'tools', 'items': ['Maximize']},
+            # {'name': 'styles', 'items': ['Format','FontSize']},
+            
+           
             # {'name': 'about', 'items': ['About']},
             '/',  # put this to force next toolbar on new line
             # {'name': 'yourcustomtools', 'items': [
@@ -324,6 +331,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join([
             'uploadimage', # the upload image feature
             # your extra plugins here
+            'editorplaceholder',
             'div',
             'autolink',
             'autoembed',

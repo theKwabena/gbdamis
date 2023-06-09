@@ -2,7 +2,7 @@ from django import forms
 from .models import Post,Tag,Comment
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-
+from crispy_forms.helper import FormHelper
 from django_select2 import forms as s2forms
 
 
@@ -16,7 +16,8 @@ class TagWidget(s2forms.ModelSelect2Widget):
 class PostForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {
         "class": "form-control",
-        "label": "Title"
+        "label": "Title",
+        'placeholder' : 'Enter post title here'
     })) 
 
     content = forms.CharField(widget=CKEditorUploadingWidget())
@@ -27,6 +28,10 @@ class PostForm(forms.ModelForm):
         widgets = {
            'tag' : s2forms.Select2TagWidget
             }
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False 
     
 
 
@@ -34,6 +39,8 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ['name']
+
+    
 
 
 class CommentForm(forms.ModelForm):
