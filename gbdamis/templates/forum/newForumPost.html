@@ -29,36 +29,31 @@
                         <button class="btn btn-primary" type="submit" value = 'Save'> Add Project</button>
                         </form> {% endcomment %}
 
-                        <form method='POST'>
+                        <form method='POST' id='form1'>
                             {% csrf_token %}
 
-                            {{form.errors}}
+                            
+
+                             {{form.errors}}
                             
                             {{ form.media }}
                             <div class="mb-3">
                                 {{form.title}}
                             </div>
                             {{form.content.errors}}
-                            {{form.content}}
-                            {% comment %} {{form.as_p}}
-     {% endcomment %}
-                            <div>
-                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                            </div>
+                            {{form.content}} 
                         </form>
-                
-
-                </div>
+                        </div>
             </div>
         </div> <!-- end col -->
 
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-body">
+                <di class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title ">Post</h4>
-                        <div>
-                            <button type="submit" class="btn btn-primary w-md">Publish Post</button>
+                        <div> 
+                            <button type="submit" class="btn btn-primary w-md" onclick="submitForm()">Publish Post</button>
                         </div>
                     </div>
                 
@@ -70,7 +65,12 @@
                             <br>
                             <a class="text-danger remove-featured" href="#"> Remove featured image </a>
                         </div>
-                        <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+                        <form method = "POST" id = "form2">
+                            {% csrf_token %}
+                            {{form.errors}}
+                            
+                        {{form.featured_image|as_crispy_field}}
+                        {% comment %} <input type="file" name="image" accept="image/*" class="form-control" id="id_image"> {% endcomment %}
                         <hr>
                        
                         <div>
@@ -78,8 +78,9 @@
                             {{form.tag|as_crispy_field}}
 
                         </div>
+                        </form>
                     </div>
-                </div>
+                </di>
             </div>
         </div>
     </div>
@@ -102,7 +103,7 @@
         }
       }
       
-      $("#id_image").change(function() {
+      $("#id_featured_image").change(function() {
         readURL(this);
         
       });
@@ -112,9 +113,16 @@
         $('.remove-featured').on('click', function(e){
             e.preventDefault();
             $('#featured-box').addClass('d-none')
-            $('#id_image').val('')
+            $('#id_featured_image').val('')
         })
       })
+</script>
+<script>
+    function submitForm() {
+        document.getElementById('form1').submit();
+        document.getElementById('form2').submit();
+        // Add more form submissions if needed
+    }
 </script>
 
 

@@ -6,12 +6,11 @@ from crispy_forms.helper import FormHelper
 from django_select2 import forms as s2forms
 
 
-class TagWidget(s2forms.ModelSelect2Widget):
+class TagWidget(s2forms.ModelSelect2TagWidget):
     search_fields = [
-        "name__icontains",
-        
+        'name__icontains',
     ]
-
+    
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {
@@ -24,9 +23,9 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tag']
+        fields = ['title', 'content', 'tag', 'featured_image']
         widgets = {
-           'tag' : s2forms.Select2TagWidget
+           'tag' : TagWidget
             }
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)

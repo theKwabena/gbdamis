@@ -7,6 +7,8 @@ urlpatterns = [
     path('posts', views.posts, name = 'posts'),
     path('add-post', views.addNewForumPost, name ='new-post'),
     path('edit-post/<int:id>', views.edit_post, name='edit'),
+
+    path('auto-json', views.TagAutoResponseView.as_view(), name='auto-json'),
     path('ckeditor/upload/', ckeditor_upload_wrapper, name='ckeditor_upload'),
     path('ckeditor/browse/', ckeditor_browse_wrapper, name='ckeditor_browse')
 ]

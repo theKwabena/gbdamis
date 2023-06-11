@@ -44,7 +44,7 @@ def sign_up_view(request):
                 _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))
                 login(request, _user)
 
-                return redirect('login')
+                return redirect('member-dashboard')
             # else:
             #     fmsg = ('Check form details and try again')
     else:

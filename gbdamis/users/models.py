@@ -29,12 +29,12 @@ class User(AbstractBaseUser):
     referee = models.CharField(max_length=255,null=True, blank=True)
     referee_contact = models.CharField(max_length=255, null=True, blank=True)
 
-
+    approved = models.BooleanField(default =False)
     active = models.BooleanField(default=True)
     verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
-    profile_complete = models.BooleanField(default=False)
+    # profile_complete = models.BooleanField(default=False)
  
     date_joined = models.DateTimeField(auto_now_add=True)
 
@@ -60,13 +60,17 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
     
+    
     @property
     def profile_completed(self):
-        return self.profile_complete
+        if self.region_or_zone or self.whatsapp_number or self.field:
+            return True
+        else:
+            return False
     
     @property
     def is_admin(self):
-        return self.admin
+        return self.is_admin
 
     @property
     def is_verified(self):
