@@ -12,11 +12,13 @@ def nomination(request):
 
 
 def member_profile(request):
-    form = MemberUpdateForm(request.POST or None)
+    form = MemberUpdateForm(request.POST or None, instance=request.user)
     if form.is_valid():
         form.save();
+    
+
     context = {
         'form': form
     }
 
-    return render(request, 'member/member-profile.html')
+    return render(request, 'member/member-profile.html', context)

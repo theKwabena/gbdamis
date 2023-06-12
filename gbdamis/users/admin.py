@@ -11,8 +11,8 @@ class CustomUserAdmin(admin.ModelAdmin):
     fieldsets = (
     ('Authentication', {'fields': ('username', 'email','password')}),
     ('Personal info', {'fields': ('first_name', 'other_names', 'date_of_birth', 'phone_number', 'whatsapp_number', 'nationality')}),
-    ('Job Details', {'fields': ('company_name','drilling_licence','region_or_zone','field','profession', 'education')}),
-    ('Permissions and Verificatiion', {'fields': ('admin', 'active', 'verified', 'is_staff', 'profile_complete')}),
+    ('Job Details', {'fields': ('company_name','drilling_license','region_or_zone','field','profession', 'education')}),
+    ('Permissions and Verificatiion', {'fields': ('admin', 'active', 'verified', 'is_staff',)}),
     ('Referee', {'fields': ('referee', 'referee_contact',)}),
 
     )

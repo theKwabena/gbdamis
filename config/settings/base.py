@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     'ckeditor', # CKEditor config
     'ckeditor_uploader', # CKEditor media uploader
     'django_select2',
+    'widget_tweaks',
 ]
 
 LOCAL_APPS = [

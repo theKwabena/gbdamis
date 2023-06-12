@@ -50,3 +50,8 @@ def sign_up_view(request):
     else:
         form = SignUpForm()
     return render(request, 'account/signup.html', {'form': form})
+
+
+def verification_sent(request):
+    
+    return render(request, 'account/verification_sent.html')

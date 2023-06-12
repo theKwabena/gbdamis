@@ -1,296 +1,179 @@
-{% extends 'partials/base.html' %}
+{% extends 'partials/members-base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
-{% block contents %}
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-4">Form Grid Layout</h4>
 
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="formrow-firstname-input" class="form-label">First Name</label>
-                                                <input type="text" class="form-control" id="formrow-firstname-input" placeholder="Enter Your First Name">
-                                            </div>
 
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-email-input" class="form-label">Email</label>
-                                                        <input type="email" class="form-control" id="formrow-email-input" placeholder="Enter Your Email ID">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-password-input" class="form-label">Password</label>
-                                                        <input type="password" class="form-control" id="formrow-password-input" placeholder="Enter Your Password">
-                                                    </div>
-                                                </div>
-                                            </div>
+{% block content %}
+<div class="row">   
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">User Information</h5>
 
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputCity" class="form-label">City</label>
-                                                        <input type="text" class="form-control" id="formrow-inputCity" placeholder="Enter Your Living City">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputState" class="form-label">State</label>
-                                                        <select id="formrow-inputState" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-lg-4">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputZip" class="form-label">Zip</label>
-                                                        <input type="text" class="form-control" id="formrow-inputZip" placeholder="Enter Your Zip Code">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                    <label class="form-check-label" for="gridCheck">
-                                                      Check me out
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.first_name class="form-control" id="floatingfnameInput" %}
+                                {% comment %} <input type="name" class="form-control" id="floatingfnameInput" placeholder="Enter Email address" > {% endcomment %}
+                                <label for="floatingfnameInput">{{form.first_name.label}}</label>
                             </div>
-                            <!-- end col -->
-
-                            <div class="col-xl-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-4">Horizontal Form Layout</h4>
-
-                                        <form>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">First name</label>
-                                                <div class="col-sm-9">
-                                                  <input type="text" class="form-control" id="horizontal-firstname-input" placeholder="Enter Your First name">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-email-input" class="col-sm-3 col-form-label">Email</label>
-                                                <div class="col-sm-9">
-                                                    <input type="email" class="form-control" id="horizontal-email-input" placeholder="Enter Your Email ID">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-password-input" class="col-sm-3 col-form-label">Password</label>
-                                                <div class="col-sm-9">
-                                                  <input type="password" class="form-control" id="horizontal-password-input" placeholder="Enter Your Password">
-                                                </div>
-                                            </div>
-
-                                            <div class="row justify-content-end">
-                                                <div class="col-sm-9">
-
-                                                    <div class="form-check mb-4">
-                                                        <input class="form-check-input" type="checkbox" id="horizontalLayout-Check">
-                                                        <label class="form-check-label" for="horizontalLayout-Check">
-                                                            Remember me
-                                                        </label>
-                                                    </div>
-
-                                                    <div>
-                                                        <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!-- end col -->
+                            
                         </div>
-                        <!-- end row -->
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.other_names class="form-control" id="floatingfnameInput" %}
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-4">Auto Sizing</h5>
-
-                                        <form class="row gy-2 gx-3 align-items-center">
-                                            <div class="col-sm-auto">
-                                                <label class="visually-hidden" for="autoSizingInput">Name</label>
-                                                <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
-                                            </div>
-                                            <div class="col-sm-auto">
-                                                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-text">@</div>
-                                                    <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Username">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-auto">
-                                                <label class="visually-hidden" for="autoSizingSelect">Preference</label>
-                                                <select class="form-select" id="autoSizingSelect">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-auto">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="autoSizingCheck">
-                                                    <label class="form-check-label" for="autoSizingCheck">
-                                                    Remember me
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-auto">
-                                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
+                                <label for="floatingemailInput">{{form.other_names.label}}</label>
                             </div>
-                            <!-- end col -->
+                            
                         </div>
-                        <!-- end row -->
+                    </div>
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-4">Inline forms</h5>
-
-                                        <form class="row row-cols-lg-auto g-3 align-items-center">
-                                            <div class="col-12">
-                                                <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-text">@</div>
-                                                    <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
-                                                </div>
-                                            </div>
-                                          
-                                            <div class="col-12">
-                                                <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-                                                <select class="form-select" id="inlineFormSelectPref">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                          
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                                                    <label class="form-check-label" for="inlineFormCheck">
-                                                    Remember me
-                                                    </label>
-                                                </div>
-                                            </div>
-                                          
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingemailInput" value={{request.user.email}} disabled >
+                                <label for="floatingemailInput">Email</label>
                             </div>
-                            <!-- end col -->
+                            
                         </div>
-                        <!-- end row -->
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.date_of_birth class="form-control" id="floatingdateInput" type="date"%}
 
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Floating labels</h5>
-                                        <p class="card-title-desc">Create beautifully simple form labels that float over your input fields.</p>
-
-                                        <form>
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingnameInput" placeholder="Enter Name" >
-                                                <label for="floatingnameInput">Name</label>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3">
-                                                        <input type="email" class="form-control" id="floatingemailInput" placeholder="Enter Email address" >
-                                                        <label for="floatingemailInput">Email address</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                                                            <option selected>Open this select menu</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-                                                        <label for="floatingSelectGrid">Works with selects</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="floatingCheck">
-                                                    <label class="form-check-label" for="floatingCheck">
-                                                      Check me out
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
+                                <label for="floatingdateInput">{{form.date_of_birth.label}}</label>
                             </div>
-                            <!-- end col -->
-
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-4">Inline Forms With Hstack</h5>
-
-                                        <form class="hstack gap-3">
-                                            <input class="form-control me-auto" type="text" placeholder="Add your item here..."
-                                                aria-label="Add your item here...">
-                                            <button type="button" class="btn btn-secondary">Submit</button>
-                                            <div class="vr"></div>
-                                            <button type="reset" class="btn btn-outline-danger">Reset</input>
-                                        </form>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!-- end col -->
+                            
                         </div>
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.phone_number class="form-control" id="floatingphoneNumberInput" %}
+                                <label for="floatingphoneNumber">{{form.phone_number.label}}</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.whatsapp_number class="form-control" id="floatingwhatsapp" %}
+                                <label for="floatingwhatsapp">{{form.whatsapp_number.label}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.company_name class="form-control" id="floatingfnameInput" %}
+                                {% comment %} <input type="name" class="form-control" id="floatingfnameInput" placeholder="Enter Email address" > {% endcomment %}
+                                <label for="floatingfnameInput">{{form.company_name.label}}</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.drilling_license class="form-control" id="floatingfnameInput" %}
+
+                                <label for="floatingemailInput">{{form.drilling_license.label}}</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.region_or_zone class="form-control" id="floatingfnameInput" %}
+                                <label for="floatingdateInput">{{form.region_or_zone.label}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.field class="form-control" id="floatingfnameInput" %}
+                                <label for="floatingdateInput">{{form.field.label}}</label>
+                            </div>
+                            
+                        </div>
+                    </div>   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.profession class="form-control" id="floatingphoneNumberInput" %}
+                                <label for="floatingphoneNumber">{{form.profession.label}}</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.education class="form-control" id="floatingwhatsapp" %}
+                                <label for="floatingwhatsapp">{{form.education.label}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.referee class="form-control" id="floatingphoneNumberInput" %}
+                                <label for="floatingphoneNumber">{{form.referee.label}}</label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.referee_contact class="form-control" id="floatingwhatsapp" %}
+                                <label for="floatingwhatsapp">{{form.referee_contact.label}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!-- end card body -->
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body pb-3 text-center">
+                    <img src="{{request.user.}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
+                    <h5 class="fw-normal mb-0"> 
+                        <!-- <input name="images" onchange="readURL(this);" type="file" accept="image/*"/> -->
+                        {{ user.first_name}} {{ user.other_names}}
+                        {% if user.verified == True %}
+                        <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" clip-rule="evenodd"/></svg>
+                    {% else %} <span class = "text-small text-danger" style = 'font-size:12px;'>unverified</span> {% endif %}
+                    </h5>
+                  
+                    <p class="">
+                        {{ user.email }} 
+                    </p>
+                    <hr>
+                    {% if not user.verified == True %}
+                    <!-- <button class="btn btn-gray-800" id="basicAlert">Update Project </button> -->
+                    
+                    <a href = "" class="font-size-20 text-primary fw-bold" id="">Verify Account</a> <hr>{% endif %} 
+                    <a  class="font-size-20 text-primary fw-bold" href="#" data-bs-toggle="modal" data-bs-target="#modal-default{{user.id}}"><span></span>Change Email</a>
+                    <hr>
+                    <a href = "#" class="font-size-20 text-primary fw-bold"> Change Password </a>
+                    <hr>
+                    <a href = "#" data-bs-toggle="modal" data-bs-target="#modal-supervisor" class="font-size-20 text-primary fw-bold"> Delete Account </a>
+                    
+
+                <hr>
+               
+            </div>
+        </div>
+    </div>
+</div>
+                         
                         <!-- end row -->
 
 {% endblock %}

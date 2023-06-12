@@ -23,7 +23,7 @@ class User(AbstractBaseUser):
     region_or_zone = models.ForeignKey('Zone', on_delete=models.SET_NULL, null=True, blank=True)
     nationality = models.CharField(max_length=255, null=True, blank=True)
     field = models.ForeignKey('Field', on_delete=models.SET_NULL, null=True, blank=True)
-    drilling_licence = models.CharField(max_length=255, null=True, blank=True)
+    drilling_license = models.CharField(max_length=255, null=True, blank=True)
     profession = models.CharField(max_length=255, null=True, blank=True)
     education = models.CharField(max_length=255,null=True, blank=True)
     referee = models.CharField(max_length=255,null=True, blank=True)
@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
     
     @property
     def is_admin(self):
-        return self.is_admin
+        return self.admin
 
     @property
     def is_verified(self):

@@ -16,7 +16,7 @@ class MemberUpdateForm(ModelForm):
             'company_name', 
             'region_or_zone',
             'field',
-            'drilling_licence',
+            'drilling_license',
             'profession',
             'education',
             'referee',
