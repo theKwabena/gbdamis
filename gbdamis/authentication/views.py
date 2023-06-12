@@ -54,4 +54,4 @@ def sign_up_view(request):
 
 def verification_sent(request):
     
-    return render(request, 'account/verification_sent.html')
+    return render(request, 'account/auth-confirm-mail.html')
