@@ -75,7 +75,7 @@ THIRD_PARTY_APPS = [
     'ckeditor', # CKEditor config
     'ckeditor_uploader', # CKEditor media uploader
     'django_select2',
-    'widget_tweaks',
+        'widget_tweaks',
 ]
 
 LOCAL_APPS = [
@@ -219,6 +219,11 @@ EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.smtp.EmailBackend",
 )
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = 'yes'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 

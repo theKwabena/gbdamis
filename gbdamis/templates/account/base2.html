@@ -1,42 +1,56 @@
-
 {% load static %}
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" >
 
-    <head>
-        
-        <meta charset="utf-8" />
-        <title>{% block title %}{% endblock title %} | Skote - Admin & Dashboard Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="Themesbrand" name="author" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-        {% block extra_css %}
-        {% endblock extra_css %}
-        <!-- Bootstrap Css -->
-        <link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-        <!-- Icons Css -->
-        <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-        <!-- App Css-->
-        <link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{title}} | GBDA Membership Information System</title>
+	<meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+	<meta content="Themesdesign" name="author" />
+	<!-- App favicon -->
+	<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+    <!--Extra Css-->
+    {% block extra_css %}{% endblock extra_css %}
+	<!-- Bootstrap Css -->
+	<link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+	<!-- Icons Css -->
+	<link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+	<!-- App Css-->
+	<link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
 
-    </head>
+	
+</head>
 
-{% block content %}
+<body  data-sidebar="dark">
+
+    {% block preloader %}
+    {% comment %} {% include 'partials/preloader.html' %} {% endcomment %}
+    {% endblock preloader %}
+	<!-- Begin page -->
+	<div id="layout-wrapper">
+
+       
     
-{% endblock content %}
-        <!-- JAVASCRIPT -->
-        <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
-        <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'libs/metismenu/dist/metisMenu.min.js' %}"></script>
-        <script src="{% static 'libs/simplebar/dist/simplebar.min.js' %}"></script>
-        <script src="{% static 'libs/node-waves/dist/waves.min.js' %}"></script>
-{% block extra_javascript %}
-{% endblock extra_javascript %}
-        <!-- App js -->
-        <script src="{% static 'js/app.js' %}"></script>
-
+	  
+		<!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		
+	{% block content %}{% endblock content %}</div>
+			
+	<!-- JAVASCRIPT -->
+	<script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
+	<script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+	<script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+    <!--Extra Javascript-->
+    {% block extra_javascript %} {% endblock extra_javascript %}
+	<!-- App js -->
+	<script src="{% static 'js/app.js' %}"></script>
 </body>
+
 </html>
-    
