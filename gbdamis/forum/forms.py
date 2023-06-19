@@ -1,5 +1,8 @@
 from django import forms
-from .models import Post,Tag,Comment
+
+
+from gbdamis.forum.models import Post,Tag,Comment
+
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from crispy_forms.helper import FormHelper

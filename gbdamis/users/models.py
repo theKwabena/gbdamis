@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser
 )
 
-from dues.models import Dues
+from gbdamis.dues.models import Dues
 from .managers import UserManager
 
 # Create your models here.

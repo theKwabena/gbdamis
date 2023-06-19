@@ -9,7 +9,9 @@ from django_select2.views import AutoResponseView
 
 
 from .forms import PostForm
-from . models import Post
+
+from gbdamis.forum.models import Post
+
 # Create your views here.
 log = logging.getLogger(__name__)
 

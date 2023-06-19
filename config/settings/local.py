@@ -26,7 +26,7 @@ CACHES = {
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
 
 # WhiteNoise
 # ------------------------------------------------------------------------------
@@ -60,3 +60,9 @@ INSTALLED_APPS +=['colorlog']
 CKEDITOR_UPLOAD_PATH="storages/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_RESTRICT_BY_USER = True
+
+
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-always-eager
+CELERY_TASK_ALWAYS_EAGER = False
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
+CELERY_TASK_EAGER_PROPAGATES = True

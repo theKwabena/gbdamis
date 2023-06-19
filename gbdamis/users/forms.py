@@ -41,6 +41,7 @@ class RegisterForm(forms.ModelForm):
         if password is not None and password != password_2:
             self.add_error("password_2", "Your passwords must match")
         return cleaned_data
+    
 
 
 class UserAdminCreationForm(forms.ModelForm):

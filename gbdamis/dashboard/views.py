@@ -11,11 +11,11 @@ from django.shortcuts import render
 
 
 
-from elections.models import Nomination, Position
-from elections.forms import PositionForm, NominationForm
-from authentication.forms import SignUpForm
+from gbdamis.elections.models import Nomination, Position
+from gbdamis.elections.forms import PositionForm, NominationForm
+from gbdamis.authentication.forms import SignUpForm
 from .forms import AnnouncementForm, AddMemberForm, NewsForm
-from.models import News, Announcement
+from gbdamis.dashboard.models import News, Announcement
 from .utils import is_ajax
 
 log = logging.getLogger(__name__)

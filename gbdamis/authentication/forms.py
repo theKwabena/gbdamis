@@ -106,6 +106,12 @@ class SignUpForm(UserCreationForm):
                 raise ValidationError("An account with this phone number exists")
         return phone_number
     
+         
+         
+        
+    
+
+    
 
 
     

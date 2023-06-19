@@ -14,20 +14,20 @@ urlpatterns = [
     # User management
     path("users/", include("gbdamis.users.urls", namespace="users")),
     # Authentication
-    path('', include('authentication.urls')),
+    path('', include('gbdamis.authentication.urls')),
     #Dashboard
-    path('', include('dashboard.urls')),
+    path('', include('gbdamis.dashboard.urls')),
     #Member
-    path('', include('member.urls')),
+    path('', include('gbdamis.member.urls')),
 
     #Elections
-    path('', include('elections.urls')),
+    path('', include('gbdamis.elections.urls')),
 
     #Dues
-    path('', include('dues.urls')),
+    path('', include('gbdamis.dues.urls')),
 
     #Forum
-    path('', include('forum.urls')),
+    path('', include('gbdamis.forum.urls')),
 
     #Third Party App URLS
     # path('ckeditor', include('ckeditor_uploader.urls')),

@@ -2,7 +2,7 @@ import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
-from .models import Position, Nomination
+from gbdamis.elections.models import Position, Nomination
 from .forms import PositionForm
 # Create your views here.
 log = logging.getLogger(__name__)

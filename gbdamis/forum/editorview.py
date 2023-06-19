@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from ckeditor_uploader.views import upload, browse
-from .models import UploadedFile
+from gbdamis.forum.models import UploadedFile
 import re
 
 @staff_member_required

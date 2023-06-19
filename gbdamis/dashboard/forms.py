@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 from crispy_forms.helper import FormHelper
 
-from .models import Event, News, Announcement
+from gbdamis.dashboard.models import Event, News, Announcement
 
 
 User = get_user_model()
