@@ -81,7 +81,7 @@ def send_verification_email(request):
     })
     send_email.delay(subject = email_subject, body = email_body,  recipient = request.user.email)
     
-    return render(request, 'account/auth-email-verification.html')
+    return render(request, 'emails/auth-email-verification.html')
 
 def activate_supervisor(request, uid64, token, email):
     try:
@@ -97,12 +97,8 @@ def activate_supervisor(request, uid64, token, email):
         user.verified = True
         user.save()
         email_subject = 'Welcome to GBDAMIS'
-        email_body = render_to_string('notifications/welcomesuperv.html', {
+        email_body = render_to_string('emails/welcome_emmail.html', {
             'user': request.user,
-            # 'domain': current_site,
-            # 'uid': urlsafe_base64_encode(force_bytes(request.user.id)),
-            # 'token' : generate_student_token.make_token(request.user),
-            # 'email' : email 
         })
         send_email.delay(subject = email_subject, body = email_body,  recipient = supervisor.email)
         messages.add_message(request, messages.SUCCESS, 'Email Verified Successfully')
