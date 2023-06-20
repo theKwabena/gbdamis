@@ -287,7 +287,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 0px 10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div class="v-text-align" style="font-family: 'Montserrat',sans-serif; font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="line-height: 140%;">Hello {{user.first_name}}, Please confirm {{user.email}} belongs to you by clicking verify email below or click visit <a rel="noopener" href="#" target="_blank">http://email-link</a><strong> </strong>to verify your email.</p>
+    <p style="line-height: 140%;">Hello {{user.first_name}}, Please confirm {{user.email}} belongs to you by clicking verify email below or click visit <a rel="noopener" href="http://{{domain}}{% url 'verify-user' uid64=uid token=token email=email %}" target="_blank">http://{{domain}}{% url 'verify-user' uid64=uid token=token email=email %}</a><strong> </strong>to verify your email.</p>
   </div>
 
       </td>
