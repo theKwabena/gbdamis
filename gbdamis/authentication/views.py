@@ -83,10 +83,9 @@ def send_verification_email(request):
     
     return render(request, 'account/auth-email-verification.html')
 
-def activate_supervisor(request, uid64, token, email):
+def verify_user(request, uid64, token, email):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
-        
         user = User.objects.get(id=uid)
     except Exception as e:
         user = None
@@ -104,7 +103,6 @@ def activate_supervisor(request, uid64, token, email):
             # 'token' : generate_student_token.make_token(request.user),
             # 'email' : email 
         })
-        send_email.delay(subject = email_subject, body = email_body,  recipient = supervisor.email)
-        messages.add_message(request, messages.SUCCESS, 'Email Verified Successfully')
+        send_email.delay(subject = email_subject, body = email_body,  recipient = user.email)
         return redirect ('verifysupervisor')
     return render(request, 'home/activation_failed.html', {'user': user,})
