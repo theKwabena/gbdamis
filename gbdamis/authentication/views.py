@@ -72,7 +72,7 @@ def verification_sent(request):
 def send_verification_email(request):
     current_site = get_current_site(request)
     email_subject = 'Activate Your Physics FYP Account'
-    email_body = render_to_string('account/emails/confirm_verification_email.html', {
+    email_body = render_to_string('emails/confirm_verification_email.html', {
         'user': request.user,
         'domain': current_site,
         'uid': urlsafe_base64_encode(force_bytes(request.user.id)),
@@ -81,9 +81,9 @@ def send_verification_email(request):
     })
     send_email.delay(subject = email_subject, body = email_body,  recipient = request.user.email)
     
-    return render(request, 'emails/auth-email-verification.html')
+    return render(request, 'account/auth-email-verification.html')
 
-def verify_user(request, uid64, token, email):
+def verify_user(request, uid64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
         user = User.objects.get(id=uid)
@@ -91,14 +91,12 @@ def verify_user(request, uid64, token, email):
         user = None
         
     if user and generate_verification_token.check_token(user, token):
-        
-        user.email = email
         user.verified = True
         user.save()
         email_subject = 'Welcome to GBDAMIS'
-        email_body = render_to_string('emails/welcome_emmail.html', {
+        email_body = render_to_string('emails/welcome_email.html', {
             'user': request.user,
         })
         send_email.delay(subject = email_subject, body = email_body,  recipient = user.email)
-        return redirect ('verifysupervisor')
+        return redirect ('verification')
     return render(request, 'home/activation_failed.html', {'user': user,})
