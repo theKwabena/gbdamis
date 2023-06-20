@@ -65,9 +65,11 @@ def sign_up_view(request):
 
 def verification_sent(request):
     
-    return render(request, 'account/auth-email-verification.html')
+    return render(request, 'account/account_verification_submitted.html')
 
+def verified(request):
 
+    return (request, 'account/account-verified-submitted')
 
 def send_verification_email(request):
     current_site = get_current_site(request)

@@ -1,0 +1,94 @@
+{% extends 'account/base2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Email Verification{% endblock title %}
+{% block content %}
+
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center mb-3 text-muted">
+                            <a href="{% url 'member-dashboard' %}" class="d-block auth-logo">
+                                <img src="{% static 'images/login/logo.png' %}" alt="" height="100">
+                                 {% comment %} <img src="{% static 'images/logo-light.png' %}" alt="" height="20" class="auth-logo-light mx-auto"> {% endcomment %}
+                            </a>
+
+                        </div>
+                    </div>
+                </div> 
+                <!-- end row -->
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card">
+                            
+                            <div class="card-body"> 
+                                
+                                <div class="">
+                                    <div class="text-center">
+                                        <div class="p-2 mt-4">
+                                            <img class ="img-fluid"  src="{% static 'images/login/email.png' %}">
+                                            <h4>Verified!</h4>
+                                            <p>Your account has been verified and sent to the admin for approval. Your will recieve your username once your account is verified. <span class="fw-bold">example@abc.com</span>, Please check your mail box and verify your email</p>
+                                            {% comment %} <div class="mt-4">
+                                                <a href="{% url 'member-dashboard' %}" class="btn btn-success w-md">Verify email</a>
+                                            </div> {% endcomment %}
+                                            <div class="mt-5 text-center">
+                                              
+                                                <p>Didn't receive an email ? <a href="#" class="fw-medium text-primary fw-bolder"> Resend Email</a> | <a id="email" href="#" class="fw-medium text-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#email-modal"> Change Email</a> </p>
+                                                {% comment %} <p>© <script>document.write(new Date().getFullYear())</script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p> {% endcomment %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="modal fade" id="email-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header py-3 px-4">
+                                        <h5 class="modal-title" id="modal-title">Change Email</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+            
+                                    <div class="modal-body p-4">
+                                        <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="d-flex justify-content-center mb-3">
+                                                        <div class="">Enter a <span class="fw-bolder" >valid and active </span> email address
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- end col-->
+                                                <div class="col-12s d-flex justify-content-center">
+                                                    <div class="mb-3">
+                                                        <input type="email" class="form-control" id="event-title">
+                                                    </div>
+                                                </div> <!-- end col-->
+                                            </div> <!-- end row-->
+                                            <div class="row mt-2">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <button type="button" class="btn font-16 btn-primary waves-effect waves-light"
+                                                    id="btn-new-event" data-bs-toggle="modal" data-bs-target="#email-modal">
+                                                   Send Verifcation Email
+                                                </button>
+                                                </div> <!-- end col-->
+                                            </div> <!-- end row-->
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end modal-content-->
+                            </div>
+                            <!-- end modal dialog-->
+                        </div>
+        {% endblock content %}
