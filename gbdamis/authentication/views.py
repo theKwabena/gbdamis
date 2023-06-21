@@ -13,7 +13,7 @@ from .forms import (
     LoginForm, SignUpForm
 )
 
-from gbdamis.notifications.tasks import send_email, send_all_admin_email
+from .tasks import send_all_admin_email, send_email
 from .utils import generate_verification_token
 
 User = get_user_model()
@@ -58,7 +58,7 @@ def sign_up_view(request):
                 'member': request.user,
                 'domain': current_site,
                 })
-                send_all_admin_email(subject = email_subject, body = email_body,  recipient = request.user.email)
+                send_all_admin_email.delay(subject = email_subject, body = email_body)
 
                 #Log in the user
                 _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))

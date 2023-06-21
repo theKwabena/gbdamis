@@ -8,8 +8,9 @@ from django.contrib.auth.models import (
 )
 
 from gbdamis.dues.models import Dues
-from gbdamis.notifications.tasks import send_email
 
+
+from .tasks import send_email
 from .managers import UserManager
 
 
@@ -158,6 +159,8 @@ class User(AbstractBaseUser):
             self.username = self.generate_username()
         if self.whatsapp_number == 'Same as Phone Number':
             self.whatsapp_number = self.phone_number  # Set field2 to the value of field1 if field2 is empty
+
+        # send admin message on save
         super().save(*args, **kwargs)
 
 
