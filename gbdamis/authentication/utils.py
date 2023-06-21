@@ -1,5 +1,10 @@
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import six
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 class UserVerificationEmailTokenGenerator(PasswordResetTokenGenerator):
@@ -8,5 +13,7 @@ class UserVerificationEmailTokenGenerator(PasswordResetTokenGenerator):
         return (six.text_type (user.id) + six.text_type(timestamp) + six.text_type(user.verified))
     
 generate_verification_token = UserVerificationEmailTokenGenerator()
+
+
 
 

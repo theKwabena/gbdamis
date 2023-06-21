@@ -1,12 +1,17 @@
 from datetime import datetime
 from django.db import models
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+
 from django.contrib.auth.models import (
     AbstractBaseUser
 )
 
 from gbdamis.dues.models import Dues
+from gbdamis.notifications.tasks import send_email
+
 from .managers import UserManager
+
 
 # Create your models here.
 
@@ -34,6 +39,7 @@ class User(AbstractBaseUser):
     verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
+    declined = models.BooleanField(default=False)
     # profile_complete = models.BooleanField(default=False)
  
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -47,10 +53,11 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
-
+    @property
     def get_full_name(self):
         return f"{self.first_name} {self.other_names}"
     
+    @property
     def get_short_name(self):
         return f"{self.first_name} {self.other_names}"
     
@@ -100,6 +107,28 @@ class User(AbstractBaseUser):
         dues = Dues.objects.filter(user=self)
         return dues
     
+    
+    def approve_user(self):
+        self.approved = True
+        self.save()
+        email_subject = 'Welcome to GBDAMIS'
+        email_body = render_to_string('emails/welcome_email.html', {
+            'user': self,
+        })
+        send_email.delay(subject = email_subject, body = email_body,  recipient = self.email)
+      
+        return self.approved
+    
+    def decline_user(self):
+        self.declined = True
+        self.save()
+        return self.declined
+    
+    def verify_user(self):
+        self.verified = True
+        self.save()
+        return self.verified
+        
 
     def generate_username(self):
         # Generate the username based on first name and last name
@@ -130,6 +159,7 @@ class User(AbstractBaseUser):
         if self.whatsapp_number == 'Same as Phone Number':
             self.whatsapp_number = self.phone_number  # Set field2 to the value of field1 if field2 is empty
         super().save(*args, **kwargs)
+
 
     # get the amount owned by the user using the dues model, select all dues where the user is the user and paid is false
     

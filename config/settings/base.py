@@ -90,7 +90,8 @@ LOCAL_APPS = [
     'gbdamis.dashboard.apps.DashboardConfig',
     'gbdamis.elections',
     'gbdamis.dues',
-    'gbdamis.forum'
+    'gbdamis.forum',
+    'gbdamis.notifications'
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

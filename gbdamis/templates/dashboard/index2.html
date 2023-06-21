@@ -1,20 +1,327 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block extra_css %}
+    <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel ="stylesheet" type='text/css' />
+
 	<!-- jquery.vectormap css -->
-	<link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css" />
-	<!-- DataTables -->
-	<link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
-	<!-- Responsive datatable examples -->
-	<link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+	
 {% endblock extra_css %}
 
 {% block content %}
-{% include "partials/content.html" %}
+
+{% if messages %}
+    {% for message in messages %}
+    
+        {% if message.tags == 'success' %}
+        <input type='hidden' class='success-message' value = '{{message}}'/>    
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+	<div class="col-xl-2 mt-n5 mb-3">
+		<div class="btn-group me-1 mt-2">
+			<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New <i class="mdi mdi-plus"></i></button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="{% url 'add-member' %}">Member</a>
+				<a class="dropdown-item" href="#">Event</a>
+				<a class="dropdown-item" href="#">News</a>
+				<a class="dropdown-item" href="#">Announcement</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#">Amount for Dues</a>
+			</div>
+		</div><!-- /btn-group -->
+	</div>
+	
+</div>
+<div class="row">
+			<div class="col-xl-4">
+				<div class="card overflow-hidden rounded-3">
+					<div class="card-body pt-0 rounded-3 mb-n2">
+						
+						<div class="py-1 mt-4 d-flex justify-content-center align-items-center">
+							<div class="rounded-circle px-2 border border-2"> 
+							<i class="mdi mdi-account-multiple fa-2x"> </i>
+							</div>
+							<div class="mx-3">
+								<h4 class="font-size-13 text-muted">Members</h4>
+								<h2 class="font-size-30 mt-n1 text-truncate fw-bold">200</h2>
+							</div>
+						</div>
+						<hr class="mb-4">
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-4 mb-2">
+				<div class="card  overflow-hidden rounded-3">
+					<div class="card-body pt-0 rounded-3 mb-n2">
+						
+						<div class="py-1 mt-4 d-flex justify-content-center align-items-center">
+							<div class="rounded-circle px-2 border border-2"> 
+							<i class="mdi mdi-account-check fa-2x"> </i>
+							</div>
+							<div class="mx-3">
+								<h4 class="font-size-13 text-muted text-truncate">Paid Members</h4>
+								<h2 class="text-soft-danger   font-size-30 mt-n1 text-truncate fw-bold">150</h2>
+							</div>			
+						</div>
+						<hr class="mb-4">
+						<i class="mdi mdi-calender-month fa-2x"> </i>
+						<p class="mt-n3 mb-n1 text-success fw-bold text-center">  Current Month : January </p>							
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="col-xl-4 mb-2">
+				<div class="card  overflow-hidden rounded-3">
+					<div class="card-body pt-0 rounded-3 mb-n2">
+						
+						<div class="py-1 mt-4 d-flex justify-content-center align-items-center">
+							<div class="rounded-circle px-2 border border-2"> 
+							<i class="mdi mdi-account-cancel fa-2x"> </i>
+							</div>
+							<div class="mx-3">
+								<h4 class="font-size-13 text-muted text-truncate">Owing Members</h4>
+								<h2 class="text-soft-danger   font-size-30 mt-n1 text-truncate fw-bold">150/200</h2>
+							</div>
+						{% comment %} <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Pay Dues <i class="mdi mdi-arrow-right ms-1"></i></a> {% endcomment %}
+			
+						</div>
+						<hr class="mb-4">
+						
+					</div>
+					
+				</div>
+			</div>
+
+</div>
+
+
+<div class="row">
+	<div class="col-lg-8">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title mb-n4">Members</h4>
+				<div class="d-flex justify-content-end align-items-center ">
+				
+					<a type="button" class="btn btn-primary waves-effect waves-light mx-2" href="{% url 'add-member' %}">Add Member</a>
+					<a type="button" class="btn btn-primary waves-effect waves-light" href="{% url 'members' %}">View All</a>
+				</div>
+				<hr>
+				{% comment %} <h4 class="card-title mb-4">Users</h4> {% endcomment %}
+				<div class="table-responsive">
+					<table class="table table-centered  align-items-center  dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+						<thead class="table-light">
+							<tr>
+								
+								<th class="text-center"> Username </th>
+								{% comment %} <th>Date </th> {% endcomment %}
+								<th class="text-center">Name</th>
+								{% comment %} <th class="text-center">Phone Number</th> {% endcomment %}
+								{% comment %} <th class="text-center">Region/Zone</th> {% endcomment %}
+								<th class="text-center"> Status</th>
+								<th style="width: 120px;">Approve / Decline</th>
+							</tr>
+						</thead>
+						<tbody>
+                            {% for member in members %}
+							<tr>
+								
+								<td class="text-center"><a href="javascript: void(0);" class="text-dark fw-bold text-center">{{member.username}}</a> 
+								</td>
+								{% comment %} <td>04 Apr, 2020</td> {% endcomment %}
+								<td class="text-center"> {{member.get_full_name}} </td>
+                                {% if member.approved %}
+								<td class="text-center">
+									<div class="font-size-12 text-success"> Approved</div>
+								</td>
+                                <td class="text-center">
+                                    <i class="text-success mdi mdi-checkbox-marked-circle fa-2x"> </i>
+                                </td>                                
+                                {% elif member.declined %}
+                                <td class="text-center">
+									<div class="font-size-12 text-danger">Declined</div>
+                                    <i class="mdi mdi-trash-can fa-3x"> </i>
+								</td>
+                                {% else %}
+                                <td class="text-center">
+									<div class="font-size-12 text-primary">Pending Approval</div>
+								</td>
+                                <td class="text-center d-flex justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-outline-success waves-effect waves-light mx-1 approve_user" data-user-id="{{member.id}}" data-user-name="{{member.get_full_name}}">Approve</button>
+                                    <button type="button" class="btn btn-outline-danger waves-effect waves-light mx-1 decline_user" data-user-id="{{member.id}}" data-user-name="{{member.get_full_name}}">Decline</button>
+                                </td>
+                                {% endif %}
+								{% comment %} <td class="text-center">
+									<div class="font-size-12"></div>
+								</td> {% endcomment %}
+							</tr>
+                            {% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex justify-content-between align-items-center">
+					<h4 class="card-title ">Activity Feed</h4>
+					<button type="button" class="btn btn-primary waves-effect waves-light">Add Event</button>
+
+					{% comment %} <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false"> <i class="mdi mdi-dots-vertical"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end">
+						<!-- item--> <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+						<!-- item--> <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+						<!-- item--> <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+						<!-- item--> <a href="javascript:void(0);" class="dropdown-item">Action</a>
+					</div> {% endcomment %}
+					{% comment %} <button type="button mb-4" class="btn btn-primary waves-effect waves-light">Add New Event</button> {% endcomment %}
+
+				</div>
+			
+				<hr>
+				<div data-simplebar style="max-height: 330px;">
+					<ul class="list-unstyled activity-wid">
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-edit-2-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">28 Apr, 2020 <small class="text-muted">12:07 am</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Responded to need “Volunteer Activities”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-user-2-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">21 Apr, 2020 <small class="text-muted">08:01 pm</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Added an interest “Volunteer Activities”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-bar-chart-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">17 Apr, 2020 <small class="text-muted">09:23 am</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Joined the group “Boardsmanship Forum”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-mail-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">11 Apr, 2020 <small class="text-muted">05:10 pm</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Responded to need “In-Kind Opportunity”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-calendar-2-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">07 Apr, 2020 <small class="text-muted">12:47 pm</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Created need “Volunteer Activities”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-edit-2-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">05 Apr, 2020 <small class="text-muted">03:09 pm</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Attending the event “Some New Event”</p>
+								</div>
+							</div>
+						</li>
+						<li class="activity-list">
+							<div class="activity-icon avatar-xs"> <span class="avatar-title bg-soft-primary text-primary rounded-circle">
+										<i class="ri-user-2-fill"></i>
+									</span>
+							</div>
+							<div>
+								<div>
+									<h5 class="font-size-13">02 Apr, 2020 <small class="text-muted">12:07 am</small></h5>
+								</div>
+								<div>
+									<p class="text-muted mb-0">Responded to need “In-Kind Opportunity”</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    </div>
+
+</div>
+
+
+    <!--Actins Modal-->
+    <div id="actions-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="actions-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="actions-modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-size-15 actions-modal-content"> </p>
+                    <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-light mt-3 mx-2" class="btn-close" data-bs-dismiss="modal" >Cancel</button>
+                    <a type="button" class="btn btn-danger mt-3 mx-2 confirm-button" id="delete-news"></a>
+                </div>
+            </div>
+         </div>
+    </div>
+    
 {% endblock content %}
 {% block extra_javascript %}
+    <script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}">  </script>
+
    <!-- apexcharts -->
-    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+    {% comment %} <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 
     <!-- jquery.vectormap map -->
     <script src="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
@@ -26,8 +333,56 @@
     
     <!-- Responsive examples -->
     <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script> {% endcomment %}
 
-    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+    {% comment %} <script src="{% static 'js/pages/dashboard.init.js' %}"></script> {% endcomment %}
+
+
+    <script>
+        
+       $(document).ready(function(){
+        const actions = function(title, body, button_name, url){
+            $('.actions-modal-title').text(title)
+            $('.actions-modal-content').html(body)
+            $('.confirm-button').text(button_name)
+            $('.confirm-button').attr('href', url)
+            $('#actions-modal').modal('show')
+        }
+
+        
+        $('.approve_user').on('click', function(){
+            const member = $(this).data('user-id')
+            const name = $(this).data('user-name')
+            const url = `/members/${member}/approve`
+            actions('Approve User', `Are you sure you want to  <span class="fw-bold"> approve </span> ${name}?`, 'Approve',  url)
+
+        })
+
+        $('.decline_user').on('click', function(){
+            const member = $(this).data('user-id')
+            const name = $(this).data('user-name')
+            const url = `/members/${member}/decline`
+            actions('Decline User', `Are you sure you want to  <span class="fw-bold"> decline </span> ${name}?`, 'Decline',  url)
+
+        })
+
+       })
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            let msg = $('.success-message').val()
+            if (msg){
+                console.log(msg)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User added successfully!',
+                    text:  msg,
+                    confirmButtonColor: "#5664d2"
+                });
+            }       
+        });
+    </script>
 
 {% endblock extra_javascript %}

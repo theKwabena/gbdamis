@@ -22,8 +22,21 @@ log = logging.getLogger(__name__)
 User = get_user_model()
 
 def admin_dashboard(request):
-    return render(request, 'dashboard/index2.html')
+    users = User.objects.all()
 
+    return render(request, 'dashboard/index2.html', {'members' : users})
+
+def approve_member(request, id):
+    member = User.objects.get(id=id)
+    member.approve_user()
+    messages.add_message(request, messages.SUCCESS, f'Member {member.get_full_name} approved successfully')
+    return redirect('admin-dashboard')
+
+def decline_member(request, id):
+    member = User.objects.get(id=id)
+    member.decline_user()
+    messages.add_message(request, messages.SUCCESS, f'Member {member.get_full_name} declined')
+    return redirect('admin-dashboard')
 
 #Events
 def events(request):

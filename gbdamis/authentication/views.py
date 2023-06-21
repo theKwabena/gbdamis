@@ -13,7 +13,7 @@ from .forms import (
     LoginForm, SignUpForm
 )
 
-from .tasks import send_email
+from gbdamis.notifications.tasks import send_email, send_all_admin_email
 from .utils import generate_verification_token
 
 User = get_user_model()
@@ -51,10 +51,18 @@ def sign_up_view(request):
                 user = form.save()
                 user.save()
 
+                #Send admins new sign up mail
+                current_site = get_current_site(request)
+                email_subject = 'New Sign Up Alert'
+                email_body = render_to_string('emails/new_signup.html', {
+                'member': request.user,
+                'domain': current_site,
+                })
+                send_all_admin_email(subject = email_subject, body = email_body,  recipient = request.user.email)
+
                 #Log in the user
                 _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))
                 login(request, _user)
-
                 return redirect('send-verification-email')
             # else:
             #     fmsg = ('Check form details and try again')
@@ -68,7 +76,6 @@ def verification_sent(request):
     return render(request, 'account/account_verification_submitted.html')
 
 def verified(request):
-
     return (request, 'account/account-verified-submitted')
 
 def send_verification_email(request):

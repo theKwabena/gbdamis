@@ -12,7 +12,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     ('Authentication', {'fields': ('username', 'email','password')}),
     ('Personal info', {'fields': ('first_name', 'other_names', 'date_of_birth', 'phone_number', 'whatsapp_number', 'nationality')}),
     ('Job Details', {'fields': ('company_name','drilling_license','region_or_zone','field','profession', 'education')}),
-    ('Permissions and Verificatiion', {'fields': ('admin', 'active', 'verified', 'is_staff',)}),
+    ('Permissions and Verificatiion', {'fields': ('admin', 'active','approved', 'verified', 'is_staff', 'declined')}),
     ('Referee', {'fields': ('referee', 'referee_contact',)}),
 
     )
