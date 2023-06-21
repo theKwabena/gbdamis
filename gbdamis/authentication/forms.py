@@ -5,6 +5,10 @@ from django.contrib.auth.forms import (
     UserCreationForm
 )
 
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+
 from crispy_forms.helper import FormHelper
 
 User = get_user_model()
@@ -105,6 +109,18 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(phone_number=phone_number).exists():
                 raise ValidationError("An account with this phone number exists")
         return phone_number
+    
+    def send_emails(self):
+        current_site = get_current_site(self.request)
+        email_subject = 'Activate Your Physics FYP Account'
+        email_body = render_to_string('emails/confirm_verification_email.html', {
+        'user': self.request.user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(request.user.id)),
+        'token' : generate_verification_token.make_token(request.user),
+        'email' : self.request.user.email 
+        })
+        send_email.delay(subject = email_subject, body = email_body,  recipient = request.user.email)
     
          
          
