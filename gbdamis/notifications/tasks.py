@@ -10,7 +10,7 @@ from celery import shared_task
 from config.celery_app import app
 
 
-User = get_user_model()
+User = settings.AUTH_USER_MODEL
 # import logger
 log = logging.getLogger(__name__)
 
@@ -33,10 +33,6 @@ def send_email(subject, body,  recipient):
 
 @app.task   
 def send_all_admin_email(subject, body):
-
-
-
-
     recipients = list(User.objects.filter(admin=True).values_list('email', flat=True))
     email = EmailMessage(
         subject = subject,
