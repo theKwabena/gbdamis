@@ -51,6 +51,10 @@ def sign_up_view(request):
                 user = form.save()
                 user.save()
 
+                #Log in the user
+                _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))
+                login(request, _user)
+                
                 #Send admins new sign up mail
                 current_site = get_current_site(request)
                 email_subject = 'New Sign Up Alert'
@@ -58,11 +62,9 @@ def sign_up_view(request):
                 'member': request.user,
                 'domain': current_site,
                 })
+
                 send_all_admin_email.delay(subject = email_subject, body = email_body)
 
-                #Log in the user
-                _user = authenticate(request, username=user.username, password = form.cleaned_data.get('password1'))
-                login(request, _user)
                 return redirect('send-verification-email')
             # else:
             #     fmsg = ('Check form details and try again')
@@ -72,7 +74,6 @@ def sign_up_view(request):
 
 
 def verification_sent(request):
-    
     return render(request, 'account/account_verification_submitted.html')
 
 def verified(request):
@@ -102,10 +103,9 @@ def verify_user(request, uid64, token):
     if user and generate_verification_token.check_token(user, token):
         user.verified = True
         user.save()
-        email_subject = 'Welcome to GBDAMIS'
-        email_body = render_to_string('emails/welcome_email.html', {
-            'user': request.user,
-        })
-        send_email.delay(subject = email_subject, body = email_body,  recipient = user.email)
-        return redirect ('verification')
+        return render(request, 'account/account_verification_submitted.html')
     return render(request, 'home/activation_failed.html', {'user': user,})
+
+
+def pending_verification(request):
+    return render(request, 'account/pending-verification.html')

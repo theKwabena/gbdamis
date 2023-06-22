@@ -31,13 +31,18 @@
                                             <img  src="{% static 'images/login/verified.png' %}" height="70">
                                             <h2 class="mt-2">Email Verified!</h2>
                                             <hr>
-                                            <p class="font-size-20">Your account has been verified and sent to the admin for approval. Your will recieve your username once your account is <span class="fw-bold">approved</span>.</p>
+                                            {% if not request.user.approved %}
+                                            <p class="font-size-20">Your account has been verified and sent to an admin for approval. You will recieve an email with your username when<span class="fw-bold text-success"> approved</span>.</p>
+                                            
+                                            {% else %}
+                                            <p class="font-size-20">Your account has been verified and approved by an admin. Your username is <span class="fw-bold text-success">{{request.user.username}}</span>.</p>
                                           
-                                            <div class="mt-5 text-center">
+                                            <div class=" text-center">
                                               
-                                                <p>Didn't receive an email ? <a href="#" class="fw-medium text-primary fw-bolder"> Resend Email</a> | <a id="email" href="#" class="fw-medium text-primary fw-bolder" data-bs-toggle="modal" data-bs-target="#email-modal"> Change Email</a> </p>
+                                                <p>Click here to go to your <a href="#" class="fw-medium text-primary fw-bolder"> Dashboard </p>
                                                 {% comment %} <p>© <script>document.write(new Date().getFullYear())</script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p> {% endcomment %}
                                             </div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

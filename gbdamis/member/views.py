@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required 
+
 
 from .forms import MemberUpdateForm
+from .decorator import unapproved_user
 
 # Create your views here.
+@login_required
+@unapproved_user
 def member_dashboard(request):
     return render(request, 'member/member-dashboard.html')
 

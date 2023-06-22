@@ -2,6 +2,9 @@ from datetime import datetime
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+
+
 
 from django.contrib.auth.models import (
     AbstractBaseUser
@@ -159,8 +162,8 @@ class User(AbstractBaseUser):
             self.username = self.generate_username()
         if self.whatsapp_number == 'Same as Phone Number':
             self.whatsapp_number = self.phone_number  # Set field2 to the value of field1 if field2 is empty
-
-        # send admin message on save
+        
+                
         super().save(*args, **kwargs)
 
 
