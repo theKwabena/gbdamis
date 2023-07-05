@@ -18,7 +18,7 @@ class NominationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NominationForm, self).__init__(*args, **kwargs)
         self.fields['nominee'].empty_label = 'Please select nominee'
-        self.fields['nominee'].label_from_instance= lambda obj: '%s - %s' % (obj.username, obj.get_full_name())
+        self.fields['nominee'].label_from_instance = lambda obj: '%s - %s' % (obj.username, obj.get_full_name   )
 
     def clean_nominee(self):
         nominee = self.cleaned_data.get('nominee')

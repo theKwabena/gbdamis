@@ -19,6 +19,7 @@ class Nomination(models.Model):
 class Position(models.Model):
     holder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null =True, blank=True)
     name = models.CharField(max_length=255, unique=True, blank=False, null=False)
+    
     def __str__(self):
         return self.name
     

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from django.http import JsonResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -13,6 +14,7 @@ from .forms import (
     LoginForm, SignUpForm
 )
 
+from dashboard.utils import is_ajax
 from .tasks import send_all_admin_email, send_email
 from .utils import generate_verification_token
 
@@ -80,6 +82,15 @@ def verified(request):
     return (request, 'account/account-verified-submitted')
 
 def send_verification_email(request):
+   
+
+    if is_ajax(request) and request.POST.get('new_email'):
+        email = request.POST.get('email')
+        request.user.email = email
+        request.user.save()
+    else:
+        email = request.user.email
+
     current_site = get_current_site(request)
     email_subject = 'Activate Your Physics FYP Account'
     email_body = render_to_string('emails/confirm_verification_email.html', {
@@ -87,13 +98,20 @@ def send_verification_email(request):
         'domain': current_site,
         'uid': urlsafe_base64_encode(force_bytes(request.user.id)),
         'token' : generate_verification_token.make_token(request.user),
-        'email' : request.user.email 
+        'email' : email 
     })
-    send_email.delay(subject = email_subject, body = email_body,  recipient = request.user.email)
+    send_email.delay(subject = email_subject, body = email_body,  recipient = email)
     
+    if is_ajax(request) and request.POST.get('new_email'):
+        return JsonResponse({'success' : True})
+    elif is_ajax(request) and request.POST.get('resend'):
+        return JsonResponse({'success' : True})
     return render(request, 'account/auth-email-verification.html')
 
-def verify_user(request, uid64, token):
+
+
+
+def verify_user(request, email, uid64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uid64))
         user = User.objects.get(id=uid)
@@ -101,6 +119,7 @@ def verify_user(request, uid64, token):
         user = None
         
     if user and generate_verification_token.check_token(user, token):
+        user.email = email
         user.verified = True
         user.save()
         return render(request, 'account/account_verification_submitted.html')

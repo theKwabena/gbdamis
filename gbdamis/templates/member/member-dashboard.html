@@ -100,7 +100,7 @@
 
     </div>
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-success waves-effect waves-light py-2" id='pay-dues' {% if request.user.get_current_due.paid %} disabled {% endif %}>
+        <button type="button" class="btn btn-success waves-effect waves-light py-2" id='pay-dues' {% if not request.user.get_current_due.paid %} disabled {% endif %}>
             <i class="ri-check-line align-middle me-2"></i> Pay Monthly Dues
             </button>
 

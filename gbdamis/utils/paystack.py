@@ -66,7 +66,7 @@ class Charge(Paystack):
                 member_first_name=self.member.first_name,
                 member_other_names=self.member.other_names,
                 member_email=self.member.email,
-                member_phone=self.member.phone_number,
+                member_phone=self.contact['phone_number'],
             ),
             currency = 'GHS',
             mobile_money = dict(
@@ -99,7 +99,12 @@ class Charge(Paystack):
         ))
         response = requests.post(verify_url, data=data, headers=self.headers)
         if response.status_code == 200:
-            return response.json()
+            success = dict(
+                status = True,
+                status_code = response.status_code,
+                data = response.json()
+            )
+            return success
         else:
             error = dict(
                 error_code = response.status_code,
@@ -107,14 +112,19 @@ class Charge(Paystack):
             )
             return error
         
-    def verify_payment(self):
+    def verify_payment(self, _reference):
         verify_url = f'{self.base_url}/charge/verify'
         data = json.dumps(dict(
-            reference=self.reference
+            reference= _reference
         ))
         response = requests.post(verify_url, data=data, headers=self.headers)
         if response.status_code == 200:
-            return response.json()
+            success = dict(
+                status = True,
+                status_code = response.status_code,
+                data = response.json()
+            )
+            return success
         else:
             error = dict(
                 error_code = response.status_code,

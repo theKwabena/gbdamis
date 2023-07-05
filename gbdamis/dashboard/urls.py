@@ -9,6 +9,7 @@ urlpatterns = [
     path('add-member/', views.add_member, name='add-member'),
     path('members/<int:id>/approve', views.approve_member, name='approve_member'),
     path('members/<int:id>/decline', views.decline_member, name='decline_member'),
+    path('members/<int:id>/remove-application', views.remove_application, name='remove-application'),
     path('g-us', views.generate_username, name ='generate-username'),
     path('check-email', views.check_email, name='check_email'),
     path('check_phone', views.check_phone_number, name='check_phone_number'),

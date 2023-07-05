@@ -8,20 +8,24 @@
             <div class="row">
                 <div class="col-12 text-center d-flex align-items-center justify-content-center">
                     <div>
-                        <img class="img-fluid w-75" src="{% static 'images/login/pending .svg' %}" alt="404 not found">
+                        <img class="img-fluid w-sm-50 w-25 " src="{% static 'images/login/pending.svg' %}" alt="404 not found">
                         <h1 class="mt-5">
-                            Projecting Pending <span class="fw-bolder text-primary">Approval</span>
+                            Account Pending <span class="fw-bolder text-primary">Approval</span>
                         </h1>
-                        <p class="lead my-4">
-                            Your selected project<span class="fw-bolder text-primary"> {{request.user.student.project }}  </span>is pending approval
+                        <p class="lead my-4 mb-0">
+                            You account has been submitted to an admin for  approval
                         </p>
-                        <a class="btn btn-dark animate-hover" href="#">
+                        <p class="lead">
+                        You will recieve an <span class="fw-bolder text-primary"> email</span> when your account is approved. Please check back later
+                        </p>
+                        <div class="d-flex justify-content-center align-items-center">
+                        <a class="btn btn-primary animate-hover m-2" href="#">
                             <i class="fas fa-chevron-left me-3 ps-2 animate-left-3"></i>LOGOUT</a>
-                        <a class="btn btn-dark animate-hover" href="#">
-                            <i class="fas fa-chevron-left me-3 ps-2 animate-left-3"></i>GO TO PROJECTS</a>
-                        <a class="btn btn-dark animate-hover">
-                            <i class="fas fa-chevron-left me-3 ps-2 animate-left-3"></i> CONTACT SUPERVISOR</a>
-
+                        <a class="btn btn-primary animate-hover m-2" href="#">
+                            <i class="fas fa-chevron-left me-3 ps-2 animate-left-3"></i>FAQs</a>
+                        <a class="btn btn-primary animate-hover m-2">
+                            <i class="fas fa-chevron-left me-3 ps-2 animate-left-3"></i> CONTACT ADMIN</a>
+                        </div>
 
                     </div>
                 </div>

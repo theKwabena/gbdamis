@@ -14,7 +14,15 @@ def nomination(request):
         form.save()
    
     
-
+# {
+#   "status": true,
+#   "message": "Charge attempted",
+#   "data": {
+#     "reference": "ft18fj6xqcpcl4p",
+#     "status": "send_otp",
+#     "display_text": "Please enter the one-time password sent to your phone"
+#   }
+# }
 
 def delete_position(request, pk):
     position = get_object_or_404(Position, pk=pk)

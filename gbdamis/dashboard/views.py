@@ -38,7 +38,12 @@ def decline_member(request, id):
     messages.add_message(request, messages.SUCCESS, f'Member {member.get_full_name} declined')
     return redirect('admin-dashboard')
 
+def remove_application(request, id):
+    member = get_object_or_404(User, pk=id)
+    member.delete()
+    return redirect("admin-dashboard")
 #Events
+
 def events(request):
     return render(request, 'dashboard/events.html')
 
@@ -87,6 +92,7 @@ def nominations(request):
         'nominations' : nominations
     }
     return render(request, 'dashboard/nominations.html', context)
+
 
 def delete_position(request, pk):
     position = get_object_or_404(Position, pk=pk)
@@ -302,6 +308,7 @@ def remove_admin(request, id):
     else:
         messages.success(request,'User is now an admin')
         return redirect('members')
+    
 #Add and Edit User Validationns and Authorizations
 def check_password(request):
     user = request.user

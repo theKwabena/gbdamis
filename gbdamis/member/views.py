@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import MemberUpdateForm
 from .decorator import unapproved_user
 
+from gbdamis.elections.models import Position
+
 # Create your views here.
 @login_required
 @unapproved_user
@@ -27,3 +29,17 @@ def member_profile(request):
     }
 
     return render(request, 'member/member-profile.html', context)
+
+
+def executives(request):
+    executives = Position.objects.all()
+    context = {
+        "executives" : executives
+    }
+    return render(request, 'member/member-executives.html', context)
+
+
+def dues(request):
+    dues =request.user.get_all_dues
+    return render(request, 'member/member-dues.html', {'dues': dues})
+# def payment_history(request):
