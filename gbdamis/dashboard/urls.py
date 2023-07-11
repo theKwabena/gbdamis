@@ -28,6 +28,10 @@ urlpatterns = [
     path('add-annoucement', views.add_announcements, name = 'add-annoucement'),
     path('events', views.events, name='events'),
 
+
+    #dues
+    path('admin-dues', views.dues, name='admin-dues'),
+
     #Voting and Elections
     path('nominations/', views.nominations, name='admin-nominations'),
 ]

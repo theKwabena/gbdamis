@@ -19,118 +19,165 @@
 {% endif %}
 
 <div class="row mb-5 pb-5">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between"> 
-                    <h4 class="card-title">Dues List </h4>
-					{% comment %} <button type="button" class="btn btn-primary waves-effect waves-light mx-5" data-bs-toggle="modal" data-bs-target="#add-news">Add News</button> {% endcomment %}
-                       <!-- sample modal content -->
-                       <div id="add-news" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-annoucement" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="myModalLabel">  </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                   <form method='POST'>
-                                    {% csrf_token %}
-                                    {{form|crispy}}
-                                    <div class="modal-footer d-flex justify-content-between align-items-center">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Add News</button>
-                                    </div>
-                                   </form>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                    
+    
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
                 </div>
-                <p class="card-title-desc">Find details of all monthly dues</p> 
-                   
-                
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-
-                        <thead>
-                            <tr class="text-center">
-                               
-                                <th>Month</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for due in dues %}
-                            <tr class='text-center'>
-                                
-
-                                <td class="fw-bolder" id = "month" data-month="{{due.month|date:'F Y'}}">{{due.month |date:'F Y'}}</td>
-
-                                <td class="fw-bolder" id="amount" data-amount="{{due.amount}}">{{due.amount }}</td>
-
-                                {% if due.status %}
-                                <td class="fw-bolder">Paid</td>
-
-                                {% elif due.is_past_due %}
-                                <td> <p class="text-danger"> Unpaid</p></td>
-
-                                {%else %}
-                                <td> <p class="text-warning"> Pending Payment</p></td>
-                                {% endif %}
-                                <td>
-                                    <button type="button" class="btn btn-success waves-effect waves-light pay-dues" id="pay-dues" data-id="{{due.id}}" data-amount="{{due.amount}}" data-month="{{due.month |date:'F Y'}}">
-                                       Pay Dues
-                                    </button>
-                                </td>   
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                
-
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
                 </div>
-
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
             </div>
         </div>
-    </div>  
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="d-flex justify-content-center align-items-center mt-4">
+                <img class="img-thumbnail rounded-circle avatar-xl" src="{% static 'images/login/back.png' %}" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">Eshun Kwame John </h4>
+                    <p class="card-text text-center"> President</p>
+                </div>
+                <hr class="mt-n3">
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item mt-n3">Email : something@somethingemail.com</li>
+                    <li class="list-group-item">Phone Number : +233546649873</li>
+                </ul>
+                
+            </div>
+        </div>
+
+    
 </div>    
 
-<div id="pay-dues-modal" class="modal fade" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pay Dues</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class='modal-text-content'> </div>                        
-                <div class="d-flex justify-content-center mt-3 modal-form">
-                    <form  method='POST' class="needs-validation">
-                        <p class="fw-bolder mb-2" id="modal-amount">Amount :</p>
-                        <p class="fw-bolder mb-1" id="modal-month">Month: </p>
-                        <input type='text' class='form-control user_phone_number mb-3' id="payment-phone-number" value="{{request.user.phone_number}}" disabled/>
-                        <div class="mt-n3 mb-3">
-                           <a href="#" id="change_number"> Change Momo number </a>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-light mt-3 mx-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                            <button type="button" class="btn btn-danger mt-3 mx-2  proceed-payment">Proceed to Payment</button>
-                            <div class="spinner-border text-success mx-2 my-n3 d-none" id='payment-loader' role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </form>
-                    {% csrf_token %}
-                </div> 
 
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 {% endblock content %}	
 
 {% block extra_javascript %}

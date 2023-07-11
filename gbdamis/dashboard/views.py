@@ -42,8 +42,9 @@ def remove_application(request, id):
     member = get_object_or_404(User, pk=id)
     member.delete()
     return redirect("admin-dashboard")
-#Events
 
+
+#Events
 def events(request):
     return render(request, 'dashboard/events.html')
 
@@ -343,3 +344,6 @@ def check_phone_number(request):
         return JsonResponse({'error': 'invalidd request'}, status=400)
         
 
+def dues(request):
+
+    return render(request, 'dashboard/dues.html')
